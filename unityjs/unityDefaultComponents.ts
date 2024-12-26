@@ -19,7 +19,6 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 export class UnityTransformComponent extends UnityComponent {
   constructor(gameObject: UnityGameObject, def?: UnityTransformDef) {
     super(gameObject);
-
     if (def) {
       gameObject.position.fromArray(def.props.position);
       gameObject.setRotationFromQuaternion(

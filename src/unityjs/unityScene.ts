@@ -129,9 +129,9 @@ export const Scene : UnitySceneDef = {
             ],
             "rotation": [
               0.0,
+              0.9998967,
               0.0,
-              0.0,
-              -1.0
+              -0.0143751185
             ],
             "scale": [
               7.4146,
@@ -248,7 +248,7 @@ export const Scene : UnitySceneDef = {
         {
           "name": "RotateCubeComponent",
           "props": {
-            "speed": 10.1,
+            "speed": 0.1,
           }
         }
       ],

@@ -9,18 +9,20 @@ export function registerComponentType(type: Function) {
 
 export class UnityComponent {
 
-    public gameObject: UnityGameObject;
+    public gameObject!: UnityGameObject;
 
-    constructor(gameObject: UnityGameObject) {
-        this.gameObject = gameObject;
+    constructor(gameObject? : UnityGameObject) {
+        if (gameObject) {
+            this.attach(gameObject);
+        }
         registerComponentType(this.constructor);
     }
 
-    awake() {
-
+    attach (gameObject: UnityGameObject) {
+        this.gameObject = gameObject;
     }
 
-    start() {
+    awake() {
 
     }
 

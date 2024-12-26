@@ -97,8 +97,9 @@ export  class UnityGameObject extends THREE.Object3D {
   }
 
   //#region UnityComponent Management
-  private addComponent(component: UnityComponent) {
+  public addComponent(component: UnityComponent) {
     this.components.push(component);
+    component.attach(this);
     component.awake();
   }
 

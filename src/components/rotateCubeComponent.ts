@@ -5,8 +5,9 @@ export default class RotateCubeComponent extends UnityComponent {
 
     public speed: number = 0;
 
-    constructor(gameObject: UnityGameObject) {
-        super(gameObject);
+    constructor(speed?: number) {
+        super();
+        this.speed = speed || 0;
     }
 
     awake() {
