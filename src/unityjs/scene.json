@@ -1,0 +1,491 @@
+{
+  "gameObjects": [
+    {
+      "name": "Main Camera",
+      "parent": "null",
+      "enabled": true,
+      "tag": "MainCamera",
+      "id": 25952,
+      "components": [],
+      "defaultComponents": [
+        {
+          "name": "TransformComponent",
+          "props": {
+            "position": [
+              7.94,
+              0.0,
+              0.179999709
+            ],
+            "rotation": [
+              0.0,
+              -0.6907157,
+              0.0,
+              0.7231265
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "CameraComponent"
+        }
+      ],
+      "children": []
+    },
+    {
+      "name": "Directional Light",
+      "parent": "null",
+      "enabled": true,
+      "tag": "Untagged",
+      "id": 25930,
+      "components": [],
+      "defaultComponents": [
+        {
+          "name": "TransformComponent",
+          "props": {
+            "position": [
+              0.0,
+              3.0,
+              0.0
+            ],
+            "rotation": [
+              0.408217877,
+              -0.234569684,
+              0.109381631,
+              0.8754261
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "LightComponent",
+          "props": {
+            "lightType": "Directional",
+            "color": "FFF4D6",
+            "intensity": 1.0
+          }
+        }
+      ],
+      "children": []
+    },
+    {
+      "name": "GameObject",
+      "parent": "null",
+      "enabled": true,
+      "tag": "Untagged",
+      "id": -106358,
+      "components": [],
+      "defaultComponents": [
+        {
+          "name": "TransformComponent",
+          "props": {
+            "position": [
+              -1.06053385E-07,
+              0.0,
+              -7.46000051
+            ],
+            "rotation": [
+              0.0,
+              -0.707105756,
+              0.0,
+              0.707107842
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ],
+      "children": [
+        {
+          "name": "Cube",
+          "parent": -106358,
+          "enabled": true,
+          "tag": "Untagged",
+          "id": -100856,
+          "components": [],
+          "defaultComponents": [
+            {
+              "name": "TransformComponent",
+              "props": {
+                "position": [
+                  7.625,
+                  0.0,
+                  7.625017
+                ],
+                "rotation": [
+                  -0.07581111,
+                  0.37754482,
+                  0.181687891,
+                  -0.9048216
+                ],
+                "scale": [
+                  0.67296,
+                  5.16288137,
+                  0.67296
+                ]
+              }
+            },
+            {
+              "name": "MeshComponent",
+              "props": {
+                "primitive": true,
+                "color": "FF0000",
+                "primitiveShape": "Cube",
+                "assetPath": "",
+                "modelPath": ""
+              }
+            }
+          ],
+          "children": [
+            {
+              "name": "Cube (4)",
+              "parent": -100856,
+              "enabled": true,
+              "tag": "Untagged",
+              "id": -128216,
+              "components": [],
+              "defaultComponents": [
+                {
+                  "name": "TransformComponent",
+                  "props": {
+                    "position": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "rotation": [
+                      -2.06714276E-06,
+                      2.51437626E-08,
+                      0.6757504,
+                      0.7371306
+                    ],
+                    "scale": [
+                      0.321579635,
+                      4.151216,
+                      3.547
+                    ]
+                  }
+                },
+                {
+                  "name": "MeshComponent",
+                  "props": {
+                    "primitive": true,
+                    "color": "FF0000",
+                    "primitiveShape": "Cube",
+                    "assetPath": "",
+                    "modelPath": ""
+                  }
+                }
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Cube (2)",
+          "parent": -106358,
+          "enabled": true,
+          "tag": "Untagged",
+          "id": -104510,
+          "components": [],
+          "defaultComponents": [
+            {
+              "name": "TransformComponent",
+              "props": {
+                "position": [
+                  9.940076,
+                  -2.81450666E-05,
+                  10.1002178
+                ],
+                "rotation": [
+                  -0.272317916,
+                  -0.419551373,
+                  -0.658657253,
+                  0.5621301
+                ],
+                "scale": [
+                  6.09742069,
+                  0.67296,
+                  0.6729599
+                ]
+              }
+            },
+            {
+              "name": "MeshComponent",
+              "props": {
+                "primitive": true,
+                "color": "FFD800",
+                "primitiveShape": "Cube",
+                "assetPath": "",
+                "modelPath": ""
+              }
+            }
+          ],
+          "children": []
+        },
+        {
+          "name": "Cube (1)",
+          "parent": -106358,
+          "enabled": true,
+          "tag": "Untagged",
+          "id": -103290,
+          "components": [],
+          "defaultComponents": [
+            {
+              "name": "TransformComponent",
+              "props": {
+                "position": [
+                  11.6,
+                  0.0,
+                  12.5
+                ],
+                "rotation": [
+                  -7.89761543E-07,
+                  2.98023224E-08,
+                  0.270613849,
+                  0.962687969
+                ],
+                "scale": [
+                  0.67296,
+                  2.04970145,
+                  0.67296
+                ]
+              }
+            },
+            {
+              "name": "MeshComponent",
+              "props": {
+                "primitive": true,
+                "color": "0079FF",
+                "primitiveShape": "Cube",
+                "assetPath": "",
+                "modelPath": ""
+              }
+            }
+          ],
+          "children": []
+        },
+        {
+          "name": "Cube (4)",
+          "parent": -106358,
+          "enabled": true,
+          "tag": "Untagged",
+          "id": -142208,
+          "components": [],
+          "defaultComponents": [
+            {
+              "name": "TransformComponent",
+              "props": {
+                "position": [
+                  6.4,
+                  0.0,
+                  4.4
+                ],
+                "rotation": [
+                  5.21540642E-07,
+                  -8.940697E-08,
+                  -0.192673847,
+                  0.9812629
+                ],
+                "scale": [
+                  0.67296,
+                  2.04970145,
+                  0.67296
+                ]
+              }
+            },
+            {
+              "name": "MeshComponent",
+              "props": {
+                "primitive": true,
+                "color": "0079FF",
+                "primitiveShape": "Cube",
+                "assetPath": "",
+                "modelPath": ""
+              }
+            }
+          ],
+          "children": []
+        },
+        {
+          "name": "ddd",
+          "parent": -106358,
+          "enabled": true,
+          "tag": "Untagged",
+          "id": -104512,
+          "components": [],
+          "defaultComponents": [
+            {
+              "name": "TransformComponent",
+              "props": {
+                "position": [
+                  3.41,
+                  0.250001341,
+                  9.78
+                ],
+                "rotation": [
+                  0.2946005,
+                  0.642814755,
+                  -0.5916469,
+                  0.387238681
+                ],
+                "scale": [
+                  0.67296,
+                  0.672960162,
+                  1.927358
+                ]
+              }
+            },
+            {
+              "name": "MeshComponent",
+              "props": {
+                "primitive": true,
+                "color": "2AFF00",
+                "primitiveShape": "Cube",
+                "assetPath": "",
+                "modelPath": ""
+              }
+            }
+          ],
+          "children": []
+        },
+        {
+          "name": "Cube (5)",
+          "parent": -106358,
+          "enabled": true,
+          "tag": "Untagged",
+          "id": -144450,
+          "components": [],
+          "defaultComponents": [
+            {
+              "name": "TransformComponent",
+              "props": {
+                "position": [
+                  9.6,
+                  -7.005267E-09,
+                  5.4
+                ],
+                "rotation": [
+                  -0.1959317,
+                  0.6794183,
+                  -0.1959323,
+                  0.679420352
+                ],
+                "scale": [
+                  0.6729599,
+                  0.67296,
+                  1.92735732
+                ]
+              }
+            },
+            {
+              "name": "MeshComponent",
+              "props": {
+                "primitive": true,
+                "color": "2AFF00",
+                "primitiveShape": "Cube",
+                "assetPath": "",
+                "modelPath": ""
+              }
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "JS-test33",
+      "parent": "null",
+      "enabled": true,
+      "tag": "Untagged",
+      "id": -162536,
+      "components": [],
+      "defaultComponents": [
+        {
+          "name": "TransformComponent",
+          "props": {
+            "position": [
+              0.183992386,
+              0.81,
+              2.43
+            ],
+            "rotation": [
+              0.4233293,
+              0.548062265,
+              0.211643308,
+              0.6896573
+            ],
+            "scale": [
+              1.0,
+              1.2605,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "MeshComponent",
+          "props": {
+            "primitive": false,
+            "color": "FFFFFF",
+            "primitiveShape": "",
+            "assetPath": "Assets/Models/test33.glb",
+            "modelPath": "0"
+          }
+        }
+      ],
+      "children": []
+    },
+    {
+      "name": "Cube",
+      "parent": "null",
+      "enabled": true,
+      "tag": "Untagged",
+      "id": -162546,
+      "components": [],
+      "defaultComponents": [
+        {
+          "name": "TransformComponent",
+          "props": {
+            "position": [
+              -2.31,
+              1.87152541,
+              -0.86
+            ],
+            "rotation": [
+              0.0,
+              0.94140774,
+              0.0,
+              0.337270677
+            ],
+            "scale": [
+              0.204049438,
+              0.519754648,
+              0.204049438
+            ]
+          }
+        },
+        {
+          "name": "MeshComponent",
+          "props": {
+            "primitive": false,
+            "color": "FFFFFF",
+            "primitiveShape": "",
+            "assetPath": "Assets/Models/test33.glb",
+            "modelPath": "0/0"
+          }
+        }
+      ],
+      "children": []
+    }
+  ]
+}
