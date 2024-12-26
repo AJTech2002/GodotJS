@@ -58,9 +58,10 @@ export class UnityCameraComponent extends UnityComponent {
     
 
     this._camera = camera;
-    this.camera.scale.setZ(-1);
+    // this.camera.scale.setZ(-1);
     // rotate around y axis 180 degrees
-    
+    // this.camera.lookAt(new Vector3(0,0,-1));
+    // this.camera.rotateY(Math.PI);
 
   }
 
@@ -108,14 +109,16 @@ export class UnityMeshComponent extends UnityComponent {
         //Inject GameObject into THREE Mesh to allow access from Raycasts ex.
         let tempMesh = this._mesh as any;
         tempMesh.gameObject = this.gameObject;
-        this._mesh.scale.setZ(-1);
+        // this._mesh.scale.setZ(-1);
+            // this._mesh.lookAt(new Vector3(0,0,-1));
+
         this.gameObject.add(this._mesh);
       }
     }
     else {
         const loader = new GLTFLoader();
         loader.load(def.props.assetPath, (gltf) => {
-        console.log("Loaded:", gltf, this.gameObject);
+        // console.log("Loaded:", gltf, this.gameObject);
 
         let model: Object3D | null = null;
 
@@ -154,15 +157,17 @@ export class UnityMeshComponent extends UnityComponent {
             let tempMesh = this._mesh as any;
             tempMesh.gameObject = this.gameObject;
 
-            this._mesh.scale.set(1,1,-1);
+            this._mesh.scale.set(1,1,1);
             this._mesh.position.set(0,0,0);
+
+            
 
             // set the forward to the opposite direction
             this._mesh.lookAt(new Vector3(0,0,-1));
 
             this.gameObject.add(this._mesh);
 
-            console.log("Updated:", model, modelChildPath, gltf, this.gameObject);
+            // console.log("Updated:", model, modelChildPath, gltf, this.gameObject);
         } else {
         console.warn("Model is not a mesh:", model);
         }

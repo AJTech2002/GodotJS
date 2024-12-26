@@ -19,6 +19,7 @@ export default class UnityScene extends THREE.Scene {
 
     override add(...object: THREE.Object3D[]): this {
         object.forEach((obj) => {
+            console.log("Adding object", obj);
             super.add(obj);
             if (obj instanceof UnityGameObject) {
                 this.unityObjects.push(obj);
@@ -27,6 +28,10 @@ export default class UnityScene extends THREE.Scene {
                 // TODO: Wrap normal threejs objects in a UnityGameObject with components (Transform, Mesh etc.)
             }
         });
+
+        // loop through all materials in scene 
+        
+
         return this;
     }
 
