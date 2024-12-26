@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
+    "allowJs": true,
 
     /* Linting */
     "strict": true,
@@ -22,6 +23,9 @@
 
     // supported type
     "resolveJsonModule": true,
+    "paths": {
+      "@unityjs": ["./unityjs/index.ts"]
+    }
   },
   "include": ["src"]
 }

@@ -1,22 +1,24 @@
-import * as THREE from 'three';
 import { WebGPURenderer } from 'three/webgpu';
-import SceneDef from './unityjs/scene.json';
-import { UnitySceneDef } from './parser/types';
-import UnityScene from './parser/unityScene';
+import { Scene } from './unityjs/unityScene';
+import { componentTypes, UnityScene } from '@unityjs';
 
 const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("gfx-main");
 
 const width = window.innerWidth, height = window.innerHeight;
-const scene = new UnityScene(SceneDef as UnitySceneDef);
+const scene = new UnityScene(Scene);
 
 
 const renderer = new WebGPURenderer({canvas: canvas});
 renderer.setSize( width, height );
 renderer.setAnimationLoop( animate );
 
+console.log(componentTypes)
+
 function animate( time ) {
     if (scene.activeCamera) {
-	    renderer.render( scene, scene.activeCamera );
+	    
+        renderer.render( scene, scene.activeCamera );
+
     }
 }
 
