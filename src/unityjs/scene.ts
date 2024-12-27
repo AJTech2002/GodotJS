@@ -1,29 +1,59 @@
-import RotateCubeComponent from "../components/rotateCubeComponent";
 import {registerComponentType, UnitySceneDef} from "@unityjs";
-
 export const Scene : UnitySceneDef = {
   "gameObjects": [
     {
-      "name": "Main Camera",
+      "name": "ThreeJSConnector",
       "parent": "null",
       "enabled": true,
-      "tag": "MainCamera",
-      "id": 25952,
+      "tag": "Untagged",
+      "id": -8926,
       "components": [],
       "defaultComponents": [
         {
           "name": "TransformComponent",
           "props": {
             "position": [
-              4.6,
-              2.96,
-              0.55
+              2.55,
+              1.69764543,
+              2.35
             ],
             "rotation": [
-              -0.220143974,
-              0.505207837,
-              0.205063432,
-              0.8088576
+              0.0,
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      ],
+      "children": []
+    },
+    {
+      "name": "Main Camera",
+      "parent": "null",
+      "enabled": true,
+      "tag": "MainCamera",
+      "id": 25954,
+      "components": [],
+      "defaultComponents": [
+        {
+          "name": "TransformComponent",
+          "props": {
+            "position": [
+              9.33,
+              2.71,
+              -0.25
+            ],
+            "rotation": [
+              0.0,
+              -0.7071686,
+              0.0,
+              -0.707045
             ],
             "scale": [
               1.0,
@@ -43,7 +73,7 @@ export const Scene : UnitySceneDef = {
       "parent": "null",
       "enabled": true,
       "tag": "Untagged",
-      "id": 25930,
+      "id": 25936,
       "components": [],
       "defaultComponents": [
         {
@@ -83,7 +113,7 @@ export const Scene : UnitySceneDef = {
       "parent": "null",
       "enabled": true,
       "tag": "Untagged",
-      "id": -184264,
+      "id": 25932,
       "components": [],
       "defaultComponents": [
         {
@@ -115,22 +145,22 @@ export const Scene : UnitySceneDef = {
       "parent": "null",
       "enabled": true,
       "tag": "Untagged",
-      "id": -215054,
+      "id": 25944,
       "components": [],
       "defaultComponents": [
         {
           "name": "TransformComponent",
           "props": {
             "position": [
+              -1.2,
               0.0,
-              0.0,
-              0.0
+              0.1
             ],
             "rotation": [
               0.0,
-              0.9998967,
               0.0,
-              -0.0143751185
+              0.0,
+              -1.0
             ],
             "scale": [
               7.4146,
@@ -157,7 +187,7 @@ export const Scene : UnitySceneDef = {
       "parent": "null",
       "enabled": true,
       "tag": "Untagged",
-      "id": -216516,
+      "id": -1234,
       "components": [],
       "defaultComponents": [
         {
@@ -195,10 +225,10 @@ export const Scene : UnitySceneDef = {
       "children": [
         {
           "name": "Cube",
-          "parent": -216516,
+          "parent": -1234,
           "enabled": true,
           "tag": "Untagged",
-          "id": -216526,
+          "id": -1244,
           "components": [],
           "defaultComponents": [
             {
@@ -242,22 +272,15 @@ export const Scene : UnitySceneDef = {
       "parent": "null",
       "enabled": true,
       "tag": "Untagged",
-      "id": -218160,
-      "components": [
-        {
-          "name": "RotateCubeComponent",
-          "props": {
-            "speed": 0.1,
-          }
-        }
-      ],
+      "id": -1254,
+      "components": [],
       "defaultComponents": [
         {
           "name": "TransformComponent",
           "props": {
             "position": [
               1.85,
-              1.9297,
+              0.639999866,
               -1.34
             ],
             "rotation": [
@@ -287,10 +310,10 @@ export const Scene : UnitySceneDef = {
       "children": [
         {
           "name": "Cube",
-          "parent": -218160,
+          "parent": -1254,
           "enabled": true,
           "tag": "Untagged",
-          "id": -218158,
+          "id": -1264,
           "components": [],
           "defaultComponents": [
             {
@@ -298,18 +321,18 @@ export const Scene : UnitySceneDef = {
               "props": {
                 "position": [
                   0.0,
-                  1.87152541,
+                  3.33,
                   0.0
                 ],
                 "rotation": [
-                  0.0,
-                  0.0,
-                  0.0,
-                  -1.0
+                  0.4983922,
+                  -9.31322464E-10,
+                  0.0143333366,
+                  -0.8668332
                 ],
                 "scale": [
                   0.204049408,
-                  0.204049408,
+                  2.95300317,
                   0.204049408
                 ]
               }
@@ -330,6 +353,4 @@ export const Scene : UnitySceneDef = {
       ]
     }
   ]
-}
-
-registerComponentType(RotateCubeComponent);
+};

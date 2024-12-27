@@ -90,10 +90,10 @@ export class UnityMeshComponent extends UnityComponent {
 
   private setup(def: UnityMeshDef) {
     const color = def.props.color;
-    const material = new MeshMatcapNodeMaterial({
-      color: parseInt(color, 16),
-    });
-    // const material = new MeshNormalMaterial();
+    // const material = new MeshMatcapNodeMaterial({
+    //   color: parseInt(color, 16),
+    // });
+    const material = new MeshNormalMaterial();
 
     if (def.props.primitive) {
       if (def.props.primitiveShape === "Cube") {
