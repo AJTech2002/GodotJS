@@ -16,6 +16,7 @@ import {UnityScene} from "./unityScene";
 export  class UnityGameObject extends THREE.Object3D {
   private components: UnityComponent[] = [];
   private instantiated = false;
+  private _enabled = true;
 
   public scene: UnityScene;
 
@@ -23,6 +24,7 @@ export  class UnityGameObject extends THREE.Object3D {
     super();
     this.name = objDef.name;
     this.scene = scene;
+    this.enabled = objDef.enabled;
     scene.unityObjects.push(this);
     this.parse(objDef);
   }
@@ -88,12 +90,22 @@ export  class UnityGameObject extends THREE.Object3D {
       this.addComponent(transformComponent);
     }
 
-    console.log("Children : " + this.name, objDef.children);
     // Children gameObjects
   }
 
   public get transform(): UnityTransformComponent {
     return this.getComponent(UnityTransformComponent)!;
+  }
+
+  public get enabled() {
+    return this._enabled;
+  }
+
+  public set enabled(value: boolean) {
+    this._enabled = value;
+    this.components.forEach((component) => {
+      this._enabled ? component.onEnable() : component.onDisable();      
+    });
   }
 
   //#region UnityComponent Management
@@ -129,6 +141,10 @@ export  class UnityGameObject extends THREE.Object3D {
   }
 
   public update(dt: number) {
+
+    if (!this._enabled) {
+      return;
+    }
 
     if (!this.instantiated) {
       this.awake();

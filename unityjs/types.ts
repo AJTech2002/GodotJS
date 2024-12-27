@@ -1,3 +1,5 @@
+import { Color, Quaternion, Vector3 } from "three";
+
 export interface UnityComponentDef {
     name: string;
     props?: any;
@@ -7,22 +9,25 @@ export interface UnityComponentDef {
 export interface UnityTransformDef {
     name: "TransformComponent";
     props: {
-        position: [number, number, number];
-        rotation: [number, number, number, number];
-        scale: [number, number, number];
+        position: Vector3;
+        rotation: Quaternion;
+        scale: Vector3;
     }
     default: {}
 }
 
 export interface UnityCameraDef {
-    name: "CameraComponent"
+    name: "CameraComponent",
+    props: {
+        fov: number;
+    }
 }
 
 export interface UnityLightDef {
     name: "LightComponent",
     props: {
         lightType: "Directional" | "Point" | "Spot";
-        color: string;
+        color: Color;
         intensity: number;
     }
 }
@@ -31,7 +36,7 @@ export interface UnityMeshDef {
     name: "MeshComponent",
     props: {
         primitive: boolean;
-        color: string;
+        color: Color;
         primitiveShape: "Cube" | "Sphere" | "Cylinder" | "Plane";
         assetPath: string;
         modelPath: string;

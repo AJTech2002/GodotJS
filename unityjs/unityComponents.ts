@@ -34,4 +34,12 @@ export class UnityComponent {
 
     }
 
+    onEnable() {
+
+    }
+
+    onDisable() {
+
+    }
+
 }

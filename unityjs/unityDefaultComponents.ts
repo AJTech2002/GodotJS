@@ -13,27 +13,16 @@ import {
 import { UnityCameraDef, UnityMeshDef, UnityTransformDef } from "./types";
 import {UnityComponent} from "./unityComponents";
 import {UnityGameObject} from "./unityGameObject";
-import { MeshMatcapNodeMaterial } from "three/webgpu";
+import { Color, MeshMatcapNodeMaterial } from "three/webgpu";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 export class UnityTransformComponent extends UnityComponent {
   constructor(gameObject: UnityGameObject, def?: UnityTransformDef) {
     super(gameObject);
     if (def) {
-      gameObject.position.fromArray(def.props.position);
-      gameObject.setRotationFromQuaternion(
-        new Quaternion(
-          def.props.rotation[0],
-          def.props.rotation[1],
-          def.props.rotation[2],
-          def.props.rotation[3]
-        )
-      );
-      gameObject.scale.fromArray([
-        def.props.scale[0],
-        def.props.scale[1],
-        def.props.scale[2],
-      ]);
+      gameObject.position.copy(def.props.position);
+      gameObject.quaternion.copy(def.props.rotation);
+      gameObject.scale.copy(def.props.scale);
     }
   }
 
@@ -57,19 +46,15 @@ export class UnityCameraComponent extends UnityComponent {
   constructor(gameObject: UnityGameObject, def?: UnityCameraDef) {
     super(gameObject);
     const camera = new PerspectiveCamera(
-      60,
+      def?.props.fov,
       window.innerWidth / window.innerHeight,
-      0.01,
-      200
+      0.1,
+      300
     );
 
     this.gameObject.add(camera);
 
     this._camera = camera;
-    // this.camera.scale.setZ(-1);
-    // rotate around y axis 180 degrees
-    // this.camera.lookAt(new Vector3(0,0,-1));
-    // this.camera.rotateY(Math.PI);
   }
 
   public get camera(): Camera {
@@ -89,10 +74,13 @@ export class UnityMeshComponent extends UnityComponent {
   }
 
   private setup(def: UnityMeshDef) {
+    console.log("Creating mesh", def);
     const color = def.props.color;
     // const material = new MeshMatcapNodeMaterial({
     //   color: parseInt(color, 16),
     // });
+
+    
     const material = new MeshNormalMaterial();
 
     if (def.props.primitive) {
@@ -108,6 +96,10 @@ export class UnityMeshComponent extends UnityComponent {
         // this._mesh.lookAt(new Vector3(0,0,-1));
 
         this.gameObject.add(this._mesh);
+      }
+
+      if (this._mesh !== undefined) {
+        this._mesh!.visible = this.gameObject.enabled
       }
     } else {
       const loader = new GLTFLoader();
@@ -157,15 +149,31 @@ export class UnityMeshComponent extends UnityComponent {
 
           this.gameObject.add(this._mesh);
 
+          if (this._mesh !== undefined) {
+            this._mesh!.visible = this.gameObject.enabled;
+          }
+
           // console.log("Updated:", model, modelChildPath, gltf, this.gameObject);
         } else {
           console.warn("Model is not a mesh:", model);
         }
       });
+    }   
+  }
+
+  onEnable(): void {
+    if (this._mesh) {
+      this._mesh!.visible = true;
     }
   }
 
-  public get mesh(): Mesh {
+  onDisable(): void {
+    if (this._mesh) {
+      this._mesh!.visible = false;
+    }
+  }
+
+  public get mesh(): Mesh | undefined {
     return this._mesh as Mesh;
   }
 

@@ -90,12 +90,16 @@ export class UnityScene extends THREE.Scene {
   }
 
   public get activeCamera(): THREE.Camera | undefined {
-    const camera = this.findObjectOfType(UnityCameraComponent);
+    const camera = this.findObjectOfType<UnityCameraComponent>(UnityCameraComponent);
     return camera?.camera;
   }
 
   private _lastTime = 0;
   private _deltaTime = 0;
+
+  public get time() {
+    return performance.now() / 1000.0;
+  }
 
   public get deltaTime() {
     return this._deltaTime;
