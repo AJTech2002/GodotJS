@@ -24,8 +24,10 @@
     // supported type
     "resolveJsonModule": true,
     "paths": {
-      "@unityjs": ["./unityjs/index.ts"]
-    }
+      "@godotjs": ["./godotjs/index.ts"]
+    },
+
+    "typeRoots": ["./godotjs/tsjson.d.ts"]
   },
   "include": ["src"]
 }

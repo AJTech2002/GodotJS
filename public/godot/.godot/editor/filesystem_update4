@@ -1,0 +1,8 @@
+res://main_scene.tscn
+res://movement.gd
+res://sub-scene.tscn
+res://simple_scene.tscn
+res://RotateCube.gd
+res://new_standard_material_3d.material
+res://new_standard_material_3d.tres
+res://new_shader_material.tres

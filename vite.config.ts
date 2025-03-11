@@ -6,9 +6,9 @@ export default defineConfig(() => {
   return {
     resolve: {
       alias: {
-        '@unityjs': path.resolve(
+        '@godotjs': path.resolve(
           __dirname,
-          './unityjs/index.ts'
+          './godotjs/index.ts'
         ),
       },
     },
