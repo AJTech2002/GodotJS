@@ -1,12 +1,8 @@
 import * as THREE from "three";
 import { Node } from "./node";
-import { Camera3D, MeshInstance3D, Transform3D } from "./defaultComponents";
-import { NodeComponent, registerComponentType } from "./nodeComponent";
+import { NodeComponent } from "./nodeComponent";
 import { SceneDef } from "./types";
-
-registerComponentType(Camera3D);
-registerComponentType(Transform3D);
-registerComponentType(MeshInstance3D);
+import { Camera3D, registerDefaultComponents } from "./defaultComponents/index";
 
 export class ImportedScene extends THREE.Scene {
   private def: SceneDef;
@@ -14,6 +10,7 @@ export class ImportedScene extends THREE.Scene {
 
   constructor(def: SceneDef) {
     super();
+    registerDefaultComponents();
     this.def = def;
     this.nodes = [];
     console.log("Scene", def);

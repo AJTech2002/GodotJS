@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import { NodeDef } from "./types";
 import { componentTypes, NodeComponent } from "./nodeComponent";
-import { Transform3D } from "./defaultComponents";
 import { ImportedScene } from "./importedScene";
+import { Transform3D } from "./defaultComponents/Transform3D";
 
 export class Node extends THREE.Object3D {
   private components: NodeComponent[] = [];
