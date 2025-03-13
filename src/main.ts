@@ -1,6 +1,6 @@
 import { AmbientLight, DirectionalLight, WebGPURenderer } from "three/webgpu";
 import { ImportedScene, parseTscn } from "@godotjs";
-import SceneFile from "./scene/scenes.json";
+import SceneFile from "../public/godot/simple_scene.tscn?raw";
 import RegisterComponents from "./components/register";
 
 const canvas: HTMLCanvasElement = <HTMLCanvasElement>(
@@ -10,7 +10,7 @@ const canvas: HTMLCanvasElement = <HTMLCanvasElement>(
 const width = window.innerWidth,
   height = window.innerHeight;
 
-const scnDef = parseTscn(SceneFile, "simple_scene");
+const scnDef = parseTscn(SceneFile);
 
 RegisterComponents();
 

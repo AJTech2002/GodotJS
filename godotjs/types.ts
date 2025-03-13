@@ -22,6 +22,11 @@ export interface TSCNProp {
   params: any[];
 }
 
+export interface TSCNExternalResourceProp extends TSCNProp {
+  type: "ExtResource";
+  params: [string];
+}
+
 export interface TSCNEntity {
   type: string;
   heading: TSCNHeading;
@@ -49,20 +54,23 @@ export interface TSCNFile {
   scenes: TSCNScene[];
 }
 
-export interface ComponentDef {
-  name: string;
-  props?: any;
-  // default?: any;
+export interface TSCNResource {
+  type: string;
+  id: string;
+  uid?: string;
+  path?: string;
+  props: Record<string, any>;
 }
 
 export interface NodeDef {
   name: string;
+  type: string;
   path: string;
   parent: string | undefined;
   enabled: boolean;
   tag: string;
-  components: ComponentDef[];
   children: NodeDef[];
+  props: Record<string, TSCNProp | any>;
 }
 
 export interface SceneDef {

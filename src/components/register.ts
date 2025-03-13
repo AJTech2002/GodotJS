@@ -1,6 +1,6 @@
-import { registerComponentType } from "@godotjs";
+import { registerType } from "@godotjs";
 import RotateCube from "./RotateCube";
 
 export default function RegisterComponents() {
-  registerComponentType(RotateCube);
+  registerType(RotateCube);
 }

@@ -1,26 +1,29 @@
 import * as THREE from "three";
-import { Node } from "./node";
-import { NodeComponent } from "./nodeComponent";
+import { Node3D } from "./node";
+import { componentTypes } from "./nodeComponent";
 import { SceneDef } from "./types";
-import { Camera3D, registerDefaultComponents } from "./defaultComponents/index";
+import { Camera3D } from "./defaultNodes";
+import { Transform3D } from "./defaultComponents/Transform3D";
+import { ResourceManager } from "./resources/resourceManager";
+
+export const resourceManager = new ResourceManager();
 
 export class ImportedScene extends THREE.Scene {
   private def: SceneDef;
-  public nodes: Node[];
+  public nodes: Node3D[];
 
   constructor(def: SceneDef) {
     super();
-    registerDefaultComponents();
     this.def = def;
     this.nodes = [];
-    console.log("Scene", def);
     this.parse();
   }
 
   override add(...object: THREE.Object3D[]): this {
     object.forEach((obj) => {
       super.add(obj);
-      if (obj instanceof Node) {
+      if (obj instanceof Node3D) {
+        console.log("Adding node", obj);
         this.nodes.push(obj);
       } else {
         // TODO: Wrap normal threejs objects in a UnityGameObject with components (Transform, Mesh etc.)
@@ -35,7 +38,7 @@ export class ImportedScene extends THREE.Scene {
   remove(...object: THREE.Object3D[]): this {
     object.forEach((obj) => {
       super.remove(obj);
-      if (obj instanceof Node) {
+      if (obj instanceof Node3D) {
         const index = this.nodes.indexOf(obj);
         if (index !== -1) {
           this.nodes.splice(index, 1);
@@ -49,36 +52,45 @@ export class ImportedScene extends THREE.Scene {
   private parse() {
     if (this.def && this.def.nodes)
       this.def.nodes.forEach((gameObject) => {
-        const node = new Node(this, gameObject);
-        this.add(node);
+        const allComponents = componentTypes;
+        const componentType = allComponents.get(gameObject.type) as any;
+        if (componentType) {
+          const componentInstance = new componentType(
+            this,
+            gameObject,
+          ) as Node3D;
+          this.add(componentInstance);
+        }
       });
 
+    console.log(this);
     // Assign parents
   }
 
   //TODO: Search normal objects too
-  public findObjectOfType<T extends NodeComponent>(type: any) {
+  public findNodeOfType<T extends Node3D>(
+    type: new (...args: any[]) => T,
+  ): T | null {
     for (let i = 0; i < this.nodes.length; i++) {
-      const component = this.nodes[i].getComponent(type);
-      if (component) {
-        return component as T;
+      const found: T | null = this.nodes[i].findNodeInChildren(type);
+      if (found) {
+        return found;
       }
     }
     return null;
   }
 
-  public findObjectsOfType<T extends NodeComponent>(type: any) {
-    const components: T[] = [];
+  public findObjectsOfType<T extends Node3D>(type: any) {
+    const nodes: T[] = [];
     for (let i = 0; i < this.nodes.length; i++) {
-      const component = this.nodes[i].getComponent(type);
-      if (component) {
-        components.push(component as T);
+      if (this.nodes[i] instanceof type) {
+        nodes.push(this.nodes[i] as T);
       }
     }
-    return components;
+    return nodes;
   }
 
-  public findObjectByName(name: string): Node | null {
+  public findObjectByName(name: string): Node3D | null {
     for (let i = 0; i < this.nodes.length; i++) {
       if (this.nodes[i].name === name) {
         return this.nodes[i];
@@ -88,7 +100,7 @@ export class ImportedScene extends THREE.Scene {
   }
 
   public get activeCamera(): THREE.Camera | undefined {
-    const camera = this.findObjectOfType<Camera3D>(Camera3D);
+    const camera = this.findNodeOfType<Camera3D>(Camera3D);
     return camera?.camera;
   }
 
@@ -114,7 +126,6 @@ export class ImportedScene extends THREE.Scene {
     const current = performance.now();
     this._deltaTime = (current - this._lastTime) / 1000.0;
     this._lastTime = current;
-
     for (let i = 0; i < this.nodes.length; i++) {
       this.nodes[i].update(this._deltaTime);
     }
@@ -129,3 +140,5 @@ export class ImportedScene extends THREE.Scene {
     group: THREE.Group,
   ): void {}
 }
+
+// Type Registration

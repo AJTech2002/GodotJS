@@ -1,6 +1,6 @@
-import { NodeComponent } from "@godotjs";
+import { NodeScript } from "@godotjs";
 
-export default class RotateCube extends NodeComponent {
+export default class RotateCube extends NodeScript {
   public rotationSpeed = 10;
 
   public awake() {

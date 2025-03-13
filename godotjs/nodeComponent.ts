@@ -1,23 +1,22 @@
-import { Object3D } from "three";
-import { Node } from "./node";
+import { Node3D } from "./node";
 
 export const componentTypes: Map<string, Function> = new Map();
 
-export function registerComponentType(type: Function) {
+export function registerType(type: Function) {
   componentTypes.set(type.name, type);
 }
 
-export class NodeComponent {
-  public node!: Node;
+export class NodeScript {
+  public node!: Node3D;
 
-  constructor(node?: Node, params?: any) {
+  constructor(node?: Node3D, params?: any) {
     if (node) {
       this.attach(node);
     }
-    registerComponentType(this.constructor);
+    registerType(this.constructor);
   }
 
-  attach(node: Node) {
+  attach(node: Node3D) {
     this.node = node;
   }
 
@@ -30,4 +29,6 @@ export class NodeComponent {
   onEnable() {}
 
   onDisable() {}
+
+  onDestroy() {}
 }

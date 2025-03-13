@@ -1,9 +1,9 @@
 import { Matrix4, Vector3, Quaternion } from "three";
-import { NodeComponent } from "../nodeComponent";
-import { Node } from "../node";
+import { NodeScript } from "../nodeComponent";
+import { Node3D } from "../node";
 
-export class Transform3D extends NodeComponent {
-  constructor(gameObject: Node, params?: number[]) {
+export class Transform3D extends NodeScript {
+  constructor(gameObject: Node3D, params?: number[]) {
     super(gameObject);
 
     if (params) {

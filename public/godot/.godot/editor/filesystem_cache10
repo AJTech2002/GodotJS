@@ -1,14 +1,13 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1741763343
+::res://::1741900957
 Catdance Model (1).glb::PackedScene/PackedScene::4021653244731281646::1741690361::1741690363::1::::<><><>0<>0<>f5a8c80e52c5baa9ecb20a35a03f58f0<>res://.godot/imported/Catdance Model (1).glb-e852ba30dec59eb1abe14a42cddc6210.scn::uid://d0b1i7vadgrey::::res://Catdance Model (1)_Catdance0000.png<>uid://nou00yhik7xi::::res://Catdance Model (1)_Window.png
 Catdance Model (1)_Catdance0000.png::CompressedTexture2D/CompressedTexture2D::8917642161139701764::1741690361::1741690363::1::::<><><>0<>0<>647387af9118eba460d01f209e66176c<>res://.godot/imported/Catdance Model (1)_Catdance0000.png-a4e91791d6f7af891edf6f4b65f4d5cd.s3tc.ctex::
 Catdance Model (1)_Window.png::CompressedTexture2D/CompressedTexture2D::942616591042438598::1741690362::1741690363::1::::<><><>0<>0<>a1fa781bc3268ec1fbcf355a00fdcf3d<>res://.godot/imported/Catdance Model (1)_Window.png-10a95a57ed39d2d786fedf9b5a848733.s3tc.ctex::
 icon.svg::CompressedTexture2D/CompressedTexture2D::3425421660095183905::1741547575::1741547578::1::::<><><>0<>0<>19239d3b2c056c59b936369c4190b04c<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
-main_scene.tscn::PackedScene::5652305087741210904::1741690376::0::1::::<><><>0<>0<><>::uid://ce5v3uyi2ahwy::::res://sub-scene.tscn<>uid://bvq5gufafmn5m::::res://movement.gd<>uid://bxkebn2883x3k::::res://Catdance Model (1).glb
-movement.gd::GDScript::3895249726901355180::1741676376::0::1::::<>MeshInstance3D<><>0<>0<><>::
-new_shader_material.tres::ShaderMaterial::7750664340255466583::1741691821::0::1::::<><><>0<>0<><>::
-new_standard_material_3d.material::StandardMaterial3D::2837518529262177036::1741691665::0::1::::<><><>0<>0<><>::
-new_standard_material_3d.tres::StandardMaterial3D::3117280378526968103::1741691821::0::1::::<><><>0<>0<><>::
-RotateCube.gd::GDScript::5458369411776792259::1741678978::0::1::::<>MeshInstance3D<><>0<>0<><>::
-simple_scene.tscn::PackedScene::6855841965712000501::1741691821::0::1::::<><><>0<>0<><>::uid://bvq5gufafmn5m::::res://movement.gd<>uid://cj1csua3u0q1h::::res://RotateCube.gd<>uid://bgorrsbsuyo0c::::res://new_standard_material_3d.material
-sub-scene.tscn::PackedScene::5116854221579439952::1741673086::0::1::::<><><>0<>0<><>::
+movement.gd::GDScript::3895249726901355180::1741764585::0::1::::<>MeshInstance3D<><>0<>0<><>::
+new_box_shape_3d.tres::BoxShape3D::2969312945759612286::1741785267::0::1::::<><><>0<>0<><>::
+new_shader_material.tres::ShaderMaterial/ShaderMaterial::7750664340255466583::1741691821::0::1::::<><><>0<>0<><>::
+new_standard_material_3d.material::StandardMaterial3D::2837518529262177036::1741764572::0::1::::<><><>0<>0<><>::
+new_standard_material_3d.tres::StandardMaterial3D::3117280378526968103::1741770656::0::1::::<><><>0<>0<><>::
+RotateCube.gd::GDScript::5458369411776792259::1741764585::0::1::::<>MeshInstance3D<><>0<>0<><>::
+simple_scene.tscn::PackedScene::6855841965712000501::1741786025::0::1::::<><><>0<>0<><>::uid://bvq5gufafmn5m::::res://movement.gd<>uid://cj1csua3u0q1h::::res://RotateCube.gd<>uid://bkobfgfxs6er4::::res://new_standard_material_3d.tres<>uid://bikmfd4dy455c::::res://new_box_shape_3d.tres<>uid://bxkebn2883x3k::::res://Catdance Model (1).glb

@@ -1,2 +1,3 @@
+BoxShape3D
 ShaderMaterial
 StandardMaterial3D

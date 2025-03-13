@@ -6,7 +6,7 @@
         "descriptor": {
           "type": "gd_scene",
           "heading": {
-            "load_steps": 7,
+            "load_steps": 8,
             "format": 3,
             "uid": "uid://c4xayle710614"
           }
@@ -34,9 +34,18 @@
             "type": "ext_resource",
             "heading": {
               "type": "Material",
-              "uid": "uid://bgorrsbsuyo0c",
-              "path": "res://new_standard_material_3d.material",
-              "id": "4_32g2h"
+              "uid": "uid://bkobfgfxs6er4",
+              "path": "res://new_standard_material_3d.tres",
+              "id": "2_w8mro"
+            }
+          },
+          {
+            "type": "ext_resource",
+            "heading": {
+              "type": "Shape3D",
+              "uid": "uid://bikmfd4dy455c",
+              "path": "res://new_box_shape_3d.tres",
+              "id": "4_vli7i"
             }
           },
           {
@@ -44,6 +53,16 @@
             "heading": {
               "type": "BoxMesh",
               "id": "BoxMesh_53dg8"
+            },
+            "props": {
+              "size": {
+                "type": "Vector3",
+                "params": [
+                  1,
+                  1.8,
+                  1
+                ]
+              }
             }
           },
           {
@@ -51,6 +70,15 @@
             "heading": {
               "type": "QuadMesh",
               "id": "QuadMesh_w8mro"
+            },
+            "props": {
+              "size": {
+                "type": "Vector2",
+                "params": [
+                  2.25,
+                  1
+                ]
+              }
             }
           },
           {
@@ -65,6 +93,14 @@
             "heading": {
               "name": "SimpleScene",
               "type": "Node3D"
+            },
+            "props": {
+              "script": {
+                "type": "ExtResource",
+                "params": [
+                  "1_mxq6n"
+                ]
+              }
             }
           },
           {
@@ -129,7 +165,7 @@
               "material_override": {
                 "type": "ExtResource",
                 "params": [
-                  "4_32g2h"
+                  "2_w8mro"
                 ]
               },
               "mesh": {
@@ -144,53 +180,7 @@
                   "2_tm5fx"
                 ]
               },
-              "rotationSpeed": 5
-            }
-          },
-          {
-            "type": "node",
-            "heading": {
-              "name": "MeshInstance3D2",
-              "type": "MeshInstance3D",
-              "parent": "Player"
-            },
-            "props": {
-              "transform": {
-                "type": "Transform3D",
-                "params": [
-                  2.60921,
-                  0,
-                  0,
-                  0,
-                  2.60921,
-                  0,
-                  0,
-                  0,
-                  2.60921,
-                  -6.49775,
-                  3.77112,
-                  -0.0366569
-                ]
-              },
-              "material_override": {
-                "type": "ExtResource",
-                "params": [
-                  "4_32g2h"
-                ]
-              },
-              "mesh": {
-                "type": "SubResource",
-                "params": [
-                  "BoxMesh_53dg8"
-                ]
-              },
-              "script": {
-                "type": "ExtResource",
-                "params": [
-                  "2_tm5fx"
-                ]
-              },
-              "rotationSpeed": 1
+              "rotationSpeed": 10
             }
           },
           {
@@ -213,9 +203,9 @@
                   0,
                   -0.373053,
                   0.92781,
-                  0.424953,
-                  10.3729,
-                  12.0683
+                  -2.2398,
+                  8.23561,
+                  15.8053
                 ]
               }
             }
@@ -240,15 +230,15 @@
                   0,
                   0,
                   3.13105,
-                  -1.74458,
+                  -1.17487,
                   3.498,
-                  -5.04664
+                  -5.14091
                 ]
               },
               "material_override": {
                 "type": "ExtResource",
                 "params": [
-                  "4_32g2h"
+                  "2_w8mro"
                 ]
               },
               "mesh": {
@@ -292,15 +282,15 @@
                   0,
                   0,
                   3.13105,
-                  3.01909,
-                  3.498,
-                  -5.04664
+                  5.73499,
+                  3.64987,
+                  -5.15739
                 ]
               },
               "material_override": {
                 "type": "ExtResource",
                 "params": [
-                  "4_32g2h"
+                  "2_w8mro"
                 ]
               },
               "mesh": {
@@ -321,59 +311,13 @@
                   "2_tm5fx"
                 ]
               },
-              "rotationSpeed": 1
-            }
-          },
-          {
-            "type": "node",
-            "heading": {
-              "name": "MeshInstance3D4",
-              "type": "MeshInstance3D",
-              "parent": "."
-            },
-            "props": {
-              "transform": {
-                "type": "Transform3D",
-                "params": [
-                  1,
-                  0,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                  0,
-                  1,
-                  8.1653,
-                  0,
-                  0
-                ]
-              },
-              "material_override": {
+              "rotationSpeed": 1,
+              "metadata/resource": {
                 "type": "ExtResource",
                 "params": [
-                  "4_32g2h"
+                  "4_vli7i"
                 ]
-              },
-              "mesh": {
-                "type": "SubResource",
-                "params": [
-                  "CapsuleMesh_w8mro"
-                ]
-              },
-              "skeleton": {
-                "type": "NodePath",
-                "params": [
-                  "../Player"
-                ]
-              },
-              "script": {
-                "type": "ExtResource",
-                "params": [
-                  "2_tm5fx"
-                ]
-              },
-              "rotationSpeed": 1
+              }
             }
           }
         ]

@@ -1,62 +1,72 @@
 import * as THREE from "three";
 import { NodeDef } from "./types";
-import { componentTypes, NodeComponent } from "./nodeComponent";
+import { componentTypes, NodeScript, registerType } from "./nodeComponent";
 import { ImportedScene } from "./importedScene";
 import { Transform3D } from "./defaultComponents/Transform3D";
 
-export class Node extends THREE.Object3D {
-  private components: NodeComponent[] = [];
+import * as ResourceTypes from "./resources/resourceTypes/index";
+
+registerType(Transform3D);
+
+export class Node3D extends THREE.Object3D {
   private instantiated = false;
   private _enabled = true;
-  private _transform: Transform3D | undefined;
+
+  // Default properties of a Node
+  private _transform!: Transform3D;
+  private _script: NodeScript | undefined;
+  private _props: Record<string, any> = new Map();
 
   public scene: ImportedScene;
-  private childNodes: Node[] = [];
 
   constructor(scene: ImportedScene, objDef: NodeDef) {
     super();
     this.name = objDef.name;
     this.scene = scene;
     this.enabled = objDef.enabled;
+
+    this._transform = new Transform3D(this);
+
     this.parse(objDef);
   }
 
   private parse(objDef: NodeDef) {
-    objDef.components.forEach((component) => {
-      const allComponents = componentTypes;
-      const componentType = allComponents.get(component.name) as any;
-      if (componentType) {
-        const componentInstance = new componentType(this, component.params);
+    const props = objDef.props;
+    this._props = objDef.props;
 
-        if (component.name === "Transform3D") {
-          this._transform = componentInstance;
-        }
-
-        // get all the props from the component definition
-        const props = component.props;
-        for (const key in props) {
-          if (Object.prototype.hasOwnProperty.call(componentInstance, key)) {
-            const element = props[key];
-            componentInstance[key] = element;
-          }
-        }
-
-        this.addComponent(componentInstance);
+    for (const key in props) {
+      if (key in this) {
+        (this as any)[key] = props[key];
       }
-    });
-
-    if (!this._transform) {
-      this._transform = this.addComponent(new Transform3D(this));
     }
 
     objDef.children.forEach((childDef) => {
-      const child = new Node(this.scene, childDef);
-      this.add(child);
+      const allComponents = componentTypes;
+      const componentType = allComponents.get(childDef.type) as any;
+      if (componentType) {
+        const componentInstance = new componentType(
+          this.scene,
+          childDef,
+        ) as Node3D;
+        this.add(componentInstance);
+      }
     });
   }
 
+  public get props() {
+    return this._props;
+  }
+
+  public set transform(matrix3x3: number[]) {
+    this._transform = new Transform3D(this, matrix3x3);
+  }
+
   public get transform(): Transform3D {
-    return this.getComponent(Transform3D)!;
+    return this._transform;
+  }
+
+  public set script(value: ResourceTypes.ScriptResource) {
+    this._script = value.createScript(this);
   }
 
   public get enabled() {
@@ -65,44 +75,59 @@ export class Node extends THREE.Object3D {
 
   public set enabled(value: boolean) {
     this._enabled = value;
-    this.components.forEach((component) => {
-      this._enabled ? component.onEnable() : component.onDisable();
-    });
+    this._enabled ? this.onEnable() : this.onDisable();
+    this._enabled ? this._script?.onEnable() : this._script?.onDisable();
   }
 
-  //#region UnityComponent Management
-  public addComponent<T extends NodeComponent>(component: T): T {
-    this.components.push(component);
-    component.attach(this);
-    if (this.instantiated) {
-      component.awake();
+  public getScript<T extends NodeScript>(type: new (gameObject: Node3D) => T) {
+    if (this._script instanceof type) {
+      return this._script as T;
+    } else {
+      // search immediate parent
+      const parent = this.parent as Node3D;
+      parent.children.forEach((child) => {
+        if (child instanceof Node3D && child.getScript(type)) {
+          return child.getScript(type);
+        }
+      });
     }
-    return component as any;
+    return null;
   }
 
-  public getComponent<T extends NodeComponent>(
-    type: new (gameObject: Node) => T,
-  ) {
-    for (let i = 0; i < this.components.length; i++) {
-      if (this.components[i] instanceof type) {
-        return this.components[i] as T;
+  public findNodeInChildren<T extends Node3D>(
+    type: new (...args: any[]) => T,
+  ): T | null {
+    // recursive search
+
+    if (this instanceof type) {
+      return this as T;
+    }
+
+    for (let i = 0; i < this.children.length; i++) {
+      if (this.children[i] instanceof type) {
+        return this.children[i] as T;
+      } else {
+        if (this.children[i] instanceof Node3D) {
+          const child = this.children[i] as Node3D;
+          const found: T | null = child.findNodeInChildren(type);
+          if (found) {
+            return found;
+          }
+        }
       }
     }
     return null;
   }
 
-  public removeComponent(component: NodeComponent) {
-    const index = this.components.indexOf(component);
-    if (index > -1) {
-      this.components.splice(index, 1);
-    }
+  public removeComponent() {
+    this._script?.onDestroy();
+    this._script = undefined;
   }
   //#endregion
 
   public awake() {
-    this.components.forEach((component) => {
-      component.awake();
-    });
+    console.log("Awake called");
+    this._script?.awake();
   }
 
   public update(dt: number) {
@@ -115,21 +140,20 @@ export class Node extends THREE.Object3D {
       this.instantiated = true;
     }
 
-    for (let i = 0; i < this.components.length; i++) {
-      this.components[i].update(dt);
-    }
+    this._script?.update(dt);
 
     for (let i = 0; i < this.children.length; i++) {
       if ((this.children[i] as any).update !== undefined) {
-        const child = this.children[i] as Node;
+        const child = this.children[i] as Node3D;
         child.update(dt);
       }
     }
   }
 
   public destroy() {
-    this.components.forEach((component) => {
-      component.destroy();
-    });
+    this._script?.destroy();
   }
+
+  protected onEnable() {}
+  protected onDisable() {}
 }

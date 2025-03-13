@@ -1,4 +1,4 @@
 res://simple_scene.tscn
 res://movement.gd
-res://new_standard_material_3d.material
+res://new_standard_material_3d.tres
 res://RotateCube.gd
