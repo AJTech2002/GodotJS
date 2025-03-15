@@ -1,14 +1,13 @@
-import * as THREE from "three";
 import { NodeDef } from "./types";
 import { componentTypes, NodeScript, registerType } from "./nodeComponent";
-import { ImportedScene } from "./importedScene";
 import { Transform3D } from "./defaultComponents/Transform3D";
-
+import { Object3D } from "three/webgpu";
 import * as ResourceTypes from "./resources/resourceTypes/index";
+import { ImportedScene } from "./importedScene";
 
 registerType(Transform3D);
 
-export class Node3D extends THREE.Object3D {
+export class Node3D {
   private instantiated = false;
   private _enabled = true;
 
@@ -17,24 +16,49 @@ export class Node3D extends THREE.Object3D {
   private _script: NodeScript | undefined;
   private _props: Record<string, any> = new Map();
 
-  public get scene(): ImportedScene {
-    return this.scene as ImportedScene;
-  }
+  public name: string = "Node";
+  public children: Node3D[] = [];
+  public parent: Node3D | null = null;
+
+  private _ref: Object3D | undefined;
+
+  public scene: ImportedScene | null = null;
 
   constructor(objDef: NodeDef | string | undefined) {
-    super();
-
     this._transform = new Transform3D(this);
-
     if (objDef) {
       if (typeof objDef === "string") {
         this.name = objDef;
         return;
       }
-
+      
       this.name = objDef.name;
       this.enabled = objDef.enabled;
       this.parse(objDef);
+    }
+  }
+
+  public attach (scene: ImportedScene) {
+    scene.add(this.getObject3D());
+    this.scene = scene;
+  }
+
+  public add(child: Node3D) {
+    if (child instanceof Node3D) {
+      this.children.push(child);
+      child.parent = this;
+      this.getObject3D().add(child.getObject3D());
+      child.getObject3D().parent = this.getObject3D();
+    }
+  }
+
+  public remove(child: Node3D) {
+    if (child instanceof Node3D) {
+      const index = this.children.indexOf(child);
+      if (index !== -1) {
+        this.children.splice(index, 1);
+      }
+      this.getObject3D().remove(child.getObject3D());
     }
   }
 
@@ -70,8 +94,21 @@ export class Node3D extends THREE.Object3D {
     return this._transform;
   }
 
+  public get position() {
+    return this._transform.position;
+  }
+
+  public get quaternion() {
+    return this._transform.rotation;
+  }
+
+  public get scale() {
+    return this._transform.scale;
+  }
+
+
   public set script(value: ResourceTypes.ScriptResource) {
-    this._script = value.createScript(this);
+    // this._script = value.createScript(this);
   }
 
   public set instance(value: ResourceTypes.PackedSceneResource) {
@@ -134,9 +171,46 @@ export class Node3D extends THREE.Object3D {
   }
   //#endregion
 
+  public getObject3D() : Object3D {
+    if (this._ref === undefined) {
+      this.setObject3D(new Object3D());
+    }
+
+    // console.log("Node3D.getObject3D", this._ref);
+    return this._ref!;
+  }
+
+  public setObject3D(object: Object3D) {
+    // If it exists, remove the old object from scene
+    const parent = this._ref?.parent;
+    const children = this._ref?.children;
+    if (this._ref) {
+      if (this.scene) {
+        this.scene.remove(this._ref);
+      }
+
+      if (parent) { 
+        parent.remove(this._ref);
+      }
+    }
+
+    this._ref = object;
+    this._ref.name = this.name;
+
+    if (parent) {
+      parent.add(this._ref);
+    }
+
+    if (children) {
+      children.forEach((child) => {
+        this._ref?.add(child);
+      });
+    }
+  }
+
   public awake() {
-    console.log("Awake called");
     this._script?.awake();
+    
   }
 
   public update(dt: number) {
@@ -150,6 +224,14 @@ export class Node3D extends THREE.Object3D {
     }
 
     this._script?.update(dt);
+
+    // apply transform to object3D
+    if (this._transform && this._ref) {
+      this._ref.position.copy(this._transform.position);
+      this._ref.rotation.copy(this._transform.euler);
+      this._ref.scale.copy(this._transform.scale);
+    }
+    
 
     for (let i = 0; i < this.children.length; i++) {
       if ((this.children[i] as any).update !== undefined) {

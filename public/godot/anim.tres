@@ -2,7 +2,7 @@
 
 [resource]
 resource_name = "Animation"
-length = 2.08333
+length = 2.083
 tracks/0/type = "rotation_3d"
 tracks/0/imported = true
 tracks/0/enabled = true

@@ -24,14 +24,14 @@ script = ExtResource("1_mxq6n")
 movementSpeed = 4.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(2.56196, -0.710132, 0, 0.494329, 3.6804, 0, 0, 0, 2.60921, -6.49775, 0, -0.0366569)
+transform = Transform3D(2.56196, -0.710132, 0, 0.494329, 3.6804, 0, 0, 0, 2.60921, 0, 0, 0)
 material_override = ExtResource("2_w8mro")
 mesh = SubResource("BoxMesh_53dg8")
 script = ExtResource("2_tm5fx")
 rotationSpeed = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.92781, 0.373053, 0, -0.373053, 0.92781, -2.2398, 8.23561, 15.8053)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.7196)
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.50505, 0, 0, 0, 2.71381, 0, 0, 0, 2.46628, 5.73499, 3.64987, -5.15739)

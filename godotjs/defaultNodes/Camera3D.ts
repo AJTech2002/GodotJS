@@ -1,6 +1,5 @@
-import { PerspectiveCamera, Camera } from "three";
+import { PerspectiveCamera, Camera, Object3D } from "three/webgpu";
 import { Node3D } from "../node";
-import { ImportedScene } from "../importedScene";
 import { NodeDef } from "../types";
 
 export class Camera3D extends Node3D {
@@ -14,12 +13,12 @@ export class Camera3D extends Node3D {
       0.1,
       300,
     );
-    this._camera = camera;
+    this.camera = camera;
   }
+
 
   public override awake(): void {
     super.awake();
-    this.add(this._camera);
     console.log("Added camera to scene");
   }
 
@@ -39,8 +38,7 @@ export class Camera3D extends Node3D {
   }
 
   public set camera(camera: Camera) {
-    this.remove(this._camera);
     this._camera = camera;
-    this.add(this._camera);
+    this.setObject3D(camera);
   }
 }

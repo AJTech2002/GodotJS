@@ -15,6 +15,7 @@ export function threeJsToNode(object: Object3D): Node3D {
     _node = cameraInstance;
   } else {
     _node = new Node3D(object.name);
+    _node.setObject3D(object);
   }
 
   // Ensure the object’s world matrix is up-to-date before iterating children
@@ -23,21 +24,18 @@ export function threeJsToNode(object: Object3D): Node3D {
   // Clone the children array before iteration to avoid modification issues
   const children = [...object.children];
 
+   // Apply transformation
+   _node.transform.position.copy(object.position);
+   _node.transform.euler = object.rotation;
+   _node.transform.scale.copy(object.scale);
+   
   for (let i = 0; i < children.length; i++) {
     const child = children[i];
     const node = threeJsToNode(child);
     _node.add(node);
   }
 
-  // Apply transformation
-  _node.position.copy(object.position);
-  _node.rotation.copy(object.rotation);
-  _node.scale.copy(object.scale);
-
-  object.position.set(0, 0, 0);
-  object.rotation.set(0, 0, 0);
-  object.scale.set(1, 1, 1);
-  object.updateMatrix();
+ 
 
   return _node;
 }

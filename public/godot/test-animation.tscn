@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c785qadg64cui"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_oau2p"]
+
+[node name="Test-animation" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.00279)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.45008, 0, 0, 0, 0.45008, 0, 0, 0, 0.45008, 0, 0, -1.36336)
+mesh = SubResource("BoxMesh_oau2p")
+skeleton = NodePath("../Camera3D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MeshInstance3D"]

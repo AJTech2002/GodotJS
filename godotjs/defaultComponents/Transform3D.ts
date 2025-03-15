@@ -1,8 +1,8 @@
-import { Matrix4, Vector3, Quaternion } from "three";
-import { NodeScript } from "../nodeComponent";
+import { Matrix4, Vector3, Quaternion, Euler } from "three";
+import { NodeScript as NodeAttachment } from "../nodeComponent";
 import { Node3D } from "../node";
 
-export class Transform3D extends NodeScript {
+export class Transform3D extends NodeAttachment {
   constructor(gameObject: Node3D, params?: number[]) {
     super(gameObject);
 
@@ -58,31 +58,16 @@ export class Transform3D extends NodeScript {
     }
   }
 
-  public set position(v: Vector3) {
-    this.node.position.copy(v);
+  public position: Vector3 = new Vector3(0,0,0);
+  public rotation: Quaternion = new Quaternion(0,0,0,1);
+  public scale: Vector3 = new Vector3(1,1,1);
+
+  public get euler(): Euler {
+    return new Euler().setFromQuaternion(this.rotation);
   }
 
-  public set rotation(q: Quaternion) {
-    this.node.quaternion.copy(q);
+  public set euler(euler: Euler) {
+    this.rotation.setFromEuler(euler);
   }
-
-  public set scale(v: Vector3) {
-    this.node.scale.copy(v);
-  }
-
-  public set euler(e: Vector3) {
-    this.node.rotation.setFromVector3(e.clone());
-  }
-
-  public get position(): Vector3 {
-    return this.node.position;
-  }
-
-  public get rotation(): Quaternion {
-    return this.node.quaternion;
-  }
-
-  public get scale(): Vector3 {
-    return this.node.scale;
-  }
+  
 }

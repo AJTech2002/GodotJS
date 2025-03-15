@@ -23,23 +23,15 @@ export class MeshInstance3D extends Node3D {
   }
 
   public set mesh(meshResource: MeshResource) {
-    if (this._mesh) {
-      this.remove(this._mesh);
-    }
-
     const material = new MeshStandardMaterial();
     this._material = material;
     this._mesh = new Mesh(meshResource.getGeometry(), material);
-    this.add(this._mesh);
+    this.setObject3D(this._mesh);
   }
 
   public set mesh3D(mesh: Mesh) {
-    if (this._mesh) {
-      this.remove(this._mesh);
-    }
-
     this._mesh = mesh;
-    this.add(this._mesh);
+    this.setObject3D(this._mesh);
   }
 
   public get mesh3D(): Mesh | undefined {

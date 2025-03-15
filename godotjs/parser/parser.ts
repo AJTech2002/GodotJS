@@ -193,7 +193,7 @@ export function parseTscn(raw: string, projectRoot: string): SceneDef {
   console.log("Scene Def", { nodes: nodes });
 
   return {
-    nodes: [rootNode],
+    nodes: [...rootNode.children],
     resources: [...extResources.values(), ...subResources.values()],
   };
 }

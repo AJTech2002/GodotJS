@@ -23,33 +23,9 @@ export class ImportedScene extends THREE.Scene {
     this.parse();
   }
 
-  override add(...object: THREE.Object3D[]): this {
-    object.forEach((obj) => {
-      super.add(obj);
-      if (obj instanceof Node3D) {
-        this.nodes.push(obj);
-      } else {
-        // TODO: Wrap normal threejs objects in a UnityGameObject with components (Transform, Mesh etc.)
-      }
-    });
-
-    // loop through all materials in scene
-
-    return this;
-  }
-
-  remove(...object: THREE.Object3D[]): this {
-    object.forEach((obj) => {
-      super.remove(obj);
-      if (obj instanceof Node3D) {
-        const index = this.nodes.indexOf(obj);
-        if (index !== -1) {
-          this.nodes.splice(index, 1);
-        }
-        obj.destroy();
-      }
-    });
-    return this;
+  public addNode(node: Node3D) {
+    this.nodes.push(node);
+    node.attach(this);
   }
 
   private parse() {
@@ -59,17 +35,21 @@ export class ImportedScene extends THREE.Scene {
         const componentType = allComponents.get(gameObject.type) as any;
         if (componentType) {
           const componentInstance = new componentType(gameObject) as Node3D;
-          this.add(componentInstance);
+          this.addNode(componentInstance);
         }
       });
 
-    console.log(this);
+    this.updateMatrixWorld(true);
+
+    setTimeout(() => {
+      console.log("Scene", this);
+    }, 1000);
     // Assign parents
   }
 
   //TODO: Search normal objects too
   public findNodeOfType<T extends Node3D>(
-    type: new (...args: any[]) => T,
+    type: new (...args: any[]) => T
   ): T | null {
     for (let i = 0; i < this.nodes.length; i++) {
       const found: T | null = this.nodes[i].findNodeInChildren(type);
@@ -121,7 +101,7 @@ export class ImportedScene extends THREE.Scene {
     camera: THREE.Camera,
     geometry: THREE.BufferGeometry,
     material: THREE.Material,
-    group: THREE.Group,
+    group: THREE.Group
   ): void {
     const current = performance.now();
     this._deltaTime = (current - this._lastTime) / 1000.0;
@@ -129,6 +109,8 @@ export class ImportedScene extends THREE.Scene {
     for (let i = 0; i < this.nodes.length; i++) {
       this.nodes[i].update(this._deltaTime);
     }
+
+    super.onBeforeRender(renderer, scene, camera, geometry, material, group);
   }
 
   onAfterRender(
@@ -137,8 +119,10 @@ export class ImportedScene extends THREE.Scene {
     camera: THREE.Camera,
     geometry: THREE.BufferGeometry,
     material: THREE.Material,
-    group: THREE.Group,
-  ): void {}
+    group: THREE.Group
+  ): void {
+    super.onAfterRender(renderer, scene, camera, geometry, material, group);
+  }
 }
 
 // Type Registration

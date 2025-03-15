@@ -5,6 +5,7 @@ import { Node3D } from "../../node";
 import { AnimationMixer } from "three/webgpu";
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import {threeJsToNode} from "./threejsToNode";
+import { AnimationPlayer } from "../../defaultNodes";
 
 export enum PackedSceneType {
   TSCN = "TSCN",
@@ -51,19 +52,36 @@ export class PackedSceneResource extends Resource {
     const glbScene = this.loadedScene as GLTF;
     
     const root = new Node3D(glbScene.scene.name);
-    root.animations = glbScene.animations;
-
+    
     const cloned = SkeletonUtils.clone(glbScene.scene);
-    console.log("Cloned", cloned);
-  
+    // console.log("Cloned", cloned);
+    
+    // root.add(threeJsToNode(cloned));
+
     for (let i = 0; i < cloned.children.length; i++) {
-      const child = cloned.children[i];
-      const node = threeJsToNode(child);
-      root.add(node);
+      root.add(threeJsToNode(cloned.children[i]));
+    }
+      
+    // root.setObject3D(SkeletonUtils.clone(glbScene.scene));
+    // root.getObject3D().animations = glbScene.animations;
+
+
+    if (glbScene.animations) {
+
+      if (glbScene.animations.length > 0) {
+
+        const player = new AnimationPlayer("AnimationPlayer");
+        player.animations = glbScene.animations;
+        player.root = root;
+        root.add(player);
+
+        setTimeout(() => {
+          player.play(glbScene.animations[0].name);
+        },100);
+      }
     }
 
-
-    // const mixer = new AnimationMixer(root);
+    // const mixer = new AnimationMixer(root.getObject3D().children[0]);
     // if (glbScene.animations && glbScene.animations.length > 0) {
     //   mixer.clipAction(glbScene.animations[0]).play();
           
