@@ -1,28 +1,29 @@
 import { Resource, ResourceHeading } from "../resource";
-import {componentTypes, NodeScript} from "../../nodeComponent";
+import { componentTypes, NodeScript } from "../../nodeComponent";
 import { Node3D } from "../../node";
 
 export class ScriptResource extends Resource {
-
-  private _script: string = '';
+  private _script: string = "";
 
   constructor(resourceDef: ResourceHeading) {
     super(resourceDef);
     if (resourceDef.path) {
       this._script = this.extractFilename(resourceDef.path);
-    }
-    else {
-      this._script = '';
+    } else {
+      this._script = "";
     }
   }
 
-  private extractFilename(path: string) : string {
+  private extractFilename(path: string): string {
     return path.match(/\/([^\/]+)\./)?.[1] || "";
   }
 
-  public createScript(node: Node3D) : NodeScript | undefined {
-    try {
+  private extractExtension(path: string): string {
+    return path.match(/\.([^\.]+)$/)?.[1] || "";
+  }
 
+  public createScript(node: Node3D): NodeScript | undefined {
+    try {
       if (!this._path) {
         return;
       }
@@ -55,5 +56,4 @@ export class ScriptResource extends Resource {
       console.error(e);
     }
   }
-
 }

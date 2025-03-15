@@ -16,7 +16,6 @@ export class ResourceManager {
           (resource as any)[key] = resourceDef.props[key];
         }
       }
-        console.log('resource', resource, resourceType);
       return resource;
     }
     return resource;
@@ -30,5 +29,15 @@ export class ResourceManager {
   public createSubResource(resourceDef: TSCNResource): Resource {
     const subResource = this.createResource(resourceDef);
     return subResource;
+  }
+
+  public async loadResource(resource: Resource) {
+    await resource.load();
+  }
+
+  public async loadResources(resources: Resource[]) {
+    for (const resource of resources) {
+      await this.loadResource(resource);
+    }
   }
 }

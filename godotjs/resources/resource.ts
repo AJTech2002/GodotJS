@@ -23,4 +23,8 @@ export class Resource {
     this._uid = heading.uid;
     this._path = heading.path;
   }
+
+  public async load() {
+    return;
+  }
 }

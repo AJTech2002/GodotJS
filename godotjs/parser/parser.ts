@@ -12,13 +12,42 @@ import {
 } from "../types";
 import * as parser from "../tscn.js";
 
+export function resolveProp(
+  prop: TSCNProp | any,
+  extResources: Map<string, Resource>,
+  subResources: Map<string, Resource>,
+) {
+  let parsedProp = prop;
+
+  if (prop.type === "ExtResource") {
+    const extResource = extResources.get(prop.params[0]);
+    if (extResource) {
+      parsedProp = extResources.get(prop.params[0]);
+    }
+  } else if (prop.type === "SubResource") {
+    const extResource = subResources.get(prop.params[0]);
+    if (extResource) {
+      parsedProp = subResources.get(prop.params[0]);
+    }
+  } else if (prop.type === "Transform3D") {
+    const transformMatrix3x3 = prop.params as number[];
+    parsedProp = transformMatrix3x3;
+  } else if (prop.type === "Vector3") {
+    const vector3 = prop.params as number[];
+    parsedProp = new Vector3(vector3[0], vector3[1], vector3[2]);
+  } else if (prop.type === "Vector2") {
+    const vector2 = prop.params as number[];
+    parsedProp = new Vector2(vector2[0], vector2[1]);
+  }
+
+  return parsedProp;
+}
 
 export function resolveProps(
   entityProps: any,
   extResources: Map<string, Resource>,
-  subResources: Map<string, Resource>
+  subResources: Map<string, Resource>,
 ): Record<string, TSCNProp | any> {
-  
   if (!entityProps) {
     return {};
   }
@@ -28,32 +57,7 @@ export function resolveProps(
   for (const key in entityProps) {
     if (Object.prototype.hasOwnProperty.call(entityProps, key)) {
       const prop = entityProps[key];
-      if (prop.type === "ExtResource") {
-        const extResource = extResources.get(prop.params[0]);
-        if (extResource) {
-          props[key] = extResources.get(prop.params[0]);
-        }
-      } else if (prop.type === "SubResource") {
-        const extResource = subResources.get(prop.params[0]);
-        if (extResource) {
-          props[key] = subResources.get(prop.params[0]);
-        }
-      }
-      else if (prop.type === "Transform3D") {
-        const transformMatrix3x3 = prop.params as number[];
-        props[key] = transformMatrix3x3;
-      }
-      else if (prop.type === "Vector3") {
-        const vector3 = prop.params as number[];
-        props[key] = new Vector3(vector3[0], vector3[1], vector3[2]);
-      }
-      else if (prop.type === "Vector2") {
-        const vector2 = prop.params as number[];
-        props[key] = new Vector2(vector2[0], vector2[1]);
-      }
-      else {
-        props[key] = prop;
-      }
+      props[key] = resolveProp(prop, extResources, subResources);
     }
   }
   return props;
@@ -67,7 +71,7 @@ function parseTscnText(text: string): TSCNScene {
 }
 
 // Parse TSCN Godot scene file into a SceneDef object
-export function parseTscn(raw: string): SceneDef {
+export function parseTscn(raw: string, projectRoot: string): SceneDef {
   const mainScene = parseTscnText(raw);
   console.log("Main Scene", mainScene);
   const nodes: NodeDef[] = [];
@@ -85,11 +89,9 @@ export function parseTscn(raw: string): SceneDef {
         const node: NodeDef = {
           name: entity.heading.name!,
           parent: entity.heading.parent,
-          tag: "",
-          type: entity.heading.type!,
+          type: entity.heading.type ?? "Node3D",
           enabled: true,
           children: [],
-          path: "",
           props: {},
         };
 
@@ -120,7 +122,6 @@ export function parseTscn(raw: string): SceneDef {
         entity.type === "ext_resource" ||
         entity.type === "sub_resource"
       ) {
-
         const resourceDef: TSCNResource = {
           type: entity.heading.type!,
           id: entity.heading.id!,
@@ -133,17 +134,32 @@ export function parseTscn(raw: string): SceneDef {
 
         if (entity.heading.path) {
           resourceDef.path = entity.heading.path;
+          // resolve the path
+          if (resourceDef.path.startsWith("res://")) {
+            resourceDef.path = resourceDef.path.replace(
+              "res://",
+              projectRoot + "/",
+            );
+          }
         }
 
-        resourceDef.props = resolveProps(entity.props, extResources, subResources);
+        resourceDef.props = resolveProps(
+          entity.props,
+          extResources,
+          subResources,
+        );
 
         if (entity.type === "ext_resource") {
-          extResources.set(resourceDef.id, resourceManager.createExtResource(resourceDef));
+          extResources.set(
+            resourceDef.id,
+            resourceManager.createExtResource(resourceDef),
+          );
+        } else if (entity.type === "sub_resource") {
+          subResources.set(
+            resourceDef.id,
+            resourceManager.createSubResource(resourceDef),
+          );
         }
-        else if (entity.type === "sub_resource") {
-          subResources.set(resourceDef.id, resourceManager.createSubResource(resourceDef));
-        }
-
       }
     });
   }
@@ -156,7 +172,6 @@ export function parseTscn(raw: string): SceneDef {
   for (let i = 0; i < nodes.length; i++) {
     let node = nodes[i];
     let entity = entities[i];
-    let props: Record<string, TSCNProp | any> = {};
 
     if (node.parent) {
       if (node.parent !== ".") {
@@ -168,15 +183,17 @@ export function parseTscn(raw: string): SceneDef {
         rootNode?.children.push(node);
       }
     }
-
-
+    
     node.props = resolveProps(entity.props, extResources, subResources);
-
+    if (entity.heading.instance) {
+      node.props['instance'] = resolveProp(entity.heading.instance, extResources, subResources);
+    }
   }
 
   console.log("Scene Def", { nodes: nodes });
 
   return {
     nodes: [rootNode],
+    resources: [...extResources.values(), ...subResources.values()],
   };
 }

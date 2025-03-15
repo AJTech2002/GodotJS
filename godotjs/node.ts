@@ -17,17 +17,25 @@ export class Node3D extends THREE.Object3D {
   private _script: NodeScript | undefined;
   private _props: Record<string, any> = new Map();
 
-  public scene: ImportedScene;
+  public get scene(): ImportedScene {
+    return this.scene as ImportedScene;
+  }
 
-  constructor(scene: ImportedScene, objDef: NodeDef) {
+  constructor(objDef: NodeDef | string | undefined) {
     super();
-    this.name = objDef.name;
-    this.scene = scene;
-    this.enabled = objDef.enabled;
 
     this._transform = new Transform3D(this);
 
-    this.parse(objDef);
+    if (objDef) {
+      if (typeof objDef === "string") {
+        this.name = objDef;
+        return;
+      }
+
+      this.name = objDef.name;
+      this.enabled = objDef.enabled;
+      this.parse(objDef);
+    }
   }
 
   private parse(objDef: NodeDef) {
@@ -44,10 +52,7 @@ export class Node3D extends THREE.Object3D {
       const allComponents = componentTypes;
       const componentType = allComponents.get(childDef.type) as any;
       if (componentType) {
-        const componentInstance = new componentType(
-          this.scene,
-          childDef,
-        ) as Node3D;
+        const componentInstance = new componentType(childDef) as Node3D;
         this.add(componentInstance);
       }
     });
@@ -67,6 +72,10 @@ export class Node3D extends THREE.Object3D {
 
   public set script(value: ResourceTypes.ScriptResource) {
     this._script = value.createScript(this);
+  }
+
+  public set instance(value: ResourceTypes.PackedSceneResource) {
+    this.add(value.scene);
   }
 
   public get enabled() {
@@ -95,7 +104,7 @@ export class Node3D extends THREE.Object3D {
   }
 
   public findNodeInChildren<T extends Node3D>(
-    type: new (...args: any[]) => T,
+    type: new (...args: any[]) => T
   ): T | null {
     // recursive search
 
@@ -156,4 +165,5 @@ export class Node3D extends THREE.Object3D {
 
   protected onEnable() {}
   protected onDisable() {}
+
 }

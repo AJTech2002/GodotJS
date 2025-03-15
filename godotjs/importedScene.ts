@@ -16,6 +16,10 @@ export class ImportedScene extends THREE.Scene {
     super();
     this.def = def;
     this.nodes = [];
+  }
+
+  public async load() {
+    await resourceManager.loadResources(this.def.resources);
     this.parse();
   }
 
@@ -23,7 +27,6 @@ export class ImportedScene extends THREE.Scene {
     object.forEach((obj) => {
       super.add(obj);
       if (obj instanceof Node3D) {
-        console.log("Adding node", obj);
         this.nodes.push(obj);
       } else {
         // TODO: Wrap normal threejs objects in a UnityGameObject with components (Transform, Mesh etc.)
@@ -55,10 +58,7 @@ export class ImportedScene extends THREE.Scene {
         const allComponents = componentTypes;
         const componentType = allComponents.get(gameObject.type) as any;
         if (componentType) {
-          const componentInstance = new componentType(
-            this,
-            gameObject,
-          ) as Node3D;
+          const componentInstance = new componentType(gameObject) as Node3D;
           this.add(componentInstance);
         }
       });

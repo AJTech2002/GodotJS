@@ -1,4 +1,4 @@
-import { Mesh, MeshStandardMaterial, BoxGeometry } from "three";
+import { Mesh, MeshStandardMaterial } from "three";
 import { Node3D } from "../node";
 import { MeshResource } from "../resources/resourceTypes";
 
@@ -27,11 +27,18 @@ export class MeshInstance3D extends Node3D {
       this.remove(this._mesh);
     }
 
-    console.log("Setting mesh", meshResource);
-
     const material = new MeshStandardMaterial();
     this._material = material;
     this._mesh = new Mesh(meshResource.getGeometry(), material);
+    this.add(this._mesh);
+  }
+
+  public set mesh3D(mesh: Mesh) {
+    if (this._mesh) {
+      this.remove(this._mesh);
+    }
+
+    this._mesh = mesh;
     this.add(this._mesh);
   }
 

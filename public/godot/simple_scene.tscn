@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4xayle710614"]
+[gd_scene load_steps=8 format=3 uid="uid://blyvix36yy1rg"]
 
 [ext_resource type="Script" uid="uid://bvq5gufafmn5m" path="res://movement.gd" id="1_mxq6n"]
 [ext_resource type="Script" uid="uid://cj1csua3u0q1h" path="res://RotateCube.gd" id="2_tm5fx"]
@@ -8,12 +8,12 @@
 [sub_resource type="BoxMesh" id="BoxMesh_53dg8"]
 size = Vector3(1, 1.8, 1)
 
-[sub_resource type="QuadMesh" id="QuadMesh_w8mro"]
-size = Vector2(2.25, 1)
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_w8mro"]
 radius = 0.434
-height = 1.468
+height = 3.495
+
+[sub_resource type="QuadMesh" id="QuadMesh_w8mro"]
+size = Vector2(2.25, 1)
 
 [node name="SimpleScene" type="Node3D"]
 script = ExtResource("1_mxq6n")
@@ -28,24 +28,33 @@ transform = Transform3D(2.56196, -0.710132, 0, 0.494329, 3.6804, 0, 0, 0, 2.6092
 material_override = ExtResource("2_w8mro")
 mesh = SubResource("BoxMesh_53dg8")
 script = ExtResource("2_tm5fx")
-rotationSpeed = 10.0
+rotationSpeed = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.92781, 0.373053, 0, -0.373053, 0.92781, -2.2398, 8.23561, 15.8053)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(3.13105, 0, 0, 0, 3.39197, 0, 0, 0, 3.13105, -1.17487, 3.498, -5.14091)
-material_override = ExtResource("2_w8mro")
-mesh = SubResource("QuadMesh_w8mro")
-skeleton = NodePath("../Player")
-script = ExtResource("2_tm5fx")
-rotationSpeed = 1.0
-
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.50505, 0, 0, 0, 2.71381, 0, 0, 0, 9.34468, 5.73499, 3.64987, -5.15739)
+transform = Transform3D(2.50505, 0, 0, 0, 2.71381, 0, 0, 0, 2.46628, 5.73499, 3.64987, -5.15739)
 material_override = ExtResource("2_w8mro")
 mesh = SubResource("CapsuleMesh_w8mro")
 skeleton = NodePath("../Player")
 script = ExtResource("2_tm5fx")
 rotationSpeed = 1.0
 metadata/resource = ExtResource("4_vli7i")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1.11482, 0, -2.92586, 0, 3.39197, 0, 2.92586, 0, 1.11482, -1.17487, 3.498, -5.14091)
+script = ExtResource("2_tm5fx")
+rotationSpeed = 1.0
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(0.187758, 0, -0.982215, 0, 1, 0, 0.982215, 0, 0.187758, 0, 0, 0)
+material_override = ExtResource("2_w8mro")
+mesh = SubResource("QuadMesh_w8mro")
+skeleton = NodePath("../../Player")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(-0.168472, 0, 0.985706, 0, 1, 0, -0.985706, 0, -0.168472, 0, 0, 0)
+material_override = ExtResource("2_w8mro")
+mesh = SubResource("QuadMesh_w8mro")
+skeleton = NodePath("../../Player")

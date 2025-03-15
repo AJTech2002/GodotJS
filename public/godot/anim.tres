@@ -1,0 +1,12 @@
+[gd_resource type="Animation" format=3 uid="uid://b1yiflljn6e5m"]
+
+[resource]
+resource_name = "Animation"
+length = 2.08333
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Z_UP/Armature/Skeleton3D:Bone.001")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -4.65661e-09, 0.000289923, 4.16209e-12, -1, 0.0333333, 1, -4.65661e-09, 0.000289923, 4.16209e-12, -1, 0.0666667, 1, 0.00739681, 0.000289915, -2.14451e-06, -0.999973, 0.966667, 1, 0.274035, 0.000278824, -7.94492e-05, -0.96172, 1.03333, 1, 0.292983, 0.0002772, -8.49426e-05, -0.956118, 1.06667, 1, 0.288549, 0.000277591, -8.36569e-05, -0.957465, 2, 1, 0.0237051, 0.000289841, -6.87264e-06, -0.999719, 2.06667, 1, 0.0047336, 0.000289919, -1.37238e-06, -0.999989, 2.08333, 1, -4.65661e-09, 0.000289923, 4.16209e-12, -1)
