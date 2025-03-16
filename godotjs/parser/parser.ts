@@ -12,6 +12,49 @@ import {
 } from "../types";
 import * as parser from "../tscn.js";
 
+export function applyProps(props: Record<string, any>, target: any) {
+  for (const key in props) {
+    // support nested props (prop/prop/prop)
+    const keys = key.split("/");
+    if (keys.length > 1) {
+      let nestedTarget = target;
+      for (let i = 0; i < keys.length - 1; i++) {
+        const nestedKey = keys[i];
+        try {
+          nestedTarget = nestedTarget[nestedKey];
+        } catch (e) {
+          console.warn("parser.ts", "Nested Key Error", e);
+        }
+      }
+
+      try {
+        
+        let _nestedKey = keys[keys.length - 1];
+
+        // check if fn set_key exists
+        if ("set_"+_nestedKey in nestedTarget) {
+          nestedTarget["_set"+_nestedKey](props[key]);
+        } else {
+          nestedTarget[_nestedKey] = props[key];
+        }
+      } catch (e) {
+        console.warn("parser.ts", "Nested Key Error", e);
+      }
+    }
+
+    try {
+      if ("set_"+key in target) {
+        target["set_"+key](props[key]);
+      }
+      else {
+        target[key] = props[key];
+      }
+    } catch (e) {
+      console.warn("parser.ts", "Prop Error", e);
+    }
+  }
+}
+
 export function resolveProp(
   prop: TSCNProp | any,
   extResources: Map<string, Resource>,
@@ -38,9 +81,31 @@ export function resolveProp(
   } else if (prop.type === "Vector2") {
     const vector2 = prop.params as number[];
     parsedProp = new Vector2(vector2[0], vector2[1]);
+  } // check if the prop is a dictionary/any with nested props
+  else if (prop.type === "PackedFloat32Array") {
+    parsedProp = new Float32Array(prop.params);
+  } else if (prop.type === "NodePath") {
+    let path = prop.params[0];
+
+    let pathSplit = path.split(":");
+
+    let target = pathSplit[0];
+    let property = pathSplit[1];
+
+    return {
+      target: target,
+      property: property,
+    };
+  } else if (typeof prop === "object") {
+    parsedProp = resolveProps(prop, extResources, subResources);
   }
 
   return parsedProp;
+}
+
+export function parseKey(key: string): string {
+  const newKey = key.replace(/&|"/g, "");
+  return newKey;
 }
 
 export function resolveProps(
@@ -176,6 +241,7 @@ export function parseTscn(raw: string, projectRoot: string): SceneDef {
     if (node.parent) {
       if (node.parent !== ".") {
         const parent = nodeMap.get(node.parent);
+        console.log("Parent", node.parent, parent, nodeMap);
         if (parent) {
           parent.children.push(node);
         }
@@ -183,10 +249,14 @@ export function parseTscn(raw: string, projectRoot: string): SceneDef {
         rootNode?.children.push(node);
       }
     }
-    
+
     node.props = resolveProps(entity.props, extResources, subResources);
     if (entity.heading.instance) {
-      node.props['instance'] = resolveProp(entity.heading.instance, extResources, subResources);
+      node.props["instance"] = resolveProp(
+        entity.heading.instance,
+        extResources,
+        subResources,
+      );
     }
   }
 

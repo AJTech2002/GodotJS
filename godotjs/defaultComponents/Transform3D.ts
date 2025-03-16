@@ -1,8 +1,10 @@
 import { Matrix4, Vector3, Quaternion, Euler } from "three";
-import { NodeScript as NodeAttachment } from "../nodeComponent";
+import {  NodeAttachment } from "../nodeComponent";
 import { Node3D } from "../node";
 
 export class Transform3D extends NodeAttachment {
+  public rot : EulerProxy;
+
   constructor(gameObject: Node3D, params?: number[]) {
     super(gameObject);
 
@@ -56,18 +58,86 @@ export class Transform3D extends NodeAttachment {
       this.rotation = rotation;
       this.scale = scale;
     }
+
+    this.rot = new EulerProxy(this.rotation);
   }
 
   public position: Vector3 = new Vector3(0,0,0);
   public rotation: Quaternion = new Quaternion(0,0,0,1);
   public scale: Vector3 = new Vector3(1,1,1);
+  
 
-  public get euler(): Euler {
-    return new Euler().setFromQuaternion(this.rotation);
+  public get euler(): EulerProxy {
+    return this.rot;
   }
 
   public set euler(euler: Euler) {
-    this.rotation.setFromEuler(euler);
+    this.rot.set(euler.x, euler.y, euler.z);
+  }
+
+  public update(dt: number): void {
+    this.rot.update();
   }
   
+}
+
+export class EulerProxy {
+
+  private _euler: Euler;
+  private _quaternion: Quaternion;
+
+  constructor(_quaternion: Quaternion) {
+    this._quaternion = _quaternion;
+    this._euler = new Euler().setFromQuaternion(_quaternion);
+  }
+
+  public update() {
+    this._euler = this._euler.setFromQuaternion(this._quaternion);
+  }
+
+  public get x() {
+    return this._euler.x;
+  }
+
+  public set x(x: number) {
+    this._euler.x = x;
+    this._quaternion.setFromEuler(this._euler);
+  }
+
+  public get y() {
+    return this._euler.y;
+  }
+
+  public set y(y: number) {
+    this._euler.y = y;
+    this._quaternion.setFromEuler(this._euler);
+  }
+
+  public get z() {
+    return this._euler.z;
+  }
+
+  public set z(z: number) {
+    this._euler.z = z;
+    this._quaternion.setFromEuler(this._euler);
+  }
+
+  public set(x: number, y: number, z: number) {
+    this._euler.set(x, y, z);
+    this._quaternion.setFromEuler(this._euler);
+  }
+  
+  fromArray(array : number[], offset = 0) {
+    this.x = array[offset];
+    this.y = array[offset + 1];
+    this.z = array[offset + 2];
+    return this;
+  }
+  
+  toArray(array : number[], offset = 0) {
+    array[offset] = this.x;
+    array[offset + 1] = this.y;
+    array[offset + 2] = this.z;
+    return array;
+  }
 }

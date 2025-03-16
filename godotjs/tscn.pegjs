@@ -61,9 +61,13 @@ object_members
     }
 
 object_member
-  = name:(string / name) ws ":" ws value:value {
-      return { name: name, value: value };
+  = key:(string / prefixed_string / name) ws ":" ws value:value {
+      return { name: key, value: value };
     }
+
+// Support for `&"KEY"` syntax in dictionaries
+prefixed_string
+  = "&" string { return text(); }
 
 // Array
 array

@@ -1,3 +1,4 @@
+import { applyProps } from "../parser/parser";
 import { TSCNResource } from "../types";
 import { Resource, resourceTypes } from "./resource";
 import { registerResources } from "./resourceTypes";
@@ -11,11 +12,8 @@ export class ResourceManager {
     let resourceType = resourceDef.type + 'Resource';
     if (resourceTypes.has(resourceType)) {
       const resource = new  (resourceTypes.get(resourceType) as any)(resourceDef);
-      for (const key in resourceDef.props) {
-        if (key in resource) {
-          (resource as any)[key] = resourceDef.props[key];
-        }
-      }
+      console.log("Resource", resource);
+      applyProps(resourceDef.props, resource);
       return resource;
     }
     return resource;

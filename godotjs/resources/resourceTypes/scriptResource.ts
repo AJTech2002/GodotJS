@@ -1,5 +1,5 @@
 import { Resource, ResourceHeading } from "../resource";
-import { componentTypes, NodeScript } from "../../nodeComponent";
+import { componentTypes, NodeAttachment } from "../../nodeComponent";
 import { Node3D } from "../../node";
 
 export class ScriptResource extends Resource {
@@ -22,7 +22,7 @@ export class ScriptResource extends Resource {
     return path.match(/\.([^\.]+)$/)?.[1] || "";
   }
 
-  public createScript(node: Node3D): NodeScript | undefined {
+  public createScript(node: Node3D): NodeAttachment | undefined {
     try {
       if (!this._path) {
         return;

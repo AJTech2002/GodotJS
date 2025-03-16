@@ -1,9 +1,10 @@
 import { NodeDef } from "./types";
-import { componentTypes, NodeScript, registerType } from "./nodeComponent";
-import { Transform3D } from "./defaultComponents/Transform3D";
+import { componentTypes, NodeAttachment, registerType } from "./nodeComponent";
+import { EulerProxy, Transform3D } from "./defaultComponents/Transform3D";
 import { Object3D } from "three/webgpu";
 import * as ResourceTypes from "./resources/resourceTypes/index";
 import { ImportedScene } from "./importedScene";
+import { applyProps } from "./parser/parser";
 
 registerType(Transform3D);
 
@@ -13,7 +14,7 @@ export class Node3D {
 
   // Default properties of a Node
   private _transform!: Transform3D;
-  private _script: NodeScript | undefined;
+  private _script: NodeAttachment | undefined;
   private _props: Record<string, any> = new Map();
 
   public name: string = "Node";
@@ -22,25 +23,37 @@ export class Node3D {
 
   private _ref: Object3D | undefined;
 
-  public scene: ImportedScene | null = null;
+  protected _scene: ImportedScene | null = null;
 
-  constructor(objDef: NodeDef | string | undefined) {
+  constructor(objDef: string, parent?: Node3D) {
     this._transform = new Transform3D(this);
+
+    if (parent) {
+      this.parent = parent;
+    }
+
     if (objDef) {
       if (typeof objDef === "string") {
         this.name = objDef;
         return;
       }
-      
-      this.name = objDef.name;
-      this.enabled = objDef.enabled;
-      this.parse(objDef);
+
+      this.name = objDef;
+      console.log("Node3D", this.name);
     }
   }
 
-  public attach (scene: ImportedScene) {
+  public attach(scene: ImportedScene) {
     scene.add(this.getObject3D());
     this.scene = scene;
+    // set scene for children
+  }
+
+  public set scene(scene: ImportedScene) {
+    this._scene = scene;
+    this.children.forEach((child) => {
+      child.scene = scene;
+    });
   }
 
   public add(child: Node3D) {
@@ -66,18 +79,16 @@ export class Node3D {
     const props = objDef.props;
     this._props = objDef.props;
 
-    for (const key in props) {
-      if (key in this) {
-        (this as any)[key] = props[key];
-      }
-    }
+    applyProps.bind(this)(props, this);
 
     objDef.children.forEach((childDef) => {
       const allComponents = componentTypes;
       const componentType = allComponents.get(childDef.type) as any;
       if (componentType) {
-        const componentInstance = new componentType(childDef) as Node3D;
+        const componentInstance = new componentType(childDef.name, this) as Node3D;
         this.add(componentInstance);
+        
+        componentInstance.parse(childDef);
       }
     });
   }
@@ -98,6 +109,15 @@ export class Node3D {
     return this._transform.position;
   }
 
+
+  public get rotation() : EulerProxy {
+    return this.transform.rot;
+  }
+
+  public get euler() : EulerProxy {
+    return this._transform.euler;
+  }
+
   public get quaternion() {
     return this._transform.rotation;
   }
@@ -105,7 +125,6 @@ export class Node3D {
   public get scale() {
     return this._transform.scale;
   }
-
 
   public set script(value: ResourceTypes.ScriptResource) {
     // this._script = value.createScript(this);
@@ -125,7 +144,7 @@ export class Node3D {
     this._enabled ? this._script?.onEnable() : this._script?.onDisable();
   }
 
-  public getScript<T extends NodeScript>(type: new (gameObject: Node3D) => T) {
+  public getScript<T extends NodeAttachment>(type: new (gameObject: Node3D) => T) {
     if (this._script instanceof type) {
       return this._script as T;
     } else {
@@ -140,8 +159,42 @@ export class Node3D {
     return null;
   }
 
+  public find(path: string, currentNode: any = this): any {
+    if (!path) return null;
+
+    const parts = path.split('/');
+    let node = currentNode;
+
+    for (const part of parts) {
+        if (part === '..') {
+            // Move to the parent node if possible
+            if (node.parent) {
+                node = node.parent;
+            } else {
+                return null; // Parent doesn't exist
+            }
+        } else if (part === '.' || part === '') {
+            // Stay in the current node (ignore)
+            continue;
+        } else {
+            // Search for the child with the given name
+            let found = null;
+            for (let i = 0; i < node.children.length; i++) {
+                if (node.children[i].name === part) {
+                    found = node.children[i];
+                    break;
+                }
+            }
+            if (!found) return null; // If child not found, return null
+            node = found;
+        }
+    }
+
+    return node;
+  }
+
   public findNodeInChildren<T extends Node3D>(
-    type: new (...args: any[]) => T
+    type: new (...args: any[]) => T,
   ): T | null {
     // recursive search
 
@@ -171,7 +224,7 @@ export class Node3D {
   }
   //#endregion
 
-  public getObject3D() : Object3D {
+  public getObject3D(): Object3D {
     if (this._ref === undefined) {
       this.setObject3D(new Object3D());
     }
@@ -189,7 +242,7 @@ export class Node3D {
         this.scene.remove(this._ref);
       }
 
-      if (parent) { 
+      if (parent) {
         parent.remove(this._ref);
       }
     }
@@ -210,7 +263,6 @@ export class Node3D {
 
   public awake() {
     this._script?.awake();
-    
   }
 
   public update(dt: number) {
@@ -224,14 +276,16 @@ export class Node3D {
     }
 
     this._script?.update(dt);
+    this.transform.update(dt);
 
     // apply transform to object3D
     if (this._transform && this._ref) {
       this._ref.position.copy(this._transform.position);
-      this._ref.rotation.copy(this._transform.euler);
+      this._ref.quaternion.copy(this._transform.rotation);
       this._ref.scale.copy(this._transform.scale);
+      this._ref.updateMatrix();
     }
-    
+
 
     for (let i = 0; i < this.children.length; i++) {
       if ((this.children[i] as any).update !== undefined) {
@@ -241,11 +295,14 @@ export class Node3D {
     }
   }
 
+  public lateUpdate(dt: number) {
+    this._script?.lateUpdate(dt);
+  }
+
   public destroy() {
     this._script?.destroy();
   }
 
   protected onEnable() {}
   protected onDisable() {}
-
 }

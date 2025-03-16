@@ -54,17 +54,10 @@ export class PackedSceneResource extends Resource {
     const root = new Node3D(glbScene.scene.name);
     
     const cloned = SkeletonUtils.clone(glbScene.scene);
-    // console.log("Cloned", cloned);
-    
-    // root.add(threeJsToNode(cloned));
 
     for (let i = 0; i < cloned.children.length; i++) {
       root.add(threeJsToNode(cloned.children[i]));
     }
-      
-    // root.setObject3D(SkeletonUtils.clone(glbScene.scene));
-    // root.getObject3D().animations = glbScene.animations;
-
 
     if (glbScene.animations) {
 
@@ -75,9 +68,6 @@ export class PackedSceneResource extends Resource {
         player.root = root;
         root.add(player);
 
-        setTimeout(() => {
-          player.play(glbScene.animations[0].name);
-        },100);
       }
     }
 
@@ -103,14 +93,7 @@ export class PackedSceneResource extends Resource {
       return this.getGlbScene();
     }
     else {
-      return new Node3D({
-        name : "Empty Scene",
-        enabled : true,
-        props : {},
-        children : [],
-        parent : "",
-        type : "Node3D"
-      });
+      return new Node3D("Node");
     }
   }
 
@@ -129,7 +112,6 @@ export class PackedSceneResource extends Resource {
       const gltf = await loader.loadAsync(this._path);
       this.loadedScene = gltf;
       this.loaded = true;
-      console.log("Loaded GLB", gltf);
     }
     catch (e) {
       console.error(e);

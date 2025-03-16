@@ -1,9 +1,5 @@
-res://glb-model-scene.tscn
+res://test-animation.tscn
 res://movement.gd
 res://new_standard_material_3d.tres
 res://RotateCube.gd
-res://simple_scene.tscn
-res://model-scene.tscn
-res://bare-minimum.tscn
-res://anim.tres
-res://test-animation.tscn
+res://fames.tres

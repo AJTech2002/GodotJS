@@ -1,15 +1,40 @@
-[gd_scene load_steps=2 format=3 uid="uid://c785qadg64cui"]
+[gd_scene load_steps=6 format=3 uid="uid://c785qadg64cui"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_oau2p"]
+[ext_resource type="PackedScene" uid="uid://lt77mw02mx5f" path="res://crash_dummy.glb" id="1_e6yri"]
+
+[sub_resource type="Animation" id="Animation_0i8u8"]
+resource_name = "orbit"
+length = 4.0
+
+[sub_resource type="Animation" id="Animation_e6yri"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t1d2t"]
+_data = {
+&"RESET": SubResource("Animation_e6yri"),
+&"orbit": SubResource("Animation_0i8u8")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0i8u8"]
 
 [node name="Test-animation" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.00279)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.6837, 5.16425)
+fov = 36.2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.45008, 0, 0, 0, 0.45008, 0, 0, 0, 0.45008, 0, 0, -1.36336)
-mesh = SubResource("BoxMesh_oau2p")
-skeleton = NodePath("../Camera3D")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_t1d2t")
+}
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MeshInstance3D"]
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_e6yri")]
+transform = Transform3D(4.72323, 0, 0, 0, 4.72323, 0, 0, 0, 4.72323, 0, 3.99416, -2.48123)
+
+[node name="Object_7" parent="Sketchfab_Scene/Sketchfab_model/f5cbfeeb37544aa48dbba5bfd3e5bfdb_fbx/RootNode/root/Object_4/Object_6" index="0"]
+material_override = SubResource("StandardMaterial3D_0i8u8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.372453, -0.928051, 0, 0.928051, 0.372453, 0, 14.3312, -1.38016)
+
+[editable path="Sketchfab_Scene"]

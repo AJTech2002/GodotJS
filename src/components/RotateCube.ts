@@ -1,6 +1,6 @@
-import { NodeScript } from "@godotjs";
+import { NodeAttachment } from "@godotjs";
 
-export default class RotateCube extends NodeScript {
+export default class RotateCube extends NodeAttachment {
   public rotationSpeed = 10;
 
   public awake() {

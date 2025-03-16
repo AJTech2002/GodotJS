@@ -1,12 +1,11 @@
-import { PerspectiveCamera, Camera, Object3D } from "three/webgpu";
+import { PerspectiveCamera, Camera } from "three/webgpu";
 import { Node3D } from "../node";
-import { NodeDef } from "../types";
 
 export class Camera3D extends Node3D {
   private _camera!: Camera;
 
-  constructor(objDef: NodeDef | string | undefined) {
-    super( objDef);
+  constructor(objDef: string, parent?: Node3D) {
+    super(objDef, parent);
     const camera = new PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
@@ -16,10 +15,13 @@ export class Camera3D extends Node3D {
     this.camera = camera;
   }
 
-
   public override awake(): void {
     super.awake();
     console.log("Added camera to scene");
+  }
+
+  public get fov(): number {
+    return this._camera instanceof PerspectiveCamera ? this._camera.fov : 0;
   }
 
   public set fov(fov: number) {

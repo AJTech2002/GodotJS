@@ -6,7 +6,7 @@ export function registerType(type: Function) {
   componentTypes.set(type.name, type);
 }
 
-export class NodeScript {
+export class NodeAttachment {
   public node!: Node3D;
 
   constructor(node?: Node3D, params?: any) {
@@ -23,6 +23,7 @@ export class NodeScript {
   awake() {}
 
   update(dt: number) {}
+  lateUpdate(dt: number) {}
 
   destroy() {}
 

@@ -34,8 +34,9 @@ export class ImportedScene extends THREE.Scene {
         const allComponents = componentTypes;
         const componentType = allComponents.get(gameObject.type) as any;
         if (componentType) {
-          const componentInstance = new componentType(gameObject) as Node3D;
+          const componentInstance = new componentType(gameObject.name) as Node3D;
           this.addNode(componentInstance);
+          (componentInstance as any).parse(gameObject);
         }
       });
 
@@ -60,11 +61,12 @@ export class ImportedScene extends THREE.Scene {
     return null;
   }
 
-  public findObjectsOfType<T extends Node3D>(type: any) {
+  public findNodesOfType<T extends Node3D>(type: any) {
     const nodes: T[] = [];
     for (let i = 0; i < this.nodes.length; i++) {
-      if (this.nodes[i] instanceof type) {
-        nodes.push(this.nodes[i] as T);
+      const found: T | null = this.nodes[i].findNodeInChildren(type);
+      if (found) {
+        nodes.push(found);
       }
     }
     return nodes;
@@ -111,6 +113,10 @@ export class ImportedScene extends THREE.Scene {
     }
 
     super.onBeforeRender(renderer, scene, camera, geometry, material, group);
+  
+    for (let i = 0; i < this.nodes.length; i++) {
+      this.nodes[i].lateUpdate(this._deltaTime);
+    }
   }
 
   onAfterRender(

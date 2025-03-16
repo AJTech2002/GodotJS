@@ -1,8 +1,10 @@
-import { string } from "three/tsl";
-import {Node3D} from "../node";
+import { Node3D } from "../node";
 import { AnimationClip, AnimationMixer } from "three";
+import {
+  AnimationLibraryResource,
+} from "../resources/resourceTypes";
+import { parseKey } from "../parser/parser";
 export class AnimationPlayer extends Node3D {
-  
   private _animations: AnimationClip[] = [];
   private _animationsMap: Map<string, AnimationClip> = new Map();
 
@@ -12,13 +14,22 @@ export class AnimationPlayer extends Node3D {
   private animationMixer: AnimationMixer | undefined;
   private _currentAnimation: AnimationClip | undefined;
 
-  constructor(objDef: string | undefined) {
-    super(objDef);
+  private _libraryMap: Map<string, AnimationLibraryResource> = new Map();
+  private _libraries: AnimationLibraryResource[] = [];
+
+  constructor(objDef?: any, parent?: Node3D) {
+    super(objDef, parent);
+
+    // If no root - then apply to render graph
     this.animationMixer = new AnimationMixer(this.getObject3D());
+    
+
+    if (this.parent) this.root = this.parent; // By default, the root is the parent
   }
 
   public override awake(): void {
     super.awake();
+    console.log(this.parent);
   }
 
   public set animations(animations: AnimationClip[]) {
@@ -49,7 +60,41 @@ export class AnimationPlayer extends Node3D {
   public set root(root: Node3D) {
     this._root = root;
     this.animationMixer = new AnimationMixer(root as any);
-    console.log("Animation Root", root);
+  }
+
+  public set_root_node(node_path: {
+    target: string
+  }) {
+    this.root = this.find(node_path.target);
+    console.log(this.root);
+  } 
+  
+  public set libraries(val: Record<string, AnimationLibraryResource>) {
+    
+    this._libraryMap.clear();
+    this._libraries = [];
+
+    for (const key in val) {
+      const library = val[key];
+      this._libraryMap.set(parseKey(key), library);
+      this._libraries.push(library);
+    }
+
+    this.updateAnimations();
+  }
+
+  private updateAnimations() {
+    // loop through all Libraries
+    let allClips: AnimationClip[] = [];
+
+    this._libraries.forEach((library) => {
+      library.animations.forEach((animation) => {
+        if (animation.clip.tracks.length === 0) return;
+        allClips.push(animation.clip);
+      });
+    });
+    
+    this.animations = allClips;
   }
 
   public get root(): Node3D | undefined {
@@ -58,7 +103,6 @@ export class AnimationPlayer extends Node3D {
 
   public play(_animation: string | number) {
     if (this.animationMixer) {
-
       if (typeof _animation === "string") {
         const animation = this._animationsMap.get(_animation);
         if (animation) {
@@ -66,12 +110,10 @@ export class AnimationPlayer extends Node3D {
           this._currentAnimation = animation;
           this.animationMixer.clipAction(animation).play();
         }
-      }
-      else if (typeof _animation === "number") {
+      } else if (typeof _animation === "number") {
         this.animationMixer.stopAllAction();
         this._currentAnimation = this._animations[_animation];
-        this.animationMixer.clipAction(this._animations[_animation])
-        .play();
+        this.animationMixer.clipAction(this._animations[_animation]).play();
       }
     }
   }
