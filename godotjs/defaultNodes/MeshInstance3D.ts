@@ -34,7 +34,7 @@ export class MeshInstance3D extends Node3D {
   }
 
   public set material_override(material: MaterialResource) {
-    this._material = material.getMaterial() as MeshStandardMaterial;
+    this._material = material.getMaterial();
     console.log("Material Override", this._material);
     if (this._mesh) {
       this._mesh.material = this._material;
@@ -43,6 +43,7 @@ export class MeshInstance3D extends Node3D {
 
   public set mesh3D(mesh: Mesh) {
     this._mesh = mesh;
+    console.log("Mesh Override", this._mesh, this._mesh.material);
     this.setObject3D(this._mesh);
   }
 

@@ -163,7 +163,8 @@ export async function parseTscn(raw: string, projectRoot: string): Promise<Scene
   let rootNode: NodeDef | undefined;
   // First pass - assign nodes and ext_resources
   if (mainScene) {
-    mainScene.content.entities.forEach((entity) => {
+    for (let i = 0; i < mainScene.content.entities.length; i++) {
+      const entity = mainScene.content.entities[i];
       if (entity.type === "node") {
         const node: NodeDef = {
           name: entity.heading.name!,
@@ -228,28 +229,33 @@ export async function parseTscn(raw: string, projectRoot: string): Promise<Scene
         );
 
         if (entity.type === "ext_resource") {
+          const resource = resourceManager.createExtResource(resourceDef);
           extResources.set(
             resourceDef.id,
-            resourceManager.createExtResource(resourceDef),
+            resource,
           );
           resources.push(resourceDef);
+          await resourceManager.loadResource(
+            resource
+          );
         } else if (entity.type === "sub_resource") {
+          const resource = resourceManager.createSubResource(resourceDef);
           subResources.set(
             resourceDef.id,
-            resourceManager.createSubResource(resourceDef),
+            resource,
           );
           resources.push(resourceDef);
+          await resourceManager.loadResource(
+            resource
+          );
         }
       }
-    });
+    }
   }
 
   if (!rootNode) {
     throw new Error("Root node not found");
   }
-
-  await resourceManager.loadResources([...extResources.values()]);
-  await resourceManager.loadResources([...subResources.values()]);
 
   let rootNode3D : Node3D | undefined = undefined;
 

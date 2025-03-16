@@ -1,8 +1,9 @@
+DirectionalLight3D
+WorldEnvironment
 AnimationPlayer
 MeshInstance3D
 Camera3D
 Node3D
-DirectionalLight3D
 AnimatedSprite3D
 SpotLight3D
 CSGBox3D
