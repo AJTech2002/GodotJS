@@ -1,9 +1,11 @@
 import { BoxGeometry, BufferGeometry, CapsuleGeometry, Mesh, PlaneGeometry, Vector2, Vector3 } from 'three';
 import { Resource } from '../resource';
-import { QuadMesh } from 'three/webgpu';
+import { Material, MeshStandardMaterial, QuadMesh, SphereGeometry } from 'three/webgpu';
+import { MaterialResource } from './materialResource';
 
 export class MeshResource extends Resource {
   public type: string = 'Mesh';
+  private _material : Material = new MeshStandardMaterial();
 
   constructor(resourceDef: any) {
     super(resourceDef);
@@ -11,6 +13,14 @@ export class MeshResource extends Resource {
 
   public getGeometry() : BufferGeometry {
     return new BufferGeometry();
+  }
+
+  public getMaterial() : Material {
+    return this._material;
+  }
+
+  public set material(material: MaterialResource) {
+    this._material = material.getMaterial();
   }
 
 }
@@ -76,6 +86,35 @@ export class CapsuleMeshResource extends MeshResource {
 
   public getGeometry() : BufferGeometry {
     return new CapsuleGeometry(this._radius, this._height/2, undefined, this._radialSegments);
+  }
+
+}
+
+export class SphereMeshResource extends MeshResource {
+  public type: string = 'SphereMesh';
+
+  private _radius: number = 0.5;
+  private _widthSegments: number = 16;
+  private _heightSegments: number = 12;
+
+  constructor(resourceDef: any) {
+    super(resourceDef);
+  }
+
+  public set radius(value: number) {
+    this._radius = value;
+  }
+
+  public set radialSegments(value: number) {
+    this._widthSegments = value;
+  }
+
+  public set heightSegments(value: number) {
+    this._heightSegments = value;
+  }
+
+  public getGeometry() : BufferGeometry {
+    return new SphereGeometry(this._radius, this._widthSegments, this._heightSegments);
   }
 
 }

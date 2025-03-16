@@ -1,4 +1,4 @@
-res://test-animation.tscn
+res://test-materials.tscn
 res://movement.gd
 res://new_standard_material_3d.tres
 res://RotateCube.gd

@@ -1,43 +1,83 @@
 import * as THREE from "three";
 import { Node3D } from "./node";
-import { componentTypes } from "./nodeComponent";
+import {  registerType } from "./nodeComponent";
 import { SceneDef } from "./types";
 import { Camera3D } from "./defaultNodes";
-import { Transform3D } from "./defaultComponents/Transform3D";
 import { ResourceManager } from "./resources/resourceManager";
+import { parseTscn } from "./parser/parser";
+import { registerResource } from "./resources/resource";
 
 export const resourceManager = new ResourceManager();
 
-export class ImportedScene extends THREE.Scene {
-  private def: SceneDef;
+export class GodotScene extends THREE.Scene {
+
+  private sceneFile: string | undefined;
+  private rawScene: string | undefined;
+  private godotRoot: string;
+  
   public nodes: Node3D[];
 
-  constructor(def: SceneDef) {
+  /**
+   * Constructs an instance of the imported scene.
+   * 
+   * @param godotRoot - The root directory of the Godot project in the public folder.
+   * @param sceneFileRelativePath - The relative path to the scene file within the Godot project .
+   * @param supportedComponents - An optional array of component constructors to be registered.
+   * @param supportedResources - An optional array of resource constructors to be registered.
+   * @example
+   * ```typescript
+   * const scene = new GodotScene("godot", "scenes/MainScene.tscn", [CustomComponentA], [CustomResourceB, CustomResourceC]);
+   * scene.load();
+   * ```
+   */
+  constructor(godotRoot: string, sceneFileRelativePath: string | undefined, sceneRaw: string | undefined, supportedComponents?: Function[], supportedResources?: Function[]) {
     super();
-    this.def = def;
+
+    if (supportedComponents)
+      for (let i = 0; i < supportedComponents.length; i++) {
+        registerType(supportedComponents[i]);
+      }
+
+    if (supportedResources)
+      for (let i = 0; i < supportedResources.length; i++) {
+        registerResource(supportedResources[i]);
+      }
+
+    this.sceneFile = sceneFileRelativePath;
+    this.rawScene = sceneRaw;
+    this.godotRoot = godotRoot;
     this.nodes = [];
   }
 
   public async load() {
-    await resourceManager.loadResources(this.def.resources);
-    this.parse();
+    // fetch the scene file
+    try {
+
+      if (!this.rawScene) {
+        const response = await fetch(this.godotRoot+"/"+this.sceneFile)
+        const data = await response.text();
+        this.rawScene = data;
+        console.log("Scene Data", {"data": data});
+      }
+
+      const def = await parseTscn(this.rawScene, this.godotRoot);
+      this.loadFromDef(def);
+    }
+    catch (e) {
+      console.error("Error loading scene", e);
+    }
   }
+
 
   public addNode(node: Node3D) {
     this.nodes.push(node);
     node.attach(this);
   }
 
-  private parse() {
-    if (this.def && this.def.nodes)
-      this.def.nodes.forEach((gameObject) => {
-        const allComponents = componentTypes;
-        const componentType = allComponents.get(gameObject.type) as any;
-        if (componentType) {
-          const componentInstance = new componentType(gameObject.name) as Node3D;
-          this.addNode(componentInstance);
-          (componentInstance as any).parse(gameObject);
-        }
+  private loadFromDef(def: SceneDef) {
+    if (def && def.nodes)
+      def.nodes.forEach((gameObject) => {
+        this.addNode(gameObject);
       });
 
     this.updateMatrixWorld(true);
@@ -64,9 +104,9 @@ export class ImportedScene extends THREE.Scene {
   public findNodesOfType<T extends Node3D>(type: any) {
     const nodes: T[] = [];
     for (let i = 0; i < this.nodes.length; i++) {
-      const found: T | null = this.nodes[i].findNodeInChildren(type);
+      const found: T[] | null = this.nodes[i].findNodesInChildren(type);
       if (found) {
-        nodes.push(found);
+        nodes.push(...found);
       }
     }
     return nodes;
@@ -81,8 +121,16 @@ export class ImportedScene extends THREE.Scene {
     return null;
   }
 
+  private _activeCamera: THREE.Camera | undefined;
+
   public get activeCamera(): THREE.Camera | undefined {
+
+    if (this._activeCamera) {
+      return this._activeCamera;
+    }
+
     const camera = this.findNodeOfType<Camera3D>(Camera3D);
+    this._activeCamera = camera?.camera;
     return camera?.camera;
   }
 

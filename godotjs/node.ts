@@ -3,7 +3,7 @@ import { componentTypes, NodeAttachment, registerType } from "./nodeComponent";
 import { EulerProxy, Transform3D } from "./defaultComponents/Transform3D";
 import { Object3D } from "three/webgpu";
 import * as ResourceTypes from "./resources/resourceTypes/index";
-import { ImportedScene } from "./importedScene";
+import { GodotScene } from "./importedScene";
 import { applyProps } from "./parser/parser";
 
 registerType(Transform3D);
@@ -23,7 +23,7 @@ export class Node3D {
 
   private _ref: Object3D | undefined;
 
-  protected _scene: ImportedScene | null = null;
+  protected _scene: GodotScene | null = null;
 
   constructor(objDef: string, parent?: Node3D) {
     this._transform = new Transform3D(this);
@@ -43,13 +43,13 @@ export class Node3D {
     }
   }
 
-  public attach(scene: ImportedScene) {
+  public attach(scene: GodotScene) {
     scene.add(this.getObject3D());
     this.scene = scene;
     // set scene for children
   }
 
-  public set scene(scene: ImportedScene) {
+  public set scene(scene: GodotScene) {
     this._scene = scene;
     this.children.forEach((child) => {
       child.scene = scene;
@@ -73,24 +73,6 @@ export class Node3D {
       }
       this.getObject3D().remove(child.getObject3D());
     }
-  }
-
-  private parse(objDef: NodeDef) {
-    const props = objDef.props;
-    this._props = objDef.props;
-
-    applyProps.bind(this)(props, this);
-
-    objDef.children.forEach((childDef) => {
-      const allComponents = componentTypes;
-      const componentType = allComponents.get(childDef.type) as any;
-      if (componentType) {
-        const componentInstance = new componentType(childDef.name, this) as Node3D;
-        this.add(componentInstance);
-        
-        componentInstance.parse(childDef);
-      }
-    });
   }
 
   public get props() {
@@ -127,11 +109,7 @@ export class Node3D {
   }
 
   public set script(value: ResourceTypes.ScriptResource) {
-    // this._script = value.createScript(this);
-  }
-
-  public set instance(value: ResourceTypes.PackedSceneResource) {
-    this.add(value.scene);
+    this._script = value.createScript(this);
   }
 
   public get enabled() {
@@ -180,7 +158,8 @@ export class Node3D {
             // Search for the child with the given name
             let found = null;
             for (let i = 0; i < node.children.length; i++) {
-                if (node.children[i].name === part) {
+                //TODO: We check for `_` in case the name is different in the scene file (GLB Parser can change the name)
+                if (node.children[i].name === part || node.children[i].name === part.replace('_', '')) {
                     found = node.children[i];
                     break;
                 }
@@ -216,6 +195,34 @@ export class Node3D {
       }
     }
     return null;
+  }
+
+
+  public findNodesInChildren<T extends Node3D>(
+    type: new (...args: any[]) => T,
+    foundArr: T[] = [],
+  ): T[] | null {
+    // recursive search
+
+    if (this instanceof type) {
+      foundArr.push(this as T);
+    }
+
+    for (let i = 0; i < this.children.length; i++) {
+      if (this.children[i] instanceof type) {
+        foundArr.push( this.children[i] as T );
+      } else {
+        if (this.children[i] instanceof Node3D) {
+          const child = this.children[i] as Node3D;
+          const found: T[] | null = child.findNodesInChildren(type);
+          if (found) {
+            foundArr.push(...found);
+          }
+        }
+      }
+    }
+
+    return foundArr;
   }
 
   public removeComponent() {
@@ -276,7 +283,6 @@ export class Node3D {
     }
 
     this._script?.update(dt);
-    this.transform.update(dt);
 
     // apply transform to object3D
     if (this._transform && this._ref) {
@@ -296,6 +302,7 @@ export class Node3D {
   }
 
   public lateUpdate(dt: number) {
+    this.transform.update(dt);
     this._script?.lateUpdate(dt);
   }
 

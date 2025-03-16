@@ -1,6 +1,7 @@
-import { Vector2, Vector3 } from "three";
+import { Color, Vector2, Vector3 } from "three";
 import { resourceManager } from "../importedScene";
 import { Resource } from "../resources/resource";
+import { PackedSceneResource } from "../resources/resourceTypes/packedSceneResource.js";
 import {
   NodeDef,
   SceneDef,
@@ -11,6 +12,8 @@ import {
   TSCNScene,
 } from "../types";
 import * as parser from "../tscn.js";
+import { Node3D } from "../node.js";
+import { componentTypes } from "../nodeComponent.js";
 
 export function applyProps(props: Record<string, any>, target: any) {
   for (const key in props) {
@@ -96,7 +99,17 @@ export function resolveProp(
       target: target,
       property: property,
     };
-  } else if (typeof prop === "object") {
+  } 
+  else if (prop.type === "Color") {
+    const color = prop.params as number[];
+    parsedProp = {
+      r: color[0],
+      g: color[1],
+      b: color[2],
+      a: color[3],
+    };
+  }
+  else if (typeof prop === "object") {
     parsedProp = resolveProps(prop, extResources, subResources);
   }
 
@@ -136,16 +149,17 @@ function parseTscnText(text: string): TSCNScene {
 }
 
 // Parse TSCN Godot scene file into a SceneDef object
-export function parseTscn(raw: string, projectRoot: string): SceneDef {
+export async function parseTscn(raw: string, projectRoot: string): Promise<SceneDef> {
   const mainScene = parseTscnText(raw);
-  console.log("Main Scene", mainScene);
-  const nodes: NodeDef[] = [];
+  const nodes: NodeDef[] = []; // Definition of nodes
   const entities: TSCNEntity[] = []; // Index linked to nodes
+  const node3Ds: Node3D[] = []; // Instance of Node3D
 
   const nodeMap = new Map<string, NodeDef>(); // Map Node Path to NodeDef
-  const extResources = new Map<string, Resource>(); // Map Resource ID to Resource
-  const subResources = new Map<string, Resource>(); // Map Resource ID to Resource
-
+  const resources: TSCNResource[] = [];
+  const extResources = new Map<string, Resource>();
+  const subResources = new Map<string, Resource>();
+  console.log("Main Scene", mainScene);
   let rootNode: NodeDef | undefined;
   // First pass - assign nodes and ext_resources
   if (mainScene) {
@@ -156,7 +170,6 @@ export function parseTscn(raw: string, projectRoot: string): SceneDef {
           parent: entity.heading.parent,
           type: entity.heading.type ?? "Node3D",
           enabled: true,
-          children: [],
           props: {},
         };
 
@@ -219,11 +232,13 @@ export function parseTscn(raw: string, projectRoot: string): SceneDef {
             resourceDef.id,
             resourceManager.createExtResource(resourceDef),
           );
+          resources.push(resourceDef);
         } else if (entity.type === "sub_resource") {
           subResources.set(
             resourceDef.id,
             resourceManager.createSubResource(resourceDef),
           );
+          resources.push(resourceDef);
         }
       }
     });
@@ -233,37 +248,65 @@ export function parseTscn(raw: string, projectRoot: string): SceneDef {
     throw new Error("Root node not found");
   }
 
+  await resourceManager.loadResources([...extResources.values()]);
+  await resourceManager.loadResources([...subResources.values()]);
+
+  let rootNode3D : Node3D | undefined = undefined;
+
   // Second pass - assign components, resources and children
   for (let i = 0; i < nodes.length; i++) {
     let node = nodes[i];
     let entity = entities[i];
-
-    if (node.parent) {
-      if (node.parent !== ".") {
-        const parent = nodeMap.get(node.parent);
-        console.log("Parent", node.parent, parent, nodeMap);
-        if (parent) {
-          parent.children.push(node);
-        }
-      } else {
-        rootNode?.children.push(node);
-      }
-    }
+    let parentPath : string | undefined = node.parent;
+    
 
     node.props = resolveProps(entity.props, extResources, subResources);
+    let instance : any | undefined; 
+
+    // Handle instance swapping here
     if (entity.heading.instance) {
-      node.props["instance"] = resolveProp(
+      const instanced_scene : PackedSceneResource = resolveProp(
         entity.heading.instance,
         extResources,
         subResources,
       );
+
+      instance = instanced_scene.scene;
+      instance.name = node.name;
+    }
+
+    let nodeInstance = componentTypes.get(node.type) as any;
+    if (nodeInstance) {
+
+      const parentNode : Node3D | undefined = rootNode3D?.find(parentPath ?? ".");
+
+      if (parentNode?.find(node.name)) {
+        instance = parentNode?.find(node.name);
+      }
+
+      if (instance === undefined) {
+        instance = new nodeInstance(node.name, parentNode);
+      }
+
+      instance._props = node.props; // This is used to store the props for scripts
+      applyProps(node.props, instance);
+      parentNode?.add(instance);
+
+      node3Ds.push(instance);
+
+      if (rootNode === node) {
+        rootNode3D = instance;
+      }
     }
   }
 
-  console.log("Scene Def", { nodes: nodes });
+  console.log("Scene Def", {
+    nodes: [rootNode3D as Node3D],
+    resources: [...extResources.values(), ...subResources.values()],
+  });
 
   return {
-    nodes: [...rootNode.children],
+    nodes: [rootNode3D as Node3D],
     resources: [...extResources.values(), ...subResources.values()],
   };
 }

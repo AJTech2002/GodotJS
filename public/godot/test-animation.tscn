@@ -66,29 +66,15 @@ transform = Transform3D(1.65277, -0.816005, 0.271347, 0.853993, 1.6265, -0.31038
 mesh = SubResource("BoxMesh_0i8u8")
 skeleton = NodePath("../..")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D/MeshInstance3D"]
+[node name="AnimationPlayerRoot" type="AnimationPlayer" parent="Node3D/MeshInstance3D"]
 libraries = {
 &"": SubResource("AnimationLibrary_613v7")
 }
 speed_scale = 0.2
 
-[node name="Node3D2" type="Node3D" parent="."]
-transform = Transform3D(1.82267, 0, 0, 0, 1.82267, 0, 0, 0, 1.82267, 7.49195, 8.93186, -13.5901)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D2"]
-transform = Transform3D(0.859204, 0.266233, -0.262823, -0.329962, 0.849552, -0.218116, 0.176298, 0.292522, 0.872661, 0, -2, 0)
-mesh = SubResource("BoxMesh_0i8u8")
-skeleton = NodePath("../..")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D2/MeshInstance3D"]
-libraries = {
-&"": SubResource("AnimationLibrary_613v7")
-}
-speed_scale = -0.3
-
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.6837, 5.16425)
-fov = 36.2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000255585, 11.6997, 5.15937)
+fov = 22.6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D"]
 libraries = {
@@ -103,5 +89,36 @@ material_override = SubResource("StandardMaterial3D_0i8u8")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.372453, -0.928051, 0, 0.928051, 0.372453, 0, 14.3312, -1.38016)
+
+[node name="Node3D3" type="Node3D" parent="."]
+transform = Transform3D(1.82267, 0, 0, 0, 1.82267, 0, 0, 0, 1.82267, 0, 0, 0)
+
+[node name="Node3D2" type="Node3D" parent="Node3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.11042, 7.14723, -7.45613)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D3/Node3D2"]
+transform = Transform3D(0.859204, 0.266233, -0.262823, -0.329962, 0.849552, -0.218116, 0.176298, 0.292522, 0.872661, 0, -2, 0)
+mesh = SubResource("BoxMesh_0i8u8")
+skeleton = NodePath("../../..")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Node3D3/Node3D2/MeshInstance3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_613v7")
+}
+speed_scale = -0.3
+
+[node name="Node3D4" type="Node3D" parent="Node3D3"]
+transform = Transform3D(0.54312, 0, 0, 0, 0.54312, 0, 0, 0, 0.54312, 1.08694, 8.93949, -7.66066)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D3/Node3D4"]
+transform = Transform3D(0.412801, -0.433361, 0.721097, 0.653625, 0.67091, 0.0290241, -0.529677, 0.490169, 0.5978, 0, -2, 0)
+mesh = SubResource("BoxMesh_0i8u8")
+skeleton = NodePath("../../..")
+
+[node name="AnimationPlayer4" type="AnimationPlayer" parent="Node3D3/Node3D4/MeshInstance3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_613v7")
+}
+speed_scale = 0.1
 
 [editable path="Sketchfab_Scene"]

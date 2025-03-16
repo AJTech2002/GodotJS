@@ -42,6 +42,7 @@ export class ScriptResource extends Resource {
       const script = new scriptType(node);
 
       if (script !== undefined) {
+        console.log("Script created", script, node.props);
         const props = node.props;
         for (const key in props) {
           if (Object.prototype.hasOwnProperty.call(script, key)) {

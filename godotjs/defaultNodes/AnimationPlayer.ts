@@ -29,7 +29,6 @@ export class AnimationPlayer extends Node3D {
 
   public override awake(): void {
     super.awake();
-    console.log(this.parent);
   }
 
   public set animations(animations: AnimationClip[]) {
@@ -66,7 +65,6 @@ export class AnimationPlayer extends Node3D {
     target: string
   }) {
     this.root = this.find(node_path.target);
-    console.log(this.root);
   } 
   
   public set libraries(val: Record<string, AnimationLibraryResource>) {

@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1742146499
+::res://::1742153624
 248259.png::CompressedTexture2D/CompressedTexture2D::8354395485703154351::1742074666::1742075014::1::::<><><>0<>0<>617611811e37090915733b939b2e6dc4<>res://.godot/imported/248259.png-181bea6b021ca9ff71a0fb92bf6b926d.s3tc.ctex::
 anim.tres::Animation/Animation::4261370944468249280::1742030036::0::1::::<><><>0<>0<><>::
 bare-minimum.tscn::PackedScene/PackedScene::294446440151998415::1742016971::0::1::::<><><>0<>0<><>::
@@ -13,19 +13,20 @@ crash_dummy_0.png::CompressedTexture2D/CompressedTexture2D::5099420774510969658:
 crash_dummy_1.png::CompressedTexture2D/CompressedTexture2D::757155759307415750::1742103853::1742103855::1::::<><><>0<>0<>9c5e8a3e53894570f782ea866d4d5598<>res://.godot/imported/crash_dummy_1.png-8640aca4d392b0f392681f25c5d53845.s3tc.ctex::
 crash_dummy_2.png::CompressedTexture2D/CompressedTexture2D::7276711404630512932::1742103853::1742103855::1::::<><><>0<>0<>ae111e3ae8505fa61166ba8374a1b6e5<>res://.godot/imported/crash_dummy_2.png-5e282956e8061f8c8ca9cd030ec56cb3.s3tc.ctex::
 crash_dummy_3.png::CompressedTexture2D/CompressedTexture2D::7439602010902355900::1742103853::1742103855::1::::<><><>0<>0<>261b2f1c96e17e0c61b4dedd861f1904<>res://.godot/imported/crash_dummy_3.png-98947abf9e49500779977276115eb999.s3tc.ctex::
-fames.tres::SpriteFrames::6185166776572798824::1742084102::0::1::::<><><>0<>0<><>::uid://dra6w5b3ntlcx::::res://248259.png
+fames.tres::SpriteFrames/SpriteFrames::6185166776572798824::1742084102::0::1::::<><><>0<>0<><>::uid://dra6w5b3ntlcx::::res://248259.png
 glb-model-scene.tscn::PackedScene/PackedScene::5795558195126697691::1742032246::0::1::::<><><>0<>0<><>::uid://bxkebn2883x3k::::res://Catdance Model (1).glb<>uid://b85krtjn2unoe::::res://simple-anim.glb<>uid://dxrtk0kw1wth1::::res://CesiumMan.glb<>uid://c8k20p6ftv1gy::::res://simple-skele-anim.glb
 icon.svg::CompressedTexture2D/CompressedTexture2D::3425421660095183905::1741547575::1741547578::1::::<><><>0<>0<>19239d3b2c056c59b936369c4190b04c<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 model-scene.tscn::PackedScene/PackedScene::671910472852029306::1742008315::0::1::::<><><>0<>0<><>::
-movement.gd::GDScript::3895249726901355180::1742083394::0::1::::<>MeshInstance3D<><>0<>0<><>::
+movement.gd::GDScript::3895249726901355180::1742146536::0::1::::<>MeshInstance3D<><>0<>0<><>::
 new_box_shape_3d.tres::BoxShape3D/BoxShape3D::2969312945759612286::1741785267::0::1::::<><><>0<>0<><>::
 new_shader_material.tres::ShaderMaterial/ShaderMaterial::7750664340255466583::1742079884::0::1::::<><><>0<>0<><>::
 new_standard_material_3d.material::StandardMaterial3D/StandardMaterial3D::2837518529262177036::1742079884::0::1::::<><><>0<>0<><>::
-new_standard_material_3d.tres::StandardMaterial3D::3117280378526968103::1742083365::0::1::::<><><>0<>0<><>::
+new_standard_material_3d.tres::StandardMaterial3D::3117280378526968103::1742146510::0::1::::<><><>0<>0<><>::
 RiggedSimple.glb::PackedScene/PackedScene::4762923152612960139::1741999701::1742008384::1::::<><><>0<>0<>e672d1ba04721c9cc6d5d8ced2a0e400<>res://.godot/imported/RiggedSimple.glb-836103b7437f35e0b098cf7f10c5dee6.scn::uid://b1yiflljn6e5m::::res://anim.tres
-RotateCube.gd::GDScript::5458369411776792259::1742083394::0::1::::<>MeshInstance3D<><>0<>0<><>::
+RotateCube.gd::GDScript::5458369411776792259::1742146536::0::1::::<>MeshInstance3D<><>0<>0<><>::
 simple-anim.glb::PackedScene/PackedScene::4765222397268446532::1741993697::1741993703::1::::<><><>0<>0<>fdd22cc8cae3930d54921762ff7127df<>res://.godot/imported/simple-anim.glb-2f0179820c38833157ee252c6dc25f47.scn::
 simple-skele-anim.glb::PackedScene/PackedScene::7111401824626797700::1741998465::1741998470::1::::<><><>0<>0<>b1c5fae11395713fd51f8bd1dc3f61a3<>res://.godot/imported/simple-skele-anim.glb-d3b69d6c774f7e0befe217429b92e812.scn::
 simple_scene.tscn::PackedScene/PackedScene::3209333625741347920::1742014788::0::1::::<><><>0<>0<><>::uid://bvq5gufafmn5m::::res://movement.gd<>uid://cj1csua3u0q1h::::res://RotateCube.gd<>uid://bkobfgfxs6er4::::res://new_standard_material_3d.tres<>uid://bikmfd4dy455c::::res://new_box_shape_3d.tres
-test-animation.tscn::PackedScene::7088858917122278288::1742111905::0::1::::<><><>0<>0<><>::uid://lt77mw02mx5f::::res://crash_dummy.glb
+test-animation.tscn::PackedScene::7088858917122278288::1742153257::0::1::::<><><>0<>0<><>::uid://lt77mw02mx5f::::res://crash_dummy.glb
+test-materials.tscn::PackedScene::2171933780508203490::1742153603::0::1::::<><><>0<>0<><>::
 test-model.fbx::PackedScene/PackedScene::8449732112671145413::1741940697::1741940699::1::::<><><>0<>0<>b651a65f27f53d472612f33a93b69397<>res://.godot/imported/test-model.fbx-1ae0fa5574145416807b1a1aee5caed0.scn::

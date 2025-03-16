@@ -1,5 +1,6 @@
 import { Color, Quaternion, Vector3 } from "three";
 import { Resource } from "./resources/resource";
+import { Node3D } from "./node";
 
 export type EntityType =
   | "gd_scene"
@@ -68,11 +69,10 @@ export interface NodeDef {
   type: string;
   parent?: string;
   enabled: boolean;
-  children: NodeDef[];
   props: Record<string, TSCNProp | any>;
 }
 
 export interface SceneDef {
-  nodes: NodeDef[];
+  nodes: Node3D[];
   resources: Resource[];
 }

@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://57doxo7tseas"]
+
+[ext_resource type="Texture2D" uid="uid://nou00yhik7xi" path="res://Catdance Model (1)_Window.png" id="1_ki167"]
+[ext_resource type="Script" uid="uid://cj1csua3u0q1h" path="res://RotateCube.gd" id="2_3uvhu"]
+[ext_resource type="PackedScene" uid="uid://lt77mw02mx5f" path="res://crash_dummy.glb" id="3_26bws"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5enp8"]
+albedo_color = Color(0.812195, 2.40654e-06, 0.484877, 1)
+albedo_texture = ExtResource("1_ki167")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3uvhu"]
+albedo_color = Color(0.145098, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5enp8"]
+material = SubResource("StandardMaterial3D_3uvhu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_26bws"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fgcj3"]
+albedo_color = Color(0.0628385, 0.0663168, 0.0580341, 1)
+
+[node name="Test-materials" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.249, 0)
+
+[node name="Sphere1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.371553, 0, 0, 0, 0.371553, 0, 0, 0, 0.371553, -2.05155, -0.00776625, -1.75795)
+material_override = SubResource("StandardMaterial3D_5enp8")
+mesh = SubResource("SphereMesh_5enp8")
+script = ExtResource("2_3uvhu")
+
+[node name="Sphere2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.382391, 0, 0, 0, 0.382391, 0, 0, 0, 0.382391, -0.633605, 0.639477, -1.30325)
+mesh = SubResource("SphereMesh_5enp8")
+script = ExtResource("2_3uvhu")
+
+[node name="Sphere3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.354165, 0, 0, 0, 0.354165, 0, 0, 0, 0.354165, 1.07254, 0, -1.66387)
+material_override = SubResource("StandardMaterial3D_26bws")
+mesh = SubResource("SphereMesh_5enp8")
+script = ExtResource("2_3uvhu")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("3_26bws")]
+transform = Transform3D(2.17525, 0, 0, 0, 2.17525, 0, 0, 0, 2.17525, 0, -3.328, -1)
+
+[node name="Object_7" parent="Sketchfab_Scene/Sketchfab_model/f5cbfeeb37544aa48dbba5bfd3e5bfdb_fbx/RootNode/root/Object_4/Object_6" index="0"]
+material_override = SubResource("StandardMaterial3D_fgcj3")
+
+[editable path="Sketchfab_Scene"]

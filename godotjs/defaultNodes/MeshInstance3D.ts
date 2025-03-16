@@ -1,10 +1,11 @@
-import { Mesh, MeshStandardMaterial } from "three";
+import { Material, Mesh, MeshStandardMaterial } from "three";
 import { Node3D } from "../node";
 import { MeshResource } from "../resources/resourceTypes";
+import { MaterialResource } from "../resources/resourceTypes/materialResource";
 
 export class MeshInstance3D extends Node3D {
   protected _mesh?: Mesh;
-  protected _material?: MeshStandardMaterial;
+  protected _material?: Material;
 
   public override awake(): void {
     
@@ -23,10 +24,21 @@ export class MeshInstance3D extends Node3D {
   }
 
   public set mesh(meshResource: MeshResource) {
-    const material = new MeshStandardMaterial();
-    this._material = material;
-    this._mesh = new Mesh(meshResource.getGeometry(), material);
+
+    if (this._material === undefined) {
+      this._material = meshResource.getMaterial();
+    }
+
+    this._mesh = new Mesh(meshResource.getGeometry(), this._material);
     this.setObject3D(this._mesh);
+  }
+
+  public set material_override(material: MaterialResource) {
+    this._material = material.getMaterial() as MeshStandardMaterial;
+    console.log("Material Override", this._material);
+    if (this._mesh) {
+      this._mesh.material = this._material;
+    }
   }
 
   public set mesh3D(mesh: Mesh) {
