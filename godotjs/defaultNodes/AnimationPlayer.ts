@@ -46,14 +46,14 @@ export class AnimationPlayer extends Node3D {
     return this._animations;
   }
 
-  public set speedScale(speedScale: number) {
+  public set speed_scale(speedScale: number) {
     this._speedScale = speedScale;
     if (this.animationMixer) {
       this.animationMixer.timeScale = speedScale;
     }
   }
 
-  public get speedScale(): number {
+  public get speed_scale(): number {
     return this._speedScale;
   }
 

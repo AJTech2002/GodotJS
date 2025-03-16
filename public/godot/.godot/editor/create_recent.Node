@@ -1,8 +1,8 @@
-DirectionalLight3D
-AnimationPlayer
-AnimatedSprite3D
 Node3D
+AnimationPlayer
 MeshInstance3D
+DirectionalLight3D
+AnimatedSprite3D
 Camera3D
 SpotLight3D
 CSGBox3D

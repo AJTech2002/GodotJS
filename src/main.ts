@@ -36,7 +36,6 @@ scene.add(directionalLight);
 
 const animPlayer : AnimationPlayer[] = scene.findNodesOfType<AnimationPlayer>(AnimationPlayer);
 animPlayer.forEach((player) => {
-  console.log("Playing animation", player.animations, player.parent?.name);
   if (player.animations.length > 0)
   player.play(1);
 });

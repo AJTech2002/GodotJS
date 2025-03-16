@@ -1,13 +1,52 @@
-[gd_scene load_steps=6 format=3 uid="uid://c785qadg64cui"]
+[gd_scene load_steps=10 format=3 uid="uid://c785qadg64cui"]
 
 [ext_resource type="PackedScene" uid="uid://lt77mw02mx5f" path="res://crash_dummy.glb" id="1_e6yri"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0i8u8"]
+
+[sub_resource type="Animation" id="Animation_t1d2t"]
+resource_name = "bob"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -2, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kdyew"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -2, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_613v7"]
+_data = {
+&"RESET": SubResource("Animation_kdyew"),
+&"bob": SubResource("Animation_t1d2t")
+}
+
+[sub_resource type="Animation" id="Animation_e6yri"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_0i8u8"]
 resource_name = "orbit"
 length = 4.0
-
-[sub_resource type="Animation" id="Animation_e6yri"]
-length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t1d2t"]
 _data = {
@@ -18,6 +57,34 @@ _data = {
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0i8u8"]
 
 [node name="Test-animation" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1.82267, 0, 0, 0, 1.82267, 0, 0, 0, 1.82267, -7.76044, 12.5562, -13.8972)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1.65277, -0.816005, 0.271347, 0.853993, 1.6265, -0.310388, -0.100943, 0.399725, 1.81691, 0, -2, 0)
+mesh = SubResource("BoxMesh_0i8u8")
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D/MeshInstance3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_613v7")
+}
+speed_scale = 0.2
+
+[node name="Node3D2" type="Node3D" parent="."]
+transform = Transform3D(1.82267, 0, 0, 0, 1.82267, 0, 0, 0, 1.82267, 7.49195, 8.93186, -13.5901)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D2"]
+transform = Transform3D(0.859204, 0.266233, -0.262823, -0.329962, 0.849552, -0.218116, 0.176298, 0.292522, 0.872661, 0, -2, 0)
+mesh = SubResource("BoxMesh_0i8u8")
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D2/MeshInstance3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_613v7")
+}
+speed_scale = -0.3
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.6837, 5.16425)

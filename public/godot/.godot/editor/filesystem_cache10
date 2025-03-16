@@ -1,31 +1,31 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1742103852
+::res://::1742146499
 248259.png::CompressedTexture2D/CompressedTexture2D::8354395485703154351::1742074666::1742075014::1::::<><><>0<>0<>617611811e37090915733b939b2e6dc4<>res://.godot/imported/248259.png-181bea6b021ca9ff71a0fb92bf6b926d.s3tc.ctex::
-anim.tres::Animation::4261370944468249280::1742030036::0::1::::<><><>0<>0<><>::
-bare-minimum.tscn::PackedScene::294446440151998415::1742016971::0::1::::<><><>0<>0<><>::
+anim.tres::Animation/Animation::4261370944468249280::1742030036::0::1::::<><><>0<>0<><>::
+bare-minimum.tscn::PackedScene/PackedScene::294446440151998415::1742016971::0::1::::<><><>0<>0<><>::
 Catdance Model (1).glb::PackedScene/PackedScene::4021653244731281646::1741690361::1741690363::1::::<><><>0<>0<>f5a8c80e52c5baa9ecb20a35a03f58f0<>res://.godot/imported/Catdance Model (1).glb-e852ba30dec59eb1abe14a42cddc6210.scn::uid://d0b1i7vadgrey::::res://Catdance Model (1)_Catdance0000.png<>uid://nou00yhik7xi::::res://Catdance Model (1)_Window.png
 Catdance Model (1)_Catdance0000.png::CompressedTexture2D/CompressedTexture2D::8917642161139701764::1741690361::1741690363::1::::<><><>0<>0<>647387af9118eba460d01f209e66176c<>res://.godot/imported/Catdance Model (1)_Catdance0000.png-a4e91791d6f7af891edf6f4b65f4d5cd.s3tc.ctex::
 Catdance Model (1)_Window.png::CompressedTexture2D/CompressedTexture2D::942616591042438598::1741690362::1741690363::1::::<><><>0<>0<>a1fa781bc3268ec1fbcf355a00fdcf3d<>res://.godot/imported/Catdance Model (1)_Window.png-10a95a57ed39d2d786fedf9b5a848733.s3tc.ctex::
 CesiumMan.glb::PackedScene/PackedScene::8809872686941684708::1742021126::1742021127::1::::<><><>0<>0<>21fdfb7ed7b7fe81f038dd81f1e23b29<>res://.godot/imported/CesiumMan.glb-04be71d007713d5409d8fc6798e796f0.scn::uid://cg7edvldh0rd7::::res://CesiumMan_0.jpg
 CesiumMan_0.jpg::CompressedTexture2D/CompressedTexture2D::5260283862826954402::1742021126::1742021127::1::::<><><>0<>0<>9b417590caec7dce1afb48f99488f5b9<>res://.godot/imported/CesiumMan_0.jpg-d39b46e69977d91561322cfac377cf92.s3tc.ctex::
-crash_dummy.glb::PackedScene::813301211957340301::1742103852::1742103855::1::::<><><>0<>0<>e32d75647340d1107f2eb23e4ac34fab<>res://.godot/imported/crash_dummy.glb-70b074545f6ff9100dc087131c04e11b.scn::uid://cewgykxeunu87::::res://crash_dummy_0.png<>uid://k11ik6a15hgo::::res://crash_dummy_1.png<>uid://dbw5mx8v8ei8s::::res://crash_dummy_2.png<>uid://dd82fm4d1ewpg::::res://crash_dummy_3.png
+crash_dummy.glb::PackedScene/PackedScene::813301211957340301::1742103852::1742103855::1::::<><><>0<>0<>e32d75647340d1107f2eb23e4ac34fab<>res://.godot/imported/crash_dummy.glb-70b074545f6ff9100dc087131c04e11b.scn::uid://cewgykxeunu87::::res://crash_dummy_0.png<>uid://k11ik6a15hgo::::res://crash_dummy_1.png<>uid://dbw5mx8v8ei8s::::res://crash_dummy_2.png<>uid://dd82fm4d1ewpg::::res://crash_dummy_3.png
+crash_dummy_0.png::CompressedTexture2D/CompressedTexture2D::5099420774510969658::1742103853::1742103855::1::::<><><>0<>0<>3e7d9a3dcbdbc58d96d00e12350d5d24<>res://.godot/imported/crash_dummy_0.png-4d7bb43a32476cea3c4eaec7cf1a97b2.s3tc.ctex::
+crash_dummy_1.png::CompressedTexture2D/CompressedTexture2D::757155759307415750::1742103853::1742103855::1::::<><><>0<>0<>9c5e8a3e53894570f782ea866d4d5598<>res://.godot/imported/crash_dummy_1.png-8640aca4d392b0f392681f25c5d53845.s3tc.ctex::
+crash_dummy_2.png::CompressedTexture2D/CompressedTexture2D::7276711404630512932::1742103853::1742103855::1::::<><><>0<>0<>ae111e3ae8505fa61166ba8374a1b6e5<>res://.godot/imported/crash_dummy_2.png-5e282956e8061f8c8ca9cd030ec56cb3.s3tc.ctex::
+crash_dummy_3.png::CompressedTexture2D/CompressedTexture2D::7439602010902355900::1742103853::1742103855::1::::<><><>0<>0<>261b2f1c96e17e0c61b4dedd861f1904<>res://.godot/imported/crash_dummy_3.png-98947abf9e49500779977276115eb999.s3tc.ctex::
 fames.tres::SpriteFrames::6185166776572798824::1742084102::0::1::::<><><>0<>0<><>::uid://dra6w5b3ntlcx::::res://248259.png
-glb-model-scene.tscn::PackedScene::5795558195126697691::1742032246::0::1::::<><><>0<>0<><>::uid://bxkebn2883x3k::::res://Catdance Model (1).glb<>uid://b85krtjn2unoe::::res://simple-anim.glb<>uid://dxrtk0kw1wth1::::res://CesiumMan.glb<>uid://c8k20p6ftv1gy::::res://simple-skele-anim.glb
+glb-model-scene.tscn::PackedScene/PackedScene::5795558195126697691::1742032246::0::1::::<><><>0<>0<><>::uid://bxkebn2883x3k::::res://Catdance Model (1).glb<>uid://b85krtjn2unoe::::res://simple-anim.glb<>uid://dxrtk0kw1wth1::::res://CesiumMan.glb<>uid://c8k20p6ftv1gy::::res://simple-skele-anim.glb
 icon.svg::CompressedTexture2D/CompressedTexture2D::3425421660095183905::1741547575::1741547578::1::::<><><>0<>0<>19239d3b2c056c59b936369c4190b04c<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
-model-scene.tscn::PackedScene::671910472852029306::1742008315::0::1::::<><><>0<>0<><>::
+model-scene.tscn::PackedScene/PackedScene::671910472852029306::1742008315::0::1::::<><><>0<>0<><>::
 movement.gd::GDScript::3895249726901355180::1742083394::0::1::::<>MeshInstance3D<><>0<>0<><>::
 new_box_shape_3d.tres::BoxShape3D/BoxShape3D::2969312945759612286::1741785267::0::1::::<><><>0<>0<><>::
-new_shader_material.tres::ShaderMaterial::7750664340255466583::1742079884::0::1::::<><><>0<>0<><>::
-new_standard_material_3d.material::StandardMaterial3D::2837518529262177036::1742079884::0::1::::<><><>0<>0<><>::
+new_shader_material.tres::ShaderMaterial/ShaderMaterial::7750664340255466583::1742079884::0::1::::<><><>0<>0<><>::
+new_standard_material_3d.material::StandardMaterial3D/StandardMaterial3D::2837518529262177036::1742079884::0::1::::<><><>0<>0<><>::
 new_standard_material_3d.tres::StandardMaterial3D::3117280378526968103::1742083365::0::1::::<><><>0<>0<><>::
-crash_dummy_0.png::CompressedTexture2D::5099420774510969658::1742103853::1742103855::1::::<><><>0<>0<>3e7d9a3dcbdbc58d96d00e12350d5d24<>res://.godot/imported/crash_dummy_0.png-4d7bb43a32476cea3c4eaec7cf1a97b2.s3tc.ctex::
-crash_dummy_1.png::CompressedTexture2D::757155759307415750::1742103853::1742103855::1::::<><><>0<>0<>9c5e8a3e53894570f782ea866d4d5598<>res://.godot/imported/crash_dummy_1.png-8640aca4d392b0f392681f25c5d53845.s3tc.ctex::
-crash_dummy_2.png::CompressedTexture2D::7276711404630512932::1742103853::1742103855::1::::<><><>0<>0<>ae111e3ae8505fa61166ba8374a1b6e5<>res://.godot/imported/crash_dummy_2.png-5e282956e8061f8c8ca9cd030ec56cb3.s3tc.ctex::
-crash_dummy_3.png::CompressedTexture2D::7439602010902355900::1742103853::1742103855::1::::<><><>0<>0<>261b2f1c96e17e0c61b4dedd861f1904<>res://.godot/imported/crash_dummy_3.png-98947abf9e49500779977276115eb999.s3tc.ctex::
 RiggedSimple.glb::PackedScene/PackedScene::4762923152612960139::1741999701::1742008384::1::::<><><>0<>0<>e672d1ba04721c9cc6d5d8ced2a0e400<>res://.godot/imported/RiggedSimple.glb-836103b7437f35e0b098cf7f10c5dee6.scn::uid://b1yiflljn6e5m::::res://anim.tres
 RotateCube.gd::GDScript::5458369411776792259::1742083394::0::1::::<>MeshInstance3D<><>0<>0<><>::
 simple-anim.glb::PackedScene/PackedScene::4765222397268446532::1741993697::1741993703::1::::<><><>0<>0<>fdd22cc8cae3930d54921762ff7127df<>res://.godot/imported/simple-anim.glb-2f0179820c38833157ee252c6dc25f47.scn::
 simple-skele-anim.glb::PackedScene/PackedScene::7111401824626797700::1741998465::1741998470::1::::<><><>0<>0<>b1c5fae11395713fd51f8bd1dc3f61a3<>res://.godot/imported/simple-skele-anim.glb-d3b69d6c774f7e0befe217429b92e812.scn::
-simple_scene.tscn::PackedScene::3209333625741347920::1742014788::0::1::::<><><>0<>0<><>::uid://bvq5gufafmn5m::::res://movement.gd<>uid://cj1csua3u0q1h::::res://RotateCube.gd<>uid://bkobfgfxs6er4::::res://new_standard_material_3d.tres<>uid://bikmfd4dy455c::::res://new_box_shape_3d.tres
-test-animation.tscn::PackedScene::7088858917122278288::1742101137::0::1::::<><><>0<>0<><>::uid://bxkebn2883x3k::::res://Catdance Model (1).glb
+simple_scene.tscn::PackedScene/PackedScene::3209333625741347920::1742014788::0::1::::<><><>0<>0<><>::uid://bvq5gufafmn5m::::res://movement.gd<>uid://cj1csua3u0q1h::::res://RotateCube.gd<>uid://bkobfgfxs6er4::::res://new_standard_material_3d.tres<>uid://bikmfd4dy455c::::res://new_box_shape_3d.tres
+test-animation.tscn::PackedScene::7088858917122278288::1742111905::0::1::::<><><>0<>0<><>::uid://lt77mw02mx5f::::res://crash_dummy.glb
 test-model.fbx::PackedScene/PackedScene::8449732112671145413::1741940697::1741940699::1::::<><><>0<>0<>b651a65f27f53d472612f33a93b69397<>res://.godot/imported/test-model.fbx-1ae0fa5574145416807b1a1aee5caed0.scn::
