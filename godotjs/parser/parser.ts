@@ -89,25 +89,11 @@ export function resolveProp(
     parsedProp = new Float32Array(prop.params);
   } else if (prop.type === "NodePath") {
     let path = prop.params[0];
-
-    let pathSplit = path.split(":");
-
-    let target = pathSplit[0];
-    let property = pathSplit[1];
-
-    return {
-      target: target,
-      property: property,
-    };
+    parsedProp = path;
   } 
   else if (prop.type === "Color") {
     const color = prop.params as number[];
-    parsedProp = {
-      r: color[0],
-      g: color[1],
-      b: color[2],
-      a: color[3],
-    };
+    parsedProp = color;
   }
   else if (typeof prop === "object") {
     parsedProp = resolveProps(prop, extResources, subResources);

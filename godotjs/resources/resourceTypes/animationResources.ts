@@ -17,15 +17,10 @@ export enum TrackType {
   VALUE = "value",
 }
 
-export interface TrackPath {
-  target: string;
-  property: string;
-}
-
 export class Track {
   private _type: TrackType = TrackType.VALUE;
   private _enabled: boolean = true;
-  private _path: TrackPath = { target: "", property: "" };
+  private _path: string;
   private _interp: number = 1;
   private _loop_wrap: boolean = false;
   private _keys: Record<string, any> = {};
@@ -50,11 +45,14 @@ export class Track {
     return this._enabled;
   }
 
-  public set path(path: TrackPath) {
-    this._path = path;
+  public set path(path: string) {
+    // replace all .: with .
+    this._path = path.replace(/\.:/g, ".");
+    // replace all : with .
+    this._path = this._path.replace(/:/g, ".");
   }
 
-  public get path(): TrackPath {
+  public get path(): string {
     return this._path;
   }
 
@@ -133,33 +131,33 @@ export class Track {
 
     if (values.length === 0) {
       console.warn("No values for keyframeTrack", this._path);
-      return new KeyframeTrack(this._path.target + this._path.property, [], []);
+      return new KeyframeTrack(this._path, [], []);
     }
 
     if (values[0] instanceof Vector3) {
       this._keyframeTrack = new VectorKeyframeTrack(
-        this._path.target + this._path.property,
+        this._path,
         times,
         this.parseValues(values),
         interpolationMode,
       );
     } else if (values[0] instanceof Quaternion) {
       this._keyframeTrack = new VectorKeyframeTrack(
-        this._path.target + this._path.property,
+        this._path,
         times,
         this.parseValues(values),
         interpolationMode,
       );
     } else if (typeof values[0] === "boolean") {
       this._keyframeTrack = new BooleanKeyframeTrack(
-        this._path.target + this._path.property,
+        this._path,
         times,
         this.parseValues(values),
       );
     }
     else {
       this._keyframeTrack = new KeyframeTrack(
-        this._path.target + this._path.property,
+        this._path,
         times,
         this.parseValues(values),
         interpolationMode,

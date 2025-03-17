@@ -12,6 +12,7 @@ import { ScriptResource } from "./scriptResource";
 import { MaterialResource, StandardMaterial3DResource } from "./materialResource";
 import { TextureResource, Texture2DResource } from "./textureResource";
 
+
 export * from "./meshResources";
 export * from "./scriptResource";
 export * from "./packedSceneResource";

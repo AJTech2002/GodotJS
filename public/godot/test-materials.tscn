@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://57doxo7tseas"]
+[gd_scene load_steps=11 format=3 uid="uid://57doxo7tseas"]
 
 [ext_resource type="Script" uid="uid://cj1csua3u0q1h" path="res://RotateCube.gd" id="2_3uvhu"]
 [ext_resource type="PackedScene" uid="uid://lt77mw02mx5f" path="res://crash_dummy.glb" id="3_26bws"]
@@ -29,11 +29,46 @@ material = SubResource("StandardMaterial3D_3uvhu")
 transparency = 1
 albedo_color = Color(0.0352941, 0.0392157, 0.0352941, 1)
 albedo_texture = ExtResource("3_bv2ha")
-metallic = 1.0
-metallic_specular = 1.0
-roughness = 0.0
-clearcoat_enabled = true
+metallic = 0.3
+metallic_specular = 0.7
+roughness = 0.4
 clearcoat = 0.0
+
+[sub_resource type="Animation" id="Animation_fgcj3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material_override:metallic")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.3]
+}
+
+[sub_resource type="Animation" id="Animation_26bws"]
+resource_name = "material_animations"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material_override:metallic")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.3, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fgcj3"]
+_data = {
+&"RESET": SubResource("Animation_fgcj3"),
+&"material_animations": SubResource("Animation_26bws")
+}
 
 [node name="Test-materials" type="Node3D"]
 
@@ -41,11 +76,14 @@ clearcoat = 0.0
 transform = Transform3D(1, 0, 0, 0, 0.999836, 0.0181155, 0, -0.0181155, 0.999836, 0.572483, 0.172281, -2.96094)
 
 [node name="Sphere16" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.32063, 0.0439531, -0.143866, 0.0388237, 0.351413, 0.0208365, 0.145334, 0.00309287, -0.322957, 1.21004, 0.236037, -3.86168)
+transform = Transform3D(-0.32063, 0.0439531, -0.143866, 0.0388237, 0.351413, 0.0208365, 0.145334, 0.00309287, -0.322957, 1.53964, 0.236037, -3.87311)
 material_override = SubResource("StandardMaterial3D_26bws")
 mesh = SubResource("SphereMesh_5enp8")
 script = ExtResource("2_3uvhu")
 rotationSpeed = 0.4
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Sphere16"]
+light_energy = 3.333
 
 [node name="Sketchfab_Scene" parent="." instance=ExtResource("3_26bws")]
 transform = Transform3D(2.17525, 0, 0, 0, 2.17525, 0, 0, 0, 2.17525, 0.000247002, -3.45565, 0.126138)
@@ -56,7 +94,16 @@ transform = Transform3D(0.00925871, 0, 0, 0, 2.05585e-18, 0.00925871, 0, -0.0092
 [node name="Object_7" parent="Sketchfab_Scene/Sketchfab_model/f5cbfeeb37544aa48dbba5bfd3e5bfdb_fbx/RootNode/root/Object_4/Object_6" index="0"]
 material_override = SubResource("StandardMaterial3D_fgcj3")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sketchfab_Scene/Sketchfab_model/f5cbfeeb37544aa48dbba5bfd3e5bfdb_fbx/RootNode/root/Object_4/Object_6/Object_7" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_fgcj3")
+}
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.531628, 0)
+light_color = Color(0, 0.573203, 0.94447, 1)
+light_energy = 11.476
+light_indirect_energy = 0.913
+light_volumetric_fog_energy = 0.0
 
 [editable path="Sketchfab_Scene"]

@@ -23,9 +23,9 @@ export class StandardMaterial3DResource extends MaterialResource {
     super(resourceDef);
   }
 
-  public set albedo_color(value: { r: number, g: number, b: number, a: number }) {
-    this._material.color = new Color(value.r, value.g, value.b);
-    this._material.opacity = value.a;
+  public set albedo_color(value: [number, number, number, number]) {
+    this._material.color = new Color(value[0], value[1], value[2]);
+    this._material.opacity = value[3];
   }
 
   public set albedo_texture(value: Texture2DResource) {
@@ -38,14 +38,29 @@ export class StandardMaterial3DResource extends MaterialResource {
     this._material.metalness = value;
   }
 
+  public set metallic (value: number) {
+    this._material.metalness = value;
+    console.log("Metallic", value);
+  }
+
+  public get metallic () {
+    return this._material.metalness;
+  }
+
   public set_transparency(value: number) {
     if (value === 1) {
       this._material.transparent = true;
     }
   }
 
-  public set_emission(value: { r: number, g: number, b: number, a: number }) {
-    this._material.emissive = new Color(value.r, value.g, value.b);
+  public set_emission(value: [number, number, number, number]) {
+    this._material.emissive = new Color(value[0], value[1], value[2]);
+  }
+
+  public set emission (value: [number, number, number, number]) {
+    // this._material.emissive = new Color(value[0], value[1], value[2]);
+    // this._material.emissiveIntensity = value[3];
+    console.log("Emission", value);
   }
 
   public set_emission_energy_multiplier(value: number) {

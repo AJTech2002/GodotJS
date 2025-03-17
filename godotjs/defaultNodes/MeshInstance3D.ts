@@ -7,6 +7,9 @@ export class MeshInstance3D extends Node3D {
   protected _mesh?: Mesh;
   protected _material?: Material;
 
+  // keep this here for animation purposes
+  private material_override: MaterialResource;
+
   public override awake(): void {
     
   }
@@ -33,9 +36,9 @@ export class MeshInstance3D extends Node3D {
     this.setObject3D(this._mesh);
   }
 
-  public set material_override(material: MaterialResource) {
+  public set_material_override(material: MaterialResource) {
     this._material = material.getMaterial();
-    console.log("Material Override", this._material);
+    this.material_override = material;
     if (this._mesh) {
       this._mesh.material = this._material;
     }

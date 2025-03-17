@@ -1,7 +1,7 @@
 import { NodeAttachment } from "@godotjs";
 
 export default class RotateCube extends NodeAttachment {
-  public rotationSpeed = 10;
+  public rotationSpeed = 0;
   private randomOffset = Math.random() * 1000;
   private startPostion = this.node.position.clone();
 

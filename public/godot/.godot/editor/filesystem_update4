@@ -1,9 +1,3 @@
 res://test-materials.tscn
 res://movement.gd
 res://new_standard_material_3d.tres
-res://RotateCube.gd
-res://simple_scene.tscn
-res://model-scene.tscn
-res://glb-model-scene.tscn
-res://bare-minimum.tscn
-res://test-animation.tscn

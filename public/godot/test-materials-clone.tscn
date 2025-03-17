@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0kgxjxke3xvt"]
+[gd_scene load_steps=12 format=3 uid="uid://c0kgxjxke3xvt"]
 
 [ext_resource type="Texture2D" uid="uid://nou00yhik7xi" path="res://Catdance Model (1)_Window.png" id="1_htak1"]
 [ext_resource type="Texture2D" uid="uid://dd82fm4d1ewpg" path="res://crash_dummy_3.png" id="2_frn4c"]
@@ -41,6 +41,8 @@ metallic_specular = 1.0
 roughness = 0.0
 clearcoat_enabled = true
 clearcoat = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_htak1"]
 
 [node name="Test-materials" type="Node3D"]
 
@@ -156,7 +158,434 @@ transform = Transform3D(0.00925871, 0, 0, 0, 2.05585e-18, 0.00925871, 0, -0.0092
 [node name="Object_7" parent="Sketchfab_Scene/Sketchfab_model/f5cbfeeb37544aa48dbba5bfd3e5bfdb_fbx/RootNode/root/Object_4/Object_6" index="0"]
 material_override = SubResource("StandardMaterial3D_fgcj3")
 
+[node name="Node3D" type="Node3D" parent="Sketchfab_Scene/Sketchfab_model/f5cbfeeb37544aa48dbba5bfd3e5bfdb_fbx/RootNode" index="1"]
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.531628, 0)
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 6.89393, 0, 0, 0, 2.44045, -14.3987, 0, -21.5448)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube3" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, -6.59562, 0, -16.3319)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.44533, 0, 0, 0, 9.11058, 0, 0, 0, 1.44533, -0.811698, -2.53932, -17.5148)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.44533, 0, 0, 0, 9.11058, 0, 0, 0, 1.44533, 1.21325, 0.308973, -17.1539)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube5" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, 0.350818, 0, -25.8414)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.25245)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube4" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, -10.6642, 0, -21.5448)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube9" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 6.89393, 0, 0, 0, 2.44045, -4.59969, 0, -21.5448)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube10" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, 3.20336, 0, -16.3319)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube11" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.44533, 0, 0, 0, 9.11058, 0, 0, 0, 1.44533, 8.98729, -2.53932, -17.5148)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube12" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.44533, 0, 0, 0, 9.11058, 0, 0, 0, 1.44533, 11.0122, 0.308973, -17.1539)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube13" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, 10.1498, 0, -25.8414)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube14" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.79899, 0, 3.25245)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube15" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, -0.86518, 0, -21.5448)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube17" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 6.89393, 0, 0, 0, 2.44045, 6.80553, 0, -21.5448)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube18" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, 14.6086, 0, -16.3319)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube19" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.44533, 0, 0, 0, 9.11058, 0, 0, 0, 1.44533, 20.3925, -2.53932, -17.5148)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube20" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.44533, 0, 0, 0, 9.11058, 0, 0, 0, 1.44533, 22.4175, 0.308973, -17.1539)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube21" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, 21.555, 0, -25.8414)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube22" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.2042, 0, 3.25245)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube23" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, 10.54, 0, -21.5448)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube25" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 6.89393, 0, 0, 0, 2.44045, 20.1543, 0, -21.5448)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube26" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, 27.9573, 0, -16.3319)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube27" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.44533, 0, 0, 0, 9.11058, 0, 0, 0, 1.44533, 33.7412, -2.53932, -17.5148)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube28" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.44533, 0, 0, 0, 9.11058, 0, 0, 0, 1.44533, 35.7662, 0.308973, -17.1539)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube29" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, 34.9038, 0, -25.8414)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube30" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5529, 0, 3.25245)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube31" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, 23.8888, 0, -21.5448)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube33" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 6.89393, 0, 0, 0, 2.44045, -30.2292, 0, -21.5448)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube34" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, -22.4262, 0, -16.3319)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube35" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.44533, 0, 0, 0, 9.11058, 0, 0, 0, 1.44533, -16.6423, -2.53932, -17.5148)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube36" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.44533, 0, 0, 0, 9.11058, 0, 0, 0, 1.44533, -14.6173, 0.308973, -17.1539)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube37" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, -15.4798, 0, -25.8414)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube38" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.8306, 0, 3.25245)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube39" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.44045, 0, 0, 0, 15.3833, 0, 0, 0, 2.44045, -26.4947, 0, -21.5448)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube2" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 12.527, 0, 0, 0, 2.44045, -24.4524, 0.260349, -48.5316)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube16" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, -13.8295, 0.260349, -43.3186)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube32" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96764, 0, 0, 0, 16.5549, 0, 0, 0, 1.44533, -5.95543, -4.35388, -44.5015)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube40" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96764, 0, 0, 0, 16.5549, 0, 0, 0, 1.44533, -3.19873, 0.821788, -44.1407)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube41" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, -4.37282, 0.260349, -52.8282)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube42" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.36137, 0, 0, 0, 1.81711, 0, 0, 0, 1, -4.85041, 0.260349, -23.7343)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube43" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, -19.3683, 0.260349, -48.5316)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube44" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 12.527, 0, 0, 0, 2.44045, -11.1123, 0.260349, -48.5316)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube45" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, -0.489436, 0.260349, -43.3186)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube46" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96764, 0, 0, 0, 16.5549, 0, 0, 0, 1.44533, 7.38464, -4.35388, -44.5015)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube47" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96764, 0, 0, 0, 16.5549, 0, 0, 0, 1.44533, 10.1414, 0.821788, -44.1407)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube48" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, 8.96726, 0.260349, -52.8282)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube49" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.36137, 0, 0, 0, 1.81711, 0, 0, 0, 1, 8.48967, 0.260349, -23.7343)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube50" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, -6.02824, 0.260349, -48.5316)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube51" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 12.527, 0, 0, 0, 2.44045, 4.41445, 0.260349, -48.5316)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube52" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, 15.0373, 0.260349, -43.3186)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube53" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96764, 0, 0, 0, 16.5549, 0, 0, 0, 1.44533, 22.9114, -4.35388, -44.5015)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube54" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96764, 0, 0, 0, 16.5549, 0, 0, 0, 1.44533, 25.6681, 0.821788, -44.1407)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube55" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, 24.494, 0.260349, -52.8282)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube56" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.36137, 0, 0, 0, 1.81711, 0, 0, 0, 1, 24.0164, 0.260349, -23.7343)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube57" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, 9.49851, 0.260349, -48.5316)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube58" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 12.527, 0, 0, 0, 2.44045, 22.5871, 0.260349, -48.5316)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube59" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, 33.2099, 0.260349, -43.3186)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube60" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96764, 0, 0, 0, 16.5549, 0, 0, 0, 1.44533, 41.084, -4.35388, -44.5015)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube61" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96764, 0, 0, 0, 16.5549, 0, 0, 0, 1.44533, 43.8407, 0.821788, -44.1407)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube62" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, 42.6666, 0.260349, -52.8282)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube63" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.36137, 0, 0, 0, 1.81711, 0, 0, 0, 1, 42.189, 0.260349, -23.7343)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube64" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, 27.6711, 0.260349, -48.5316)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube65" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 12.527, 0, 0, 0, 2.44045, -46.0037, 0.260349, -48.5316)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube66" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, -35.3808, 0.260349, -43.3186)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube67" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96764, 0, 0, 0, 16.5549, 0, 0, 0, 1.44533, -27.5067, -4.35388, -44.5015)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube68" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.96764, 0, 0, 0, 16.5549, 0, 0, 0, 1.44533, -24.75, 0.821788, -44.1407)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube69" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, -25.9241, 0.260349, -52.8282)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube70" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.36137, 0, 0, 0, 1.81711, 0, 0, 0, 1, -26.4017, 0.260349, -23.7343)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube71" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.32236, 0, 0, 0, 27.9531, 0, 0, 0, 2.44045, -40.9196, 0.260349, -48.5316)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
+script = ExtResource("3_8cema")
+
+[node name="Cube24" type="MeshInstance3D" parent="."]
+transform = Transform3D(195.472, 0, 0, 0, 0.1, 0, 0, 0, 188.112, 21.2042, -3.45562, 0)
+mesh = SubResource("BoxMesh_htak1")
+skeleton = NodePath("../Sphere16")
 
 [editable path="Sketchfab_Scene"]
