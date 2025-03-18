@@ -9,6 +9,7 @@ import {
   VectorKeyframeTrack,
   BooleanKeyframeTrack,
   AnimationClip,
+  QuaternionKeyframeTrack,
 } from "three";
 import { Resource } from "../resource";
 import { parseKey } from "../../parser/parser";
@@ -44,12 +45,20 @@ export class Track {
   public get enabled(): boolean {
     return this._enabled;
   }
-
   public set path(path: string) {
     // replace all .: with .
     this._path = path.replace(/\.:/g, ".");
     // replace all : with .
     this._path = this._path.replace(/:/g, ".");
+
+    // take the final and make it a property if there are more than one, a.b[c]
+    let split = this._path.split(".");
+    if (split.length > 2) {
+      let last = split.pop();
+      this._path = split.join(".");
+      this._path = this._path + "[" + last + "]";
+    }
+    
   }
 
   public get path(): string {
@@ -92,12 +101,22 @@ export class Track {
 
     const firstValue = values[0];
     let flattenedValues;
+    // check if array
+    if (Array.isArray(firstValue)) {
+      const merged = [];
+      for (let i = 0; i < values.length; i++) {
+        merged.push(...this.parseValues(values[i]));
+      }
+      flattenedValues = merged;
+      return flattenedValues;
+    } 
 
     if (firstValue instanceof Vector3) {
       flattenedValues = values.flatMap((v: Vector3) => [v.x, v.y, v.z]);
     } else if (firstValue instanceof Quaternion) {
       flattenedValues = values.flatMap((q: Quaternion) => [q.x, q.y, q.z, q.w]);
-    } else if (typeof firstValue === "number") {
+    }
+    else if (typeof firstValue === "number") {
       flattenedValues = values;
     } else {
       flattenedValues = values;
@@ -142,7 +161,7 @@ export class Track {
         interpolationMode,
       );
     } else if (values[0] instanceof Quaternion) {
-      this._keyframeTrack = new VectorKeyframeTrack(
+      this._keyframeTrack = new QuaternionKeyframeTrack(
         this._path,
         times,
         this.parseValues(values),
@@ -156,10 +175,11 @@ export class Track {
       );
     }
     else {
+      const parsedValues = this.parseValues(values);
       this._keyframeTrack = new KeyframeTrack(
         this._path,
         times,
-        this.parseValues(values),
+        new Float32Array(parsedValues),
         interpolationMode,
       );
     }

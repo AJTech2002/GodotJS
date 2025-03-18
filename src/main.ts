@@ -9,8 +9,8 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 // import SceneFile from "../public/godot/simple_scene.tscn?raw";
 // import SceneFile from "../public/godot/bare-minimum.tscn?raw";
 // import SceneFile from "../public/godot/test-animation.tscn?raw";
-// import SceneFile from "../public/godot/test-materials.tscn?raw";
-import SceneFile from "../public/godot/test-materials-clone.tscn?raw";
+import SceneFile from "../public/godot/test-materials.tscn?raw";
+// import SceneFile from "../public/godot/test-materials-clone.tscn?raw";
 
 import { WebGLRenderer } from "three";
 import RotateCube from "./components/RotateCube";

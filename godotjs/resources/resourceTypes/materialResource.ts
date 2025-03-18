@@ -25,7 +25,9 @@ export class StandardMaterial3DResource extends MaterialResource {
 
   public set albedo_color(value: [number, number, number, number]) {
     this._material.color = new Color(value[0], value[1], value[2]);
-    this._material.opacity = value[3];
+    if (value.length === 4) {
+      this._material.opacity = value[3];
+    }
   }
 
   public set albedo_texture(value: Texture2DResource) {
@@ -40,7 +42,6 @@ export class StandardMaterial3DResource extends MaterialResource {
 
   public set metallic (value: number) {
     this._material.metalness = value;
-    console.log("Metallic", value);
   }
 
   public get metallic () {
