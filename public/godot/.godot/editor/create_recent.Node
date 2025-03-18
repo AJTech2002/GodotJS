@@ -1,6 +1,6 @@
+AnimationPlayer
 MeshInstance3D
 Node3D
-AnimationPlayer
 OmniLight3D
 PointLight2D
 DirectionalLight3D

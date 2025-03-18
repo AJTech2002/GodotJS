@@ -27,81 +27,84 @@ material = SubResource("StandardMaterial3D_3uvhu")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fgcj3"]
 transparency = 1
-albedo_color = Color(1, 0.0392157, 0.0352941, 1)
+albedo_color = Color(0.13871, 0.0054396, 0.00489563, 1)
 albedo_texture = ExtResource("3_bv2ha")
 metallic = 0.3
 metallic_specular = 0.7
 roughness = 0.4
+emission_enabled = true
+emission = Color(1.15514e-06, 0.572846, 0.794439, 1)
+emission_energy_multiplier = 7.7
 clearcoat = 0.0
+
+[sub_resource type="Animation" id="Animation_26bws"]
+resource_name = "child_animation"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("root/Object_4/Object_6/Object_7:material_override:emission_energy_multiplier")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2, 3.56667, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 7.7, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("root:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.01, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0), Vector3(-1.5708, 1.5708, 0), Vector3(-1.5708, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_fgcj3"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material_override:metallic")
+tracks/0/path = NodePath("root/Object_4/Object_6/Object_7:material_override:emission_energy_multiplier")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.3]
+"values": [7.7]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:material_override:albedo_color")
+tracks/1/path = NodePath("root:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 0.0392157, 0.0352941, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_26bws"]
-resource_name = "material_animations"
-length = 7.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material_override:metallic")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 7.53333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.3, 1.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:material_override:albedo_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.0352941, 0.0392157, 0.0352941, 1), Color(1, 0, 0, 1)]
+"values": [Vector3(-1.5708, 1.5708, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fgcj3"]
 _data = {
 &"RESET": SubResource("Animation_fgcj3"),
-&"material_animations": SubResource("Animation_26bws")
+&"child_animation": SubResource("Animation_26bws")
 }
 
 [node name="Test-materials" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.999836, 0.0181155, 0, -0.0181155, 0.999836, 0.572483, 0.172281, -2.96094)
+transform = Transform3D(1, 0, 0, 0, 0.999836, 0.0181155, 0, -0.0181155, 0.999836, 0.970295, 0.172281, 2.35575)
 
 [node name="Sphere16" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.32063, 0.0439531, -0.143866, 0.0388237, 0.351413, 0.0208365, 0.145334, 0.00309287, -0.322957, 1.53964, 0.236037, -3.87311)
+transform = Transform3D(-0.32063, 0.0439531, -0.143866, 0.0388237, 0.351413, 0.0208365, 0.145334, 0.00309287, -0.322957, 1.53964, -2.57191, -3.87311)
 material_override = SubResource("StandardMaterial3D_26bws")
 mesh = SubResource("SphereMesh_5enp8")
 script = ExtResource("2_3uvhu")
@@ -116,10 +119,14 @@ transform = Transform3D(2.17525, 0, 0, 0, 2.17525, 0, 0, 0, 2.17525, 0.000247002
 [node name="Sketchfab_model" parent="Sketchfab_Scene" index="0"]
 transform = Transform3D(0.00925871, 0, 0, 0, 2.05585e-18, 0.00925871, 0, -0.00925871, 2.05585e-18, 0.289045, 0, -1.85926)
 
+[node name="root" parent="Sketchfab_Scene/Sketchfab_model/f5cbfeeb37544aa48dbba5bfd3e5bfdb_fbx/RootNode" index="0"]
+transform = Transform3D(-4.37114e-08, 0, 1, -1, -4.37114e-08, -4.37114e-08, 4.37114e-08, -1, 1.91069e-15, 0, 0, 0)
+rotation_order = 0
+
 [node name="Object_7" parent="Sketchfab_Scene/Sketchfab_model/f5cbfeeb37544aa48dbba5bfd3e5bfdb_fbx/RootNode/root/Object_4/Object_6" index="0"]
 material_override = SubResource("StandardMaterial3D_fgcj3")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sketchfab_Scene/Sketchfab_model/f5cbfeeb37544aa48dbba5bfd3e5bfdb_fbx/RootNode/root/Object_4/Object_6/Object_7" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sketchfab_Scene/Sketchfab_model/f5cbfeeb37544aa48dbba5bfd3e5bfdb_fbx/RootNode" index="1"]
 libraries = {
 &"": SubResource("AnimationLibrary_fgcj3")
 }

@@ -24,10 +24,10 @@
     // supported type
     "resolveJsonModule": true,
     "paths": {
-      "@godotjs": ["./godotjs/index.ts"]
+      "@godotjs": ["./src/godotjs/index.ts"]
     },
 
-    "typeRoots": ["./godotjs/tsjson.d.ts"]
+    "typeRoots": ["./src/godotjs/tsjson.d.ts"]
   },
   "include": ["src"]
 }

@@ -8,7 +8,7 @@ export default defineConfig(() => {
       alias: {
         '@godotjs': path.resolve(
           __dirname,
-          './godotjs/index.ts'
+          './src/godotjs/index.ts'
         ),
       },
     },

@@ -39,15 +39,8 @@ loader.load('godot/sky.hdr', function (texture) {
     scene.backgroundIntensity = 0.1;
 });
 
-// ADd ambient light
-// const ambientLight = new AmbientLight(0xffffff, 0.5);
-// scene.add(ambientLight);
-
-// Directional light
-// const directionalLight = new DirectionalLight(0xffffff, 0.5);
-// scene.add(directionalLight);
-
 const animPlayer : AnimationPlayer[] = scene.findNodesOfType<AnimationPlayer>(AnimationPlayer);
+console.log("Animation Players", animPlayer);
 animPlayer.forEach((player) => {
   console.log(player);
   if (player.animations.length > 0) {
