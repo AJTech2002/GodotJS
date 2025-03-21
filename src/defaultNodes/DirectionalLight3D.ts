@@ -32,7 +32,7 @@ export class DirectionalLight3D extends Node3D {
   public set light_energy(energy: number) {
     this._light.intensity = energy;
   }
-  
+
   // Godot property: shadow_enabled
   public set shadow_enabled(enabled: boolean) {
     this._light.castShadow = enabled;

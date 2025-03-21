@@ -67,7 +67,7 @@ object_member
 
 // Support for `&"KEY"` syntax in dictionaries
 prefixed_string
-  = "&" string { return text(); }
+  = "&" s:string { return s; }
 
 // Array
 array
@@ -87,7 +87,7 @@ internal
     "(" ws
     params:value_list? ws
     ")"
-    { return { type: type, params: params } }
+    { return { type: type, params: params || [] }; }
 
 // Common
 false
@@ -153,37 +153,11 @@ zero
 
 // Strings
 name
-  = chars:[/_a-z0-9-]i* { return chars.join(''); }
+  = chars:[/_a-zA-Z0-9-]+ { return chars.join(''); }
 
 string "string"
-  = quotation_mark chars:char* quotation_mark { return chars.join(''); }
+  = '"' chars:[^"]* '"' { return chars.join(''); }
 
-char
-  = unescaped
-  / escape
-    sequence:(
-        '"'
-      / "\\"
-      / "/"
-      / "b" { return "\b"; }
-      / "f" { return "\f"; }
-      / "n" { return "\n"; }
-      / "r" { return "\r"; }
-      / "t" { return "\t"; }
-      / "u" digits:$(HEXDIG HEXDIG HEXDIG HEXDIG) {
-          return String.fromCharCode(parseInt(digits, 16));
-        }
-    )
-    { return sequence; }
-
-escape
-  = "\\"
-
-quotation_mark
-  = '"'
-
-unescaped
-  = [^\0-\x1F\x22\x5C]
 
 DIGIT
   = [0-9]

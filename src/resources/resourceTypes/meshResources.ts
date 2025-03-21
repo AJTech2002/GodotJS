@@ -2,6 +2,7 @@ import { BoxGeometry, BufferGeometry, CapsuleGeometry, Mesh, PlaneGeometry, Vect
 import { Resource } from '../resource';
 import { Material, MeshStandardMaterial, QuadMesh, SphereGeometry } from 'three/webgpu';
 import { MaterialResource } from './materialResource';
+import { Font, FontLoader, TextGeometry } from 'three/examples/jsm/Addons.js';
 
 export class MeshResource extends Resource {
   public type: string = 'Mesh';
@@ -115,6 +116,83 @@ export class SphereMeshResource extends MeshResource {
 
   public getGeometry() : BufferGeometry {
     return new SphereGeometry(this._radius, this._widthSegments, this._heightSegments);
+  }
+
+}
+
+export class FontFileResource extends Resource {
+  private _font: Font | undefined;
+
+  public load(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      console.log("Loading font", this._path+".json");
+      
+      // Make sure the path points to a JSON font file, not TTF
+      const fontLoader = new FontLoader();
+      
+      // Option 1: If you've converted the font to JSON format
+      fontLoader.load(this._path!+".json", (font) => {
+        console.log("Font loaded", font, this._path);
+        this._font = font;
+        resolve();
+      }, undefined, (err) => {
+        console.error("Ensure you have converted the font to JSON format and saved in same director with {fontName.tff}.json, you may use facetype.js to convert :)");
+        console.error("Error loading font:", err);
+        reject(err);
+      });
+      
+      // Option 2: If you need to use TTF directly, you'll need a different approach
+      // using FontFace API if in browser context
+    });
+  }
+
+  public getFont(): Font {
+    if (!this._font) {
+      throw new Error("Font not loaded yet");
+    }
+    return this._font;
+  }
+}
+
+export class TextMeshResource extends MeshResource {
+  public type: string = 'TextMesh';
+
+  private _text: string = '';
+  private _size: number = 1;
+  private _font: FontFileResource | undefined;
+  private _depth: number = 0.05;
+
+  constructor(resourceDef: any) {
+    super(resourceDef);
+  }
+
+  public set text(value: string) {
+    this._text = value;
+  }
+
+  public set font_size(value: number) {
+    this._size = value / 100;
+  }
+
+  public set depth (value : number) {
+    console .log("Setting depth", value);
+    this._depth = value;
+  } 
+
+  public set font (font : FontFileResource) {
+    this._font = font;
+  }
+
+  public getGeometry() : BufferGeometry {
+
+    console.log("Creating text geometry", this._text, this._font, this._size, this._depth);
+
+    return new TextGeometry(this._text, {
+      font: this._font!.getFont(),
+      size: this._size,
+      depth: this._depth,
+    });
+
   }
 
 }

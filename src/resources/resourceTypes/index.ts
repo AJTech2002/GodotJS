@@ -3,9 +3,11 @@ import { AnimationLibraryResource, AnimationResource } from "./animationResource
 import {
   BoxMeshResource,
   CapsuleMeshResource,
+  FontFileResource,
   MeshResource,
   QuadMeshResource,
   SphereMeshResource,
+  TextMeshResource,
 } from "./meshResources";
 import { PackedSceneResource } from "./packedSceneResource";
 import { ScriptResource } from "./scriptResource";
@@ -45,4 +47,8 @@ export function registerResources() {
   // Textures
   registerResource(TextureResource);
   registerResource(Texture2DResource);
+
+  // Text
+  registerResource(FontFileResource);
+  registerResource(TextMeshResource);
 }

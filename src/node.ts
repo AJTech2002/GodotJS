@@ -57,22 +57,28 @@ export class Node3D {
     });
   }
 
-  public add(child: Node3D) {
+  public add(child: Node3D | Object3D) {
     if (child instanceof Node3D) {
       this.children.push(child);
       child.parent = this;
       this.getObject3D().add(child.getObject3D());
       child.getObject3D().parent = this.getObject3D();
     }
+    else {
+      this.getObject3D().add(child);
+    }
   }
 
-  public remove(child: Node3D) {
+  public remove(child: Node3D | Object3D) {
     if (child instanceof Node3D) {
       const index = this.children.indexOf(child);
       if (index !== -1) {
         this.children.splice(index, 1);
       }
       this.getObject3D().remove(child.getObject3D());
+    }
+    else {
+      this.getObject3D().remove(child);
     }
   }
 
@@ -119,8 +125,14 @@ export class Node3D {
 
   public set enabled(value: boolean) {
     this._enabled = value;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     this._enabled ? this.onEnable() : this.onDisable();
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     this._enabled ? this._script?.onEnable() : this._script?.onDisable();
+  }
+
+  public get object () {
+    return this._ref;
   }
 
   public getScript<T extends NodeAttachment>(type: new (gameObject: Node3D) => T) {

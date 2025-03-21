@@ -11,6 +11,7 @@ export class SpotLight3D extends Node3D {
     // Create the Three.js SpotLight
     this._light = new SpotLight();
     this._light.castShadow = true;
+    this._light.intensity = 1000;
     
     // Configure shadow map defaults
     this._light.shadow.mapSize.width = 1024;
