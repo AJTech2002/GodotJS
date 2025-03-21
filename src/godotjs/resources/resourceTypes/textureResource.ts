@@ -1,4 +1,4 @@
-import {Color, Material, MeshPhysicalMaterial, MeshStandardMaterial, SRGBColorSpace, Texture, TextureLoader, ImageBitmapLoader } from 'three';
+import {Color, Material, MeshPhysicalMaterial, MeshStandardMaterial, SRGBColorSpace, Texture, TextureLoader, ImageBitmapLoader } from 'three/webgpu';
 import { Resource } from '../resource';
 
 export class TextureResource extends Resource {

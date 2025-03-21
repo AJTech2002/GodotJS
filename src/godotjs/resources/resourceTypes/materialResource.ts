@@ -1,4 +1,4 @@
-import {Color, Material, MeshPhysicalMaterial, MeshStandardMaterial, Vector2 } from 'three';
+import {Color, Material, MeshPhysicalMaterial, MeshStandardMaterial, Vector2 } from 'three/webgpu';
 import { Resource } from '../resource';
 import { Texture2DResource } from './textureResource';
 

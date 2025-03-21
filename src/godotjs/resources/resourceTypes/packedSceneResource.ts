@@ -1,16 +1,19 @@
 import { Resource, ResourceHeading } from "../resource";
 import { GLTF, GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { FBXLoader } from "three/examples/jsm/Addons.js";
 import { DRACOLoader } from "three/examples/jsm/Addons.js";
 import { Node3D } from "../../node";
-import { AnimationMixer } from "three/webgpu";
+import { AnimationMixer, Group } from "three/webgpu";
 import { SkeletonUtils } from "three/examples/jsm/Addons.js";
 import {threeJsToNode} from "./threejsToNode";
 import { AnimationPlayer } from "../../defaultNodes";
+import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 
 export enum PackedSceneType {
   TSCN = "TSCN",
   GLB = "GLB",
   GLTF = "GLTF",
+  FBX = "FBX"
 }
 
 export class PackedSceneResource extends Resource {
@@ -29,7 +32,11 @@ export class PackedSceneResource extends Resource {
         this.PackedSceneType = PackedSceneType.GLB;
       } else if (ext === "gltf") {
         this.PackedSceneType = PackedSceneType.GLTF;
-      } else {
+      } 
+      else if (ext === "fbx") {
+        this.PackedSceneType = PackedSceneType.FBX;
+      }
+      else {
         this.PackedSceneType = PackedSceneType.TSCN;
       }
     }
@@ -45,7 +52,12 @@ export class PackedSceneResource extends Resource {
     if (this.PackedSceneType === PackedSceneType.GLB) {
       await this.extractGlb();
     }
+    else if (this.PackedSceneType === PackedSceneType.FBX) {
+      await this.extractFbx();
+    }
   }
+
+
 
 
   private getGlbScene() : Node3D {
@@ -56,6 +68,7 @@ export class PackedSceneResource extends Resource {
     const cloned = SkeletonUtils.clone(glbScene.scene);
 
     for (let i = 0; i < cloned.children.length; i++) {
+      console.log(cloned.children[i], "CLONED CHILD");
       root.add(threeJsToNode(cloned.children[i]));
     }
 
@@ -70,20 +83,27 @@ export class PackedSceneResource extends Resource {
 
       }
     }
+    return root;
+  }
 
-    // const mixer = new AnimationMixer(root.getObject3D().children[0]);
-    // if (glbScene.animations && glbScene.animations.length > 0) {
-    //   mixer.clipAction(glbScene.animations[0]).play();
-          
-    //   const runAnim = (dt) => {
-    //     mixer.update(0.01);
-    //     requestAnimationFrame(runAnim);
-    //   }
-
-    //   runAnim(0);
+  private getFbxScene() : Node3D {
+    const fbxScene = this.loadedScene as Group;
+    const cloned = SkeletonUtils.clone(fbxScene);
+    const root = new Node3D("Fbx-Root");
     
-    // }
+    for (let i = 0; i < cloned.children.length; i++) {
+      root.add(threeJsToNode(cloned.children[i]));
+    }
 
+    console.log(root, cloned, "FBX EXPORT");
+    // if (cloned.animations) {
+    //   if (cloned.animations.length > 0) {
+    //     const player = new AnimationPlayer("AnimationPlayer");
+    //     player.animations = cloned.animations;
+    //     player.root = root;
+    //     root.add(player);
+    //   }
+    // }
 
     return root;
   }
@@ -91,6 +111,9 @@ export class PackedSceneResource extends Resource {
   public get scene() : Node3D {
     if (this.PackedSceneType === PackedSceneType.GLB) {
       return this.getGlbScene();
+    }
+    else if (this.PackedSceneType === PackedSceneType.FBX) {
+      return this.getFbxScene();
     }
     else {
       return new Node3D("Node");
@@ -119,4 +142,25 @@ export class PackedSceneResource extends Resource {
 
     return;
   }
+
+  private async extractFbx() {
+    if (!this._path) {
+      console.error("No path provided for FBX file");
+      return;
+    }
+
+    const loader = new FBXLoader();
+    try {
+      const fbx = await loader.loadAsync(this._path);
+      this.loadedScene = fbx;
+      console.log(fbx, "FBX LOADED");
+      this.loaded = true;
+    }
+    catch (e) {
+      console.error(e);
+    }
+
+    return;
+  }
+
 }

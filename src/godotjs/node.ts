@@ -5,6 +5,7 @@ import { Object3D } from "three/webgpu";
 import * as ResourceTypes from "./resources/resourceTypes/index";
 import { GodotScene } from "./importedScene";
 import { applyProps } from "./parser/parser";
+import { MeshInstance3D } from "./defaultNodes";
 
 registerType(Transform3D);
 
@@ -204,9 +205,9 @@ export class Node3D {
   ): T[] | null {
     // recursive search
 
-    if (this instanceof type) {
-      foundArr.push(this as T);
-    }
+    // if (this instanceof type) {
+    //   foundArr.push(this as T);
+    // }
 
     for (let i = 0; i < this.children.length; i++) {
       if (this.children[i] instanceof type) {
@@ -290,6 +291,7 @@ export class Node3D {
       this._ref.quaternion.copy(this._transform.rotation);
       this._ref.scale.copy(this._transform.scale);
       this._ref.updateMatrix();
+      // this._ref.updateMatrixWorld(true);
     }
 
 

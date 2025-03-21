@@ -1,0 +1,106 @@
+[gd_scene load_steps=13 format=3 uid="uid://dnx6qhljdt311"]
+
+[ext_resource type="PackedScene" uid="uid://cyoh0cvw3ntqn" path="res://demo/assets/Modular Roads/FREE/gltf/road_I_1.glb" id="1_wrs0j"]
+[ext_resource type="PackedScene" uid="uid://boqo0t07ttutr" path="res://demo/assets/car.glb" id="2_damph"]
+[ext_resource type="Texture2D" uid="uid://belevge4k3wmy" path="res://demo/assets/Low_Poly_Cars_DevilsWorkShop_V03/Texture/car01.png" id="3_pdc5r"]
+[ext_resource type="PackedScene" uid="uid://n7uy8hwte6ad" path="res://demo/assets/SpruceTree1.glb" id="4_w52v5"]
+[ext_resource type="Script" uid="uid://cj1csua3u0q1h" path="res://RotateCube.gd" id="5_m5vcd"]
+[ext_resource type="PackedScene" uid="uid://dyta67lmfxdyn" path="res://demo/assets/Rock_20.glb" id="6_uut7c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gmg4"]
+albedo_color = Color(0.200031, 0.480801, 0.322886, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6gmg4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w52v5"]
+albedo_texture = ExtResource("3_pdc5r")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pdc5r"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l5dcv"]
+albedo_color = Color(0, 0.603922, 0.305882, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uut7c"]
+albedo_color = Color(0.228511, 0.228511, 0.228511, 1)
+
+[node name="Godotjs-demo" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.441302, 0.327425, -0.835491, 7.36818e-09, 0.931056, 0.364877, 0.897359, 0.161021, -0.410877, -0.763914, 0.471277, -1.33345)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.52545, 0, 0, 0, 0.180597, 0, 0, 0, 3.11398, 0, 0, -1.44737)
+material_override = SubResource("StandardMaterial3D_6gmg4")
+mesh = SubResource("BoxMesh_6gmg4")
+skeleton = NodePath("../Camera3D")
+
+[node name="car" parent="." instance=ExtResource("2_damph")]
+transform = Transform3D(-0.0703068, 0, 0.00168389, 0, 0.0703269, 0, -0.00168389, 0, -0.0703068, -0.00713801, 0.0946946, -0.163746)
+
+[node name="car01" parent="car" index="0"]
+transform = Transform3D(0.01, 1.45519e-11, 0, 0, 0, -0.01, -1.45519e-11, 0.01, 0, 0, 0.0453961, 0)
+material_override = SubResource("StandardMaterial3D_w52v5")
+
+[node name="wheel" parent="car/car01" index="0"]
+material_override = SubResource("StandardMaterial3D_pdc5r")
+
+[node name="wheel_2" parent="car/car01" index="1"]
+material_override = SubResource("StandardMaterial3D_pdc5r")
+
+[node name="wheel_3" parent="car/car01" index="2"]
+material_override = SubResource("StandardMaterial3D_pdc5r")
+
+[node name="wheel_4" parent="car/car01" index="3"]
+material_override = SubResource("StandardMaterial3D_pdc5r")
+
+[node name="Roads" type="Node3D" parent="."]
+
+[node name="road_I_12" parent="Roads" instance=ExtResource("1_wrs0j")]
+transform = Transform3D(0.0356659, 0, 0, 0, 0.0563993, 0, 0, 0, 0.0378391, -0.00419736, 0.0893283, -0.123143)
+
+[node name="road_I_13" parent="Roads" instance=ExtResource("1_wrs0j")]
+transform = Transform3D(0.0356659, 0, 0, 0, 0.0563993, 0, 0, 0, 0.0378391, -0.00419736, 0.0893283, -0.574588)
+
+[node name="road_I_14" parent="Roads" instance=ExtResource("1_wrs0j")]
+transform = Transform3D(0.0356659, 0, 0, 0, 0.0563993, 0, 0, 0, 0.0378391, -0.00419736, 0.0893283, -1.02137)
+
+[node name="road_I_15" parent="Roads" instance=ExtResource("1_wrs0j")]
+transform = Transform3D(0.0356659, 0, 0, 0, 0.0563993, 0, 0, 0, 0.0378391, -0.00419736, 0.0893283, -1.45933)
+
+[node name="road_I_16" parent="Roads" instance=ExtResource("1_wrs0j")]
+transform = Transform3D(0.0356659, 0, 0, 0, 0.0563993, 0, 0, 0, 0.0378391, -0.00419736, 0.0893283, -1.91446)
+
+[node name="road_I_17" parent="Roads" instance=ExtResource("1_wrs0j")]
+transform = Transform3D(0.0356659, 0, 0, 0, 0.0563993, 0, 0, 0, 0.0378391, -0.00419736, 0.0893283, -2.35756)
+
+[node name="road_I_18" parent="Roads" instance=ExtResource("1_wrs0j")]
+transform = Transform3D(0.0356659, 0, 0, 0, 0.0563993, 0, 0, 0, 0.0378391, -0.00419736, 0.0893283, -2.78571)
+
+[node name="SpruceTree12" parent="." instance=ExtResource("4_w52v5")]
+transform = Transform3D(0.0725875, 0, 0, 0, 0.0725875, 0, 0, 0, 0.0725875, 1.40217, 0.0824744, 0.480043)
+script = ExtResource("5_m5vcd")
+rotationSpeed = 0.0
+
+[node name="SpruceTree13" parent="." instance=ExtResource("4_w52v5")]
+transform = Transform3D(0.0725875, 0, 0, 0, 0.0725875, 0, 0, 0, 0.0725875, 1.56546, 0.0847408, -0.274781)
+script = ExtResource("5_m5vcd")
+rotationSpeed = 0.0
+
+[node name="SpruceTree1" parent="SpruceTree13" index="0"]
+material_override = SubResource("StandardMaterial3D_l5dcv")
+
+[node name="SpruceTree14" parent="." instance=ExtResource("4_w52v5")]
+transform = Transform3D(0.0725875, 0, 0, 0, 0.0725875, 0, 0, 0, 0.0725875, 1.13038, 0.0824744, 0.0611019)
+script = ExtResource("5_m5vcd")
+rotationSpeed = 0.0
+
+[node name="Rock_202" parent="." instance=ExtResource("6_uut7c")]
+transform = Transform3D(0.270562, 0, 0, 0, 0.270562, 0, 0, 0, 0.270562, -2.89502, -0.73934, 1.07511)
+
+[node name="Rock_20" parent="Rock_202" index="0"]
+material_override = SubResource("StandardMaterial3D_uut7c")
+
+[editable path="car"]
+[editable path="SpruceTree13"]
+[editable path="Rock_202"]

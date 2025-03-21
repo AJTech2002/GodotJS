@@ -13,6 +13,8 @@ export default class RotateCube extends NodeAttachment {
     this.node.euler.y += this.rotationSpeed * dt;
     // move up and down to sin
     this.node.position.y = this.startPostion.y + Math.sin((Date.now() / 1000) + this.randomOffset) *
-      0.2;
+      0.01;
+
+
   }
 }

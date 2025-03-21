@@ -1,11 +1,11 @@
-AnimationPlayer
-MeshInstance3D
+DirectionalLight3D
+Camera3D
 Node3D
+MeshInstance3D
+AnimationPlayer
 OmniLight3D
 PointLight2D
-DirectionalLight3D
 WorldEnvironment
-Camera3D
 AnimatedSprite3D
 SpotLight3D
 CSGBox3D

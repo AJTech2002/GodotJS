@@ -33,7 +33,7 @@ export function applyProps(props: Record<string, any>, target: any) {
       try {
         
         let _nestedKey = keys[keys.length - 1];
-
+        console.log("Nested Key", _nestedKey,nestedTarget, target);
         // check if fn set_key exists
         if ("set_"+_nestedKey in nestedTarget) {
           nestedTarget["_set"+_nestedKey](props[key]);
@@ -244,7 +244,7 @@ export async function parseTscn(raw: string, projectRoot: string): Promise<Scene
   }
 
   let rootNode3D : Node3D | undefined = undefined;
-
+  let mappedProps: Map<Node3D, Record<string, any>> = new Map();
   // Second pass - assign components, resources and children
   for (let i = 0; i < nodes.length; i++) {
     let node = nodes[i];
@@ -272,24 +272,33 @@ export async function parseTscn(raw: string, projectRoot: string): Promise<Scene
 
       const parentNode : Node3D | undefined = rootNode3D?.find(parentPath ?? ".");
 
+      let existingInstance = false;
       if (parentNode?.find(node.name)) {
         instance = parentNode?.find(node.name);
+        existingInstance = true;
       }
 
       if (instance === undefined) {
         instance = new nodeInstance(node.name, parentNode);
       }
 
-      instance._props = node.props; // This is used to store the props for scripts
-      applyProps(node.props, instance);
-      parentNode?.add(instance);
+      
+      mappedProps.set(instance, node.props);
 
-      node3Ds.push(instance);
-
+      if (!existingInstance) {
+        parentNode?.add(instance);
+        node3Ds.push(instance);
+      }
+      
       if (rootNode === node) {
         rootNode3D = instance;
       }
     }
+  }
+
+  // loop through mappedProps and apply all
+  for (let [node3D, props] of mappedProps) {
+    applyProps(props, node3D);
   }
 
   console.log("Scene Def", {

@@ -1,15 +1,30 @@
-import { Camera, Mesh, Object3D } from "three";
+import { Camera, Group, Mesh, Object3D } from "three";
 import { Node3D } from "../../node";
 import { Camera3D, MeshInstance3D } from "../../defaultNodes";
 
 
 export function threeJsToNode(object: Object3D): Node3D {
   let _node: Node3D;
-
   if (object instanceof Mesh) {
     _node = new MeshInstance3D(object.name);
     (_node as MeshInstance3D).mesh3D = object;
-  } else if (object instanceof Camera) {
+  } 
+  else if (object instanceof Group) {
+    // check if all chilren are meshes
+    let allMeshes = true;
+    for (let i = 0; i < object.children.length; i++) {
+      if (!(object.children[i] instanceof Mesh)) {
+        allMeshes = false;
+        break;
+      }
+    }
+
+    if (allMeshes) {
+      _node = new MeshInstance3D(object.name);
+      _node.isGroup = true;
+    }
+  }
+  else if (object instanceof Camera) {
     const cameraInstance = new Camera3D(object.name);
     cameraInstance.camera = object;
     _node = cameraInstance;
@@ -34,6 +49,9 @@ export function threeJsToNode(object: Object3D): Node3D {
     const node = threeJsToNode(child);
     _node.add(node);
   }
+
+  console.log("threeJsToNode", object, _node);
+
 
  
 

@@ -9,8 +9,9 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 // import SceneFile from "../public/godot/simple_scene.tscn?raw";
 // import SceneFile from "../public/godot/bare-minimum.tscn?raw";
 // import SceneFile from "../public/godot/test-animation.tscn?raw";
-import SceneFile from "../public/godot/test-materials.tscn?raw";
+// import SceneFile from "../public/godot/test-materials.tscn?raw";
 // import SceneFile from "../public/godot/test-materials-clone.tscn?raw";
+import SceneFile from "../public/godot/demo/godotjs-demo.tscn?raw";
 
 import { WebGLRenderer } from "three";
 import RotateCube from "./components/RotateCube";
@@ -39,18 +40,18 @@ loader.load('godot/sky.hdr', function (texture) {
     scene.backgroundIntensity = 0.1;
 });
 
-const animPlayer : AnimationPlayer[] = scene.findNodesOfType<AnimationPlayer>(AnimationPlayer);
-console.log("Animation Players", animPlayer);
-animPlayer.forEach((player) => {
-  console.log(player);
-  if (player.animations.length > 0) {
-    setTimeout(() => {
-      // player.play(0);
-      player.playAll();
-    }, Math.random() * 100);
-  }
-});
-const renderer = new WebGLRenderer({ canvas: canvas, antialias: true });
+// const animPlayer : AnimationPlayer[] = scene.findNodesOfType<AnimationPlayer>(AnimationPlayer);
+// console.log("Animation Players", animPlayer);
+// animPlayer.forEach((player) => {
+//   console.log(player);
+//   if (player.animations.length > 0) {
+//     setTimeout(() => {
+//       // player.play(0);
+//       player.playAll();
+//     }, Math.random() * 100);
+//   }
+// });
+const renderer = new WebGPURenderer({ canvas: canvas, antialias: true });
 renderer.outputColorSpace = SRGBColorSpace;
 renderer.toneMapping = ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.25;
@@ -60,8 +61,8 @@ renderer.debug.checkShaderErrors = true;
 renderer.setSize(width, height);
 renderer.setAnimationLoop(animate);
 
-const composer = new EffectComposer(renderer);
-composer.addPass(new RenderPass(scene, scene.activeCamera!));
+// const composer = new EffectComposer(renderer);
+// composer.addPass(new RenderPass(scene, scene.activeCamera!));
 
 const bloomPass = new UnrealBloomPass(
     new Vector2(window.innerWidth, window.innerHeight),
@@ -69,7 +70,7 @@ const bloomPass = new UnrealBloomPass(
     0.1, // Radius
     1.5 // Threshold
 );
-composer.addPass(bloomPass);
+// composer.addPass(bloomPass);
 
 // add fog
 // 108, 105, 97 = 0x6c6961
@@ -79,7 +80,7 @@ scene.fog = new Fog(0x000000, 2, 18);
 function animate(time) {
   if (scene.activeCamera) {
     renderer.render(scene, scene.activeCamera);
-    composer.render();
+    // composer.render();
   }
   // else {
     // console.log("No active camera");
