@@ -1,5 +1,5 @@
 import { Node3D } from "../node";
-import { AnimationClip, AnimationMixer } from "three";
+import { AnimationClip, AnimationMixer, LoopPingPong } from "three";
 import {
   AnimationLibraryResource,
 } from "../resources/resourceTypes";
@@ -111,7 +111,10 @@ export class AnimationPlayer extends Node3D {
       } else if (typeof _animation === "number") {
         this.animationMixer.stopAllAction();
         this._currentAnimation = this._animations[_animation];
-        this.animationMixer.clipAction(this._animations[_animation]).play();
+        const action = this.animationMixer.clipAction(this._animations[_animation]);
+        action.setDuration(1.5);
+        action.setLoop(LoopPingPong, 10);
+        action.play();
       }
     }
   }
@@ -126,8 +129,10 @@ export class AnimationPlayer extends Node3D {
     if (this.animationMixer) {
       this.animationMixer.stopAllAction();
       this._animations.forEach((animation) => {
-        if (this.animationMixer)
-          this.animationMixer.clipAction(animation).play();
+        if (this.animationMixer) {
+          let action = this.animationMixer.clipAction(animation);
+          action.play();
+        }
       });
     }
   }
