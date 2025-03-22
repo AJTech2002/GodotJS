@@ -1,4 +1,4 @@
-import { DirectionalLight, DirectionalLightHelper } from "three";
+import { DirectionalLight, DirectionalLightHelper, Vector3 } from "three";
 import { Node3D } from "../node";
 
 export class DirectionalLight3D extends Node3D {
@@ -17,7 +17,7 @@ export class DirectionalLight3D extends Node3D {
     this._light.shadow.mapSize.height = 1024;
     this._light.shadow.camera.near = 0.5;
     this._light.shadow.camera.far = 500;
-    
+
     this.setObject3D(this._light);
   }
   
@@ -64,4 +64,15 @@ export class DirectionalLight3D extends Node3D {
       this._helper = undefined;
     }
   }
+  
+  override update(dt: number): void {
+     super.update(dt);
+    //  if (this.object) {
+    //   const direction = new Vector3();
+    //   this.object.getWorldDirection(direction);
+    //   this._light.target.position.copy(this._light.position).add(direction.multiplyScalar(-1));
+    //  }
+ 
+  }
+
 }

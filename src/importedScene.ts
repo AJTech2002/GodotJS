@@ -14,6 +14,7 @@ export class GodotScene extends THREE.Scene {
   private sceneFile: string | undefined;
   private rawScene: string | undefined;
   private godotRoot: string;
+  public loaded = false;
   
   public nodes: Node3D[];
 
@@ -51,6 +52,10 @@ export class GodotScene extends THREE.Scene {
 
   public async load() {
     // fetch the scene file
+    if (this.loaded) {
+      return;
+    }
+
     try {
 
       if (!this.rawScene) {
@@ -62,6 +67,7 @@ export class GodotScene extends THREE.Scene {
 
       const def = await parseTscn(this.rawScene, this.godotRoot);
       this.loadFromDef(def);
+      this.loaded = true;
     }
     catch (e) {
       console.error("Error loading scene", e);
